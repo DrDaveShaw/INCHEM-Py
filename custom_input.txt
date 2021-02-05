@@ -1,0 +1,45 @@
+#*****************************************************************************
+#User set chemical mechanism input file for INCHEM-Py. 
+#A detailed description of this file can be found within the user manual.
+#
+#Copyright (C) 2019-2021 
+#David Shaw : david.shaw@york.ac.uk
+#Nicola Carslaw : nicola.carslaw@york.ac.uk
+#
+#All rights reserved.
+#
+#This file is part of INCHEM-Py.
+#
+#INCHEM-Py is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#INCHEM-Py is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
+#*****************************************************************************
+# Custom reaction input file. All lines that are not rates or reactions
+# must start with a hash (#) and thus be commented out. 
+#
+# Rates must be put in in the form:
+# name = calculation
+#
+# Reactions must be in the form:
+# rate : species + species = species + species
+#
+# The notation of the equations should be formatted as for python. This
+# means that 'e' is for the exponent, not 'D', '**' for powers not '@',
+# 'sqrt' and 'temp' should be lower case.
+#
+# Custom peroxy radical species added must be added here in the form
+# peroxy_radicals = species1, species2, species3
+#
+# Summations of any species that are used within the reaction set must
+# be placed here in the format:
+# sum : sum_name = species1 + species2 + species3 + species4
+#
