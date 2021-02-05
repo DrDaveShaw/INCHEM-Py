@@ -87,7 +87,7 @@ HMIX = 0.02 #0.01776
 """
 Initial concentrations in molecules/cm^3 saved in a text file
 """
-initials_from_run = 1
+initials_from_run = 0
 # initial gas concentrations can be taken from a previous run of the model. 
 # Set initials_from_run to 1 if this is the case and move a previous out_data.pickle
 # to the main folder and rename to in_data.pickle. The code will then take this
