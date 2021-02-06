@@ -33,6 +33,9 @@ particles = 1 # Are we including particles. 1 for yes, 0 for no.
 # Need the full MCM to use particles. Smaller reaction sets will fail the 
 # total suspended particles calculation
 
+INDCM_additional = 1 #Set to 1 if additional reactions from the INDCM are being used
+#that do not appear in the MCM download
+
 custom = 0 # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
@@ -144,4 +147,4 @@ INCHEM_main.INCHEM(build_only,particles,custom,timed_concentrations,dt,t0,
                seconds_to_integrate,temp,rel_humidity,M,filename,AER,diurnal,
                const_dict,date,lat,light_type,HMIX,initial_conditions_gas,
                output_graph,output_species,timed_inputs,light_on_times,
-               glass,initials_from_run,custom_name,city)
+               glass,initials_from_run,custom_name,city,INDCM_additional)
