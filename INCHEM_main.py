@@ -592,11 +592,11 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
     print('Creating folder:', output_folder)
     
     '''
-    Saving a copy of the settings file to the output folder
+    Saving a copy of the settings and MCM files to the output folder
     '''
     from shutil import copyfile
     copyfile("settings.py", "%s/%s/settings.py" % (path,output_folder))
-    
+    copyfile(filename, "%s/%s/mcm.fac" % (path,output_folder))
 
     t_bound = t0+seconds_to_integrate #Maximum time to integrate to
     iters = 0 #the number of iterations that have been performed already (leave as 0)
