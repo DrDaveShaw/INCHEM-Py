@@ -27,7 +27,7 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrate,temp,
          rel_humidity,M,filename,AER,diurnal,const_dict,date,lat,light_type,HMIX,
          initial_conditions_gas,output_graph,test,timed_inputs,light_on_times_hours,
-         glass,initials_from_run,custom_name,city):
+         glass,initials_from_run,custom_name,city,INDCM_additional):
     
    
     '''
@@ -63,9 +63,6 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
     #Useful if the timestep has to be reduced but an output at a specific interval
     #is still required. A save rate of 1 will save every dt, a save rate of 2 will
     #save every 2*dt
-    
-    INDCM_additional = 1 #Set to 1 if additional reactions from the INDCM are being used
-    #that do not appear in the MCM download
     
     def custom_import(custom_filename,species):
         '''
