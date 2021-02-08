@@ -48,7 +48,7 @@ const_dict = {
     'O2':0.2095*M,
     'N2':0.7809*M,
     'H2':550e-9*M,
-    'saero':1.3e-2,
+    'saero':1.3e-2, #aerosol surface area concentration
     'CO':2.5e12,
     'CH4':4.685E13,
     'SO2':2.5e10}
