@@ -122,13 +122,7 @@ def outdoor_rates(AER,particles,species):
     
     #non-diurnal outdoor concentrations from homechem
     outdoor_dict['HONOOUT']=1.6e9
-    outdoor_dict['C5H8OUT']=7.28e9
     outdoor_dict['MVKOUT']=1.78e10
-    outdoor_dict['BENZENEOUT']=2.15e9
-    outdoor_dict['TOLUENEOUT']=2.55e9
-    outdoor_dict['PHENOLOUT']=2.15e9
-    outdoor_dict['STYRENEOUT']=5.21e8
-    outdoor_dict['BENZALOUT']=2.4e9
     outdoor_dict['OHOUT']=1e6
     outdoor_dict['PANOUT']=1.51e10
     
