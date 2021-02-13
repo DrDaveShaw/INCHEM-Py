@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="1476.9995"
+   inkscape:export-xdpi="1476.9995"
+   inkscape:export-filename="A:\Dropbox\Atmospheric Post Doc\Python\INCHEMPY_v2.png"
+   sodipodi:docname="INCHEMPY_v4.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 210 297"
+   height="297mm"
+   width="210mm">
+  <defs
+     id="defs2">
+    <rect
+       id="rect12"
+       height="71.059524"
+       width="115.66071"
+       y="99.785714"
+       x="47.625" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="1912"
+     inkscape:window-height="1017"
+     inkscape:window-width="1920"
+     showborder="false"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="369.65521"
+     inkscape:cx="284.42195"
+     inkscape:zoom="5.3617098"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       sodipodi:nodetypes="ccccscccccccccccccccc"
+       d="m 59.373085,109.16248 h -1.002519 l -4.128934,-6.34068 h -0.04134 c 0.05512,0.74414 0.08268,1.42627 0.08268,2.04638 v 4.2943 h -0.811318 v -7.55507 h 0.992185 l 4.118598,6.31484 h 0.04134 c -0.0069,-0.093 -0.02239,-0.39102 -0.04651,-0.894 -0.02411,-0.50643 -0.03273,-0.86816 -0.02584,-1.0852 l -0.0105,-3.71624 0.811153,0.64041 z m -10.709392,0 0.0105,-6.33695 0.878497,-0.7034 -0.0105,7.04035 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path937" />
+    <path
+       d="m 66.537485,102.28437 q -1.245398,0 -1.968866,0.83199 -0.7183,0.82682 -0.7183,2.26858 0,1.48311 0.692462,2.29443 0.69763,0.80615 1.984369,0.80615 0.790647,0 1.803502,-0.28422 v 0.76998 q -0.78548,0.29455 -1.93786,0.29455 -1.669144,0 -2.578646,-1.01285 -0.904335,-1.01286 -0.904335,-2.87837 0,-1.16789 0.434081,-2.04638 0.439248,-0.8785 1.260901,-1.35392 0.82682,-0.47542 1.943027,-0.47542 1.188555,0 2.077386,0.43408 l -0.372069,0.75447 q -0.857826,-0.40307 -1.715652,-0.40307 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path939" />
+    <path
+       d="m 78.52691,109.16248 h -0.878497 v -3.55533 h -3.979072 v 3.55533 h -0.878497 v -7.55507 h 0.878497 v 3.21426 h 3.979072 v -3.21426 h 0.878497 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path941" />
+    <path
+       d="m 85.708351,109.16248 h -4.211616 v -7.55507 h 4.211616 v 0.78031 h -3.333119 v 2.43395 h 3.131582 v 0.77515 h -3.131582 v 2.78018 h 3.333119 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path943" />
+    <path
+       d="m 92.583365,109.16248 -2.563143,-6.69725 h -0.04134 q 0.07235,0.79582 0.07235,1.89136 v 4.80589 h -0.811317 v -7.55507 h 1.322912 l 2.392611,6.23216 h 0.04134 l 2.413282,-6.23216 h 1.312577 v 7.55507 h -0.878496 v -4.86791 q 0,-0.83715 0.07235,-1.819 h -0.04134 l -2.583813,6.68691 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path945" />
+    <path
+       d="m 100.03715,106.71819 v -0.78548 h 2.53731 v 0.78548 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path947" />
+    <path
+       d="m 110.69487,103.80882 q 0,1.14721 -0.78548,1.76733 -0.78031,0.61494 -2.23758,0.61494 h -0.88883 v 2.97139 h -0.8785 v -7.55507 h 1.95853 q 2.83186,0 2.83186,2.20141 z m -3.91189,1.6278 h 0.79064 q 1.16789,0 1.68982,-0.37724 0.52193,-0.37723 0.52193,-1.20922 0,-0.74931 -0.49093,-1.11621 -0.49092,-0.3669 -1.52961,-0.3669 h -0.98185 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path949" />
+    <path
+       d="m 110.97804,103.49876 h 0.91983 l 1.24023,3.22977 q 0.40825,1.10587 0.50643,1.59679 h 0.0413 q 0.0672,-0.26355 0.27905,-0.89916 0.21704,-0.64079 1.4056,-3.9274 h 0.91984 l -2.43396,6.4492 q -0.36173,0.95601 -0.84749,1.35392 -0.48059,0.40307 -1.18338,0.40307 -0.39274,0 -0.77515,-0.0879 v -0.68729 q 0.28422,0.062 0.63562,0.062 0.88367,0 1.2609,-0.99219 l 0.31523,-0.80615 z"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';letter-spacing:1.85208px;white-space:pre"
+       id="path951" />
+    <path
+       sodipodi:nodetypes="ccc"
+       style="fill:none;stroke:#000000;stroke-width:0.7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 60.26827,102.95392 -6.273827,-5.010019 -6.273826,5.010029"
+       id="path873-9" />
+    <rect
+       y="100.27927"
+       x="61.217819"
+       height="10.171778"
+       width="9.5796165"
+       id="rect989"
+       style="fill:none;stroke:#000000;stroke-width:0.255475;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <g
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';stroke-width:0.264583"
+       id="text1069"
+       aria-label="I">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path1071"
+         style="stroke-width:0.264583"
+         d="m 48.667717,101.55198 0,-2.114581 h 0.878497 v 1.411781 z" />
+    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.255475;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect989-9"
+       width="9.5796165"
+       height="10.171778"
+       x="70.79744"
+       y="100.27927" />
+    <text
+       id="text55"
+       y="102.49334"
+       x="61.831566"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-size:2.11667px;stroke-width:0.264583"
+         y="102.49334"
+         x="61.831566"
+         id="tspan53"
+         sodipodi:role="line">6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Open Sans';-inkscape-font-specification:'Open Sans';stroke-width:0.264583"
+       x="71.185707"
+       y="102.36115"
+       id="text55-7"><tspan
+         sodipodi:role="line"
+         id="tspan53-6"
+         x="71.185707"
+         y="102.36115"
+         style="font-size:2.11667px;stroke-width:0.264583">1</tspan></text>
+  </g>
+  <g
+     inkscape:label="Roof_white"
+     id="layer2"
+     inkscape:groupmode="layer" />
+  <g
+     inkscape:label="Roof_black"
+     id="layer3"
+     inkscape:groupmode="layer" />
+</svg>
