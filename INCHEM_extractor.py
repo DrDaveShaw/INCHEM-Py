@@ -35,13 +35,13 @@ Variables to change
 '''
 #directories of data to extract and plot
 out_directories=[
-    '20210211_152040_Milan_newfaccom',
-    '20210212_151525_Limonene_x100_test',
-    '20210212_153517_Toby_Japan_test']
+    '20210211_152040_test1',
+    '20210212_151525_test2',
+    '20210212_153517_test3']
 
 #species to extract and plot
 species_to_extract=['LIMONENE','BENZENE','TOLUENE','HO2_reactivity',
-                 'HO2_production','J2']
+                 'HO2_production','J1']
 #All species will be saved to a seperate csv for each input directory.
 #A maximum of three seperate graphs will be made; species concentrations, 
 #reactivity, and production. 
