@@ -34,7 +34,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
     import all modules
     '''
     import pickle
-    from modules.Import_fac import import_all, numba_rate, numba_reactions 
+    from modules.Import import import_all, custom_import 
     from modules.particle_input import particle_import, particle_calcs, reactions_check
     from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
     from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler, reaction_rate_compile, reaction_eval, write_jacobian_build
@@ -62,62 +62,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
     save_rate = 1 #sets the rate at which outputs are saved within the integrator.
     #Useful if the timestep has to be reduced but an output at a specific interval
     #is still required. A save rate of 1 will save every dt, a save rate of 2 will
-    #save every 2*dt
-    
-    def custom_import(custom_filename,species):
-        '''
-        For importing the custom reactions from the custom_filename set in the
-        settings file. Details of how to format this file are in the included
-        custom_input.txt file
-        
-        inputs:
-            custom_filename = string filename of custom reaction file
-            species = list of species 
-        
-        returns:
-            custom_rates = list of custom rates used for reaction rate calculations
-            custom_reactions = list of custom reactions [rate,reaction]
-            custom_species = list of additional custom species
-            custom_RO2 = list of species to be included in RO2 calculation
-            sums = list of summations to be calculated [name of sum, calculation]
-        '''
-        custom_rates=[]
-        custom_reactions=[]
-        custom_species=[]
-        custom_RO2=[]
-        sums = []
-        with open(custom_filename,'r') as file:
-            line = file.readline()
-            for line in file:
-                temp = line.replace(' ','')                 #remove spaces
-                temp = temp.strip('\n')                     #remove new line characters
-                if line.startswith('#'):                    #ignore comments
-                    pass
-                elif line.startswith('sum'):                #summations
-                    temp = re.split('[:=]',temp)
-                    del temp[0]
-                    sums.append(temp)
-                elif line.startswith('peroxy_radical'):     #RO2 additions
-                    custom_RO2 = re.split('[=,]',temp)
-                    del custom_RO2[0]
-                elif ':' in line:                           #reactions
-                    custom_reactions.append(temp.split(':'))
-                else:                                       #rates
-                    custom_rates.append(temp.split('=')) 
-        custom_rates = numba_rate(custom_rates)
-        custom_reactions = numba_reactions(custom_reactions)
-        
-        temp=[]
-        for i in custom_reactions:
-            temp.extend(re.split('[=+]',i[1]))
-        temp = [x for x in temp if x != ""]
-        temp = list( dict.fromkeys(temp) )                  #removes duplicates
-        custom_species = [item for item in temp if item not in species]
-        
-        
-        
-        return custom_rates, custom_reactions, custom_species, custom_RO2, sums
-    
+    #save every 2*dt    
     
     def INDCM_species_calc(INDCM_reactions):
         '''
