@@ -1,0 +1,5 @@
+#test file, editing this file may cause unit tests to fail
+k1 = x + y
+reaction_rate : species1 + species2 = species3 + species4
+peroxy_radicals = species1, species5
+sum : sum_name = species1 + species2 + species3 + species4
