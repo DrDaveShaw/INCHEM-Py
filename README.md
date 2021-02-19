@@ -1,3 +1,5 @@
+![INCHEM-Py](https://raw.githubusercontent.com/DrDaveShaw/INCHEM-Py/main/INCHEMPY_logo.png "INCHEM-Py logo")
+
 # INCHEM-Py
 
 The INdoor CHEMical model in Python (INCHEM-Py) is an open source 1D box model that creates and solves a system of coupled Ordinary Differential Equations (ODEs) to progress indoor air chemistry reactions through time. It is a refactor of the indoor detailed chemical model, developed by [Carslaw, 2007](https://doi.org/10.1016/j.atmosenv.2006.09.038), that has additional improvements in form, function, and accessibility. INCHEM-Py utilises gas phase chemistry from the [Master Chemical Mechanism (MCM)](http://mcm.leeds.ac.uk/MCM/) alongside additional mechanisms developed specifically for indoor air processes.
