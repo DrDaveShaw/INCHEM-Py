@@ -251,6 +251,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) #no divison by 0
         
         #updates the relevant dictionary whether lights are on or off
+        global J_dict
         for i in light_on_times:
             if i[0] <= t <= i[1]:
                 indoor_photo_dict["cosx"] = cosx
@@ -344,6 +345,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) # no division by 0
         
         #updates the relevant dictionary whether lights are on or off
+        global J_dict
         for i in light_on_times:
             if i[0] <= t <= i[1]:
                 indoor_photo_dict["cosx"] = cosx
