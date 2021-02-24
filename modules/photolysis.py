@@ -71,7 +71,7 @@ J77	ClOOCl = Cl
 J78	ClOOCl = ClO
 """
 
-def photolysis_J(indoor_photo,photo_dict):
+def photolysis_J(indoor_photo,photo_dict,J_dict):
     '''
     Function for evaluating compiled photolysis equations
     
@@ -79,16 +79,13 @@ def photolysis_J(indoor_photo,photo_dict):
         indoor_photo = dictionary of attenuation values for specific light
                        sources and window glass types
         photo_dict = dictionary of compiled photolysis equations
-        
-    returns:
         J_dict = dictionary of photolysis values for calculating photolysis reactions
     '''
-    J_dict={}
     
     for i in photo_dict:
         J_dict[i]=(eval(photo_dict[i],{},indoor_photo))  
             
-    return J_dict
+    return None
 
 def Zixu_photolysis(numba_abs,numba_exp):
     '''
