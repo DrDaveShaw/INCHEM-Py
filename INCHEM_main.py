@@ -251,16 +251,15 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) #no divison by 0
         
         #updates the relevant dictionary whether lights are on or off
-        global J_dict
         for i in light_on_times:
             if i[0] <= t <= i[1]:
                 indoor_photo_dict["cosx"] = cosx
                 indoor_photo_dict["secx"] = secx
-                J_dict = photolysis_J(indoor_photo_dict,photo_dict)
+                photolysis_J(indoor_photo_dict,photo_dict,J_dict)
             else:
                 indoor_photo_dict_off["cosx"] = cosx
                 indoor_photo_dict_off["secx"] = secx
-                J_dict = photolysis_J(indoor_photo_dict_off,photo_dict)
+                photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
         
         #diurnal outdoor rates
         if diurnal == 1:
@@ -345,16 +344,15 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) # no division by 0
         
         #updates the relevant dictionary whether lights are on or off
-        global J_dict
         for i in light_on_times:
             if i[0] <= t <= i[1]:
                 indoor_photo_dict["cosx"] = cosx
                 indoor_photo_dict["secx"] = secx
-                J_dict = photolysis_J(indoor_photo_dict,photo_dict)
+                photolysis_J(indoor_photo_dict,photo_dict,J_dict)
             else:
                 indoor_photo_dict_off["cosx"] = cosx
                 indoor_photo_dict_off["secx"] = secx
-                J_dict = photolysis_J(indoor_photo_dict_off,photo_dict)
+                photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
         
         #diurnal outdoor rates
         if diurnal == 1:
@@ -707,15 +705,16 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
     
     light_on_times = [[j * 3600 for j in i]for i in light_on_times_hours] #conversion to seconds
     
+    J_dict = {}
     for i in light_on_times:
         if i[0] <= t0 <= i[1]:
             indoor_photo_dict["cosx"] = cosx
             indoor_photo_dict["secx"] = secx
-            J_dict = photolysis_J(indoor_photo_dict,photo_dict)
+            photolysis_J(indoor_photo_dict,photo_dict,J_dict)
         else:
             indoor_photo_dict_off["cosx"] = cosx
             indoor_photo_dict_off["secx"] = secx
-            J_dict = photolysis_J(indoor_photo_dict_off,photo_dict)
+            photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
 
     '''
     Outdoor species concentration calculations
