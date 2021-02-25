@@ -256,6 +256,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
                 indoor_photo_dict["cosx"] = cosx
                 indoor_photo_dict["secx"] = secx
                 photolysis_J(indoor_photo_dict,photo_dict,J_dict)
+                break
             else:
                 indoor_photo_dict_off["cosx"] = cosx
                 indoor_photo_dict_off["secx"] = secx
@@ -349,6 +350,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
                 indoor_photo_dict["cosx"] = cosx
                 indoor_photo_dict["secx"] = secx
                 photolysis_J(indoor_photo_dict,photo_dict,J_dict)
+                break
             else:
                 indoor_photo_dict_off["cosx"] = cosx
                 indoor_photo_dict_off["secx"] = secx
@@ -711,6 +713,7 @@ def INCHEM(build_only,particles,custom,timed_densities,dt,t0,seconds_to_integrat
             indoor_photo_dict["cosx"] = cosx
             indoor_photo_dict["secx"] = secx
             photolysis_J(indoor_photo_dict,photo_dict,J_dict)
+            break
         else:
             indoor_photo_dict_off["cosx"] = cosx
             indoor_photo_dict_off["secx"] = secx
