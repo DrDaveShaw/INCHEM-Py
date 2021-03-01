@@ -29,6 +29,7 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
+import re
 
 def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path):
     '''
@@ -315,3 +316,22 @@ def write_jacobian_build(master_array_dict,species,output_folder,path):
                 counter=counter+1
     f.write('    return dy_dy_dict\n')
     f.close
+    
+def INDCM_species_calc(INDCM_reactions,species):
+    '''
+    extracts species from the INDCM reactions and returns any that are not
+    already included in the species list
+    
+    inputs:
+        INDCM_reactions = list of reactions from INDCM file
+        
+    returns:
+        INDCM_species = list of species in INDCM if not already in species list
+    '''
+    temp=[]
+    for i in INDCM_reactions:
+        temp.extend(re.split('[=+]',i[1]))
+    temp = [x for x in temp if x != ""]
+    temp = list( dict.fromkeys(temp) )                  #removes duplicates
+    INDCM_species = [item for item in temp if item not in species]
+    return INDCM_species

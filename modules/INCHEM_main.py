@@ -31,7 +31,11 @@ import all user set variables
 import sys
 sys.path.append("..") #needed to import the variables from settings.py
 
-from settings import *
+from settings import filename, particles, INDCM_additional, custom, temp,\
+    rel_humidity, M, const_dict, AER, diurnal, city, date, lat, light_type,\
+        light_on_times, glass, HMIX, initials_from_run, initial_conditions_gas,\
+            timed_concentrations, timed_inputs, dt, t0, seconds_to_integrate,\
+                custom_name, output_graph, output_species
   
 '''
 import all modules
@@ -40,7 +44,8 @@ import pickle
 from modules.Import import import_all, custom_import 
 from modules.particle_input import particle_import, particle_calcs, reactions_check
 from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
-from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler, reaction_rate_compile, reaction_eval, write_jacobian_build
+from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
+    reaction_rate_compile, reaction_eval, write_jacobian_build, INDCM_species_calc
 from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc
 import numpy as np
 import numba as nb
@@ -50,7 +55,6 @@ from modules.surface_dictionary import surface_deposition
 from threadpoolctl import threadpool_limits
 import importlib.util
 import pandas as pd
-import re
 import os
 import datetime
 import math
@@ -65,26 +69,6 @@ save_rate = 1 #sets the rate at which outputs are saved within the integrator.
 #Useful if the timestep has to be reduced but an output at a specific interval
 #is still required. A save rate of 1 will save every dt, a save rate of 2 will
 #save every 2*dt    
-
-def INDCM_species_calc(INDCM_reactions):
-    '''
-    extracts species from the INDCM reactions and returns any that are not
-    already included in the species list
-    
-    inputs:
-        INDCM_reactions = list of reactions from INDCM file
-        
-    returns:
-        INDCM_species = list of species in INDCM if not already in species list
-    '''
-    temp=[]
-    for i in INDCM_reactions:
-        temp.extend(re.split('[=+]',i[1]))
-    temp = [x for x in temp if x != ""]
-    temp = list( dict.fromkeys(temp) )                  #removes duplicates
-    INDCM_species = [item for item in temp if item not in species]
-    return INDCM_species
-
 
 def summations_compile(sums):
     '''
@@ -159,7 +143,8 @@ def ppool_density_calc(density_dict,ppool):
     return RO2
 
 
-def dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,outdoor_dict,surface_dict,particle_dict,species,timed_dict):
+def dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,outdoor_dict,\
+            surface_dict,particle_dict,species,timed_dict):
     '''
     evaluating the master array of species
     
@@ -178,14 +163,16 @@ def dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,outdoor_di
         dy_dict = dictionary of changes in concentration for each species per second
     '''
     dy_dict={}    
-    full_dict={**reaction_rate_dict,**calc_dict,**density_dict,**outdoor_dict,**surface_dict,**particle_dict,**timed_dict}
+    full_dict={**reaction_rate_dict,**calc_dict,**density_dict,**outdoor_dict,\
+               **surface_dict,**particle_dict,**timed_dict}
     
     for specie in species:
         dy_dict[specie]=(eval(master_compiled[specie],{},full_dict))
     return dy_dict
 
 
-def dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,outdoor_dict,surface_dict,particle_dict,num_species,timed_dict,reaction_rate_dict):
+def dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,outdoor_dict,\
+               surface_dict,particle_dict,num_species,timed_dict,reaction_rate_dict):
     '''
     Evaluating the Jacobian during integration
     
@@ -205,7 +192,8 @@ def dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,outdoor_dict,sur
     '''
     dy_dy=np.zeros((num_species,num_species),dtype=np.float32) #twice as fast as lil_matrix
     
-    full_dict={**reaction_rate_dict,**density_dict,**outdoor_dict,**surface_dict,**particle_dict,**calc_dict,**timed_dict}
+    full_dict={**reaction_rate_dict,**density_dict,**outdoor_dict,**surface_dict,\
+               **particle_dict,**calc_dict,**timed_dict}
     for k,v in dy_dy_dict.items():
             dy_dy[v[0],v[1]]=eval(v[2],{},full_dict)
     return dy_dy
@@ -292,10 +280,14 @@ def dydt(t,y0):
                 timed_dict["%s_timed" % key] = 0
     
     #recalculate reaction rates
-    reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,particle_dict,timed_dict)
+    reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,\
+                                     density_dict,dt,reaction_compiled_dict,\
+                                         outdoor_dict,surface_dict,particle_dict,\
+                                             timed_dict)
     
     #evaluate the mater array to recalculate concentrations
-    dy_dict=dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,outdoor_dict,surface_dict,particle_dict,species,timed_dict)
+    dy_dict=dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,\
+                    outdoor_dict,surface_dict,particle_dict,species,timed_dict)
     
     #output the new concentration values
     dy=np.zeros([num_species])
@@ -386,13 +378,18 @@ def dydy(t,y0):
                 timed_dict["%s_timed" % key] = 0
                 
     #recalculate reaction rates
-    reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,particle_dict,timed_dict)
+    reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
+                                     dt,reaction_compiled_dict,outdoor_dict,\
+                                         surface_dict,particle_dict,timed_dict)
     
     #recalculate jacobian
-    dydy_jac=dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,outdoor_dict,surface_dict,particle_dict,num_species,timed_dict,reaction_rate_dict)
+    dydy_jac=dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,\
+                        outdoor_dict,surface_dict,particle_dict,num_species,\
+                            timed_dict,reaction_rate_dict)
     return dydy_jac
 
-def integrate_function(iters,t_bound_internal,y0,t0,ret,save_rate,num_species,total_iter,dt):
+def integrate_function(iters,t_bound_internal,y0,t0,ret,save_rate,num_species,\
+                       total_iter,dt):
     '''
     Using lsoda to calculate density evolution and output as n_new
 
@@ -452,7 +449,8 @@ def integrate_function(iters,t_bound_internal,y0,t0,ret,save_rate,num_species,to
     nsteps = 5000                   #max number of internal timesteps
     
     #set the integrator and arguments
-    r=ode(dydt,dydy).set_integrator('lsoda',atol=atol,rtol=rtol,first_step=first_step,nsteps=nsteps)
+    r=ode(dydt,dydy).set_integrator('lsoda',atol=atol,rtol=rtol,first_step=\
+                                    first_step,nsteps=nsteps)
     r.set_initial_value(y0,t0)
     
     #integrate
@@ -465,8 +463,10 @@ def integrate_function(iters,t_bound_internal,y0,t0,ret,save_rate,num_species,to
             dt_out.append(int(r.t))
             iter_time.append(timing.time()-start_time)
             calculated_output['RO2'].append(density_dict["RO2"])
-            reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,density_dict,particle_dict)
-            production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,density_dict,particle_dict)
+            reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,\
+                            calc_dict,density_dict,particle_dict)
+            production_calc(production_dict,production_compiled,reaction_rate_dict,\
+                            calc_dict,density_dict,particle_dict)
             for i in reactivity_dict:
                 calculated_output[i].append(reactivity_dict[i])
             for i in production_dict:
@@ -525,7 +525,7 @@ def numba_log(x):
 @nb.jit(nb.f8(nb.f8), nopython=True)
 def numba_log10(x):
     return np.log10(x)
-
+    
 start_time=timing.time() #program start time
 
 '''
@@ -598,7 +598,8 @@ exist as it will just duplicate them.
 sums = []
 if custom == 1:
     custom_filename="custom_input.txt"
-    custom_rates, custom_reactions, custom_species, custom_RO2, sums = custom_import(custom_filename,species)
+    custom_rates, custom_reactions, custom_species, custom_RO2, sums = \
+        custom_import(custom_filename,species)
     species = species + custom_species
     rate_numba = rate_numba + custom_rates
     reactions_numba = reactions_numba + custom_reactions
@@ -609,8 +610,9 @@ if custom == 1:
 INDCM reactions and rates that are not included in MCM download.
 '''    
 if INDCM_additional == 1:
-    from modules.INDCM_Additional import INDCM_RO2, INDCM_reactions, INDCM_rates, INDCM_sums
-    INDCM_species = INDCM_species_calc(INDCM_reactions)
+    from modules.INDCM_Additional import INDCM_RO2, INDCM_reactions, \
+        INDCM_rates, INDCM_sums
+    INDCM_species = INDCM_species_calc(INDCM_reactions,species)
     species = species + INDCM_species
     ppool = ppool + INDCM_RO2
     reactions_numba = reactions_numba + INDCM_reactions
@@ -764,7 +766,9 @@ for key in timed_inputs:
 '''
 importing initial concentrations
 '''
-density_dict,calc_dict = initial_conditions(initial_conditions_gas,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path)
+density_dict,calc_dict = initial_conditions(initial_conditions_gas,M,species,\
+                                            rate_numba,calc_dict,particles,\
+                                                initials_from_run,t0,path)
 density_dict['RO2']=ppool_density_calc(density_dict,ppool)
 
 #calculating t0 summations
@@ -795,10 +799,13 @@ num_species=len(species) #some calculations ask for the number of species
 #better to calculate it once rather than every time
 
 reaction_compiled_dict=reaction_rate_compile(reactions_numba,reaction_number)
-reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,particle_dict,timed_dict)
+reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
+                                 dt,reaction_compiled_dict,outdoor_dict,\
+                                     surface_dict,particle_dict,timed_dict)
 
 #creating the master array
-master_array_dict=master_calc(reactions_numba,species,reaction_number,particles,particle_species,timed_concentrations)
+master_array_dict=master_calc(reactions_numba,species,reaction_number,particles,\
+                              particle_species,timed_concentrations)
 
 #saving the master array to the output folder
 with open('%s/%s/master_array.pickle' % (path,output_folder),'wb') as handle:
@@ -812,7 +819,8 @@ write_jacobian_build(master_array_dict,species,output_folder,path)
 
 #import the jacobian function to create the jacobian dictionary which is a
 #dictionary of compiled calculations
-spec = importlib.util.spec_from_file_location("jac.jacobian_calc", "%s/%s/Jacobian.py" % (path,output_folder))
+spec = importlib.util.spec_from_file_location("jac.jacobian_calc",\
+                                              "%s/%s/Jacobian.py" % (path,output_folder))
 jac = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(jac)
 #jac = importlib.import_module(path+output_folder+".Jacobian")
@@ -821,9 +829,11 @@ dy_dy_dict=jac.jacobian_calc(species)
 # reactivity and production calculations, details in the reactivity.py script
 reactivity_compiled, production_compiled = reactivity_summation(master_array_dict)
 reactivity_dict = {}
-reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,density_dict,particle_dict)
+reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,\
+                density_dict,particle_dict)
 production_dict = {}
-production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,density_dict,particle_dict)
+production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,\
+                density_dict,particle_dict)
  
 '''
 #Integration
@@ -866,7 +876,9 @@ with threadpool_limits(limits=4, user_api='blas'): #limits threads used by integ
     while iters < total_iter and ret > 0:  
             n_new_in = n_new[:,-1]
             dt_out_in = dt_out[-1]
-            dt_out_temp,n_new_temp,iters,ret,iter_time,calculated_output=integrate_function(iters,t_bound,n_new_in,dt_out_in,ret,save_rate,num_species,total_iter,dt)
+            dt_out_temp,n_new_temp,iters,ret,iter_time,calculated_output=\
+                integrate_function(iters,t_bound,n_new_in,dt_out_in,ret,save_rate,\
+                                   num_species,total_iter,dt)
             dt_out=np.append(dt_out,dt_out_temp)
             n_new=np.append(n_new,n_new_temp,axis=1)
             iter_time_tot.extend(iter_time)
@@ -898,9 +910,9 @@ if output_graph == 1:
     import matplotlib.pyplot as plt
     from itertools import cycle
     plt.figure(dpi=600,figsize=(8,4))
-    colour=iter(plt.cm.gist_rainbow(np.linspace(0,1,len(test))))
+    colour=iter(plt.cm.gist_rainbow(np.linspace(0,1,len(output_species))))
     linestyle=cycle(['solid','dotted','dashed','dashdot'])
-    for x in test:
+    for x in output_species:
         c=next(colour)
         l=next(linestyle)
         plt.plot(output_data.index/3600,output_data[x],label=x,c=c,linestyle=l)
@@ -913,6 +925,6 @@ if output_graph == 1:
     plt.show()
     
     # additionally saves a csv of these set species for easy analysis
-    output_data.to_csv("%s/%s/output.csv" % (path,output_folder), columns = test)
+    output_data.to_csv("%s/%s/output.csv" % (path,output_folder), columns = output_species)
 
 print('Output saved')
