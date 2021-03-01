@@ -27,8 +27,6 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 
 filename = 'mcm_v331.fac' # facsimile format input filename
 
-build_only = 0 # 1 to only compile arrays, 0 to carry on to do full integration
-
 particles = 1 # Are we including particles. 1 for yes, 0 for no. 
 # Need the full MCM to use particles. Smaller reaction sets will fail the 
 # total suspended particles calculation
@@ -40,7 +38,7 @@ custom = 0 # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
 temp = 293.         # temperature in celsius
-rel_humidity = 49.  # relative humidity
+rel_humidity = 50.  # relative humidity
 M = 2.51e+19        # number density of air (mol cm^-3)
 
 # place any species you wish to remain constant in the below dictionary. Follow the format
@@ -122,7 +120,7 @@ Integration
 """
 dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
-seconds_to_integrate = 86400*3    # how long to run the model in seconds 
+seconds_to_integrate = 86400*3  # how long to run the model in seconds 
 
 
 """
@@ -142,9 +140,4 @@ output_species = ['O3',"O3OUT"]
 """
 Run the simulation
 """
-import INCHEM_main
-INCHEM_main.INCHEM(build_only,particles,custom,timed_concentrations,dt,t0,
-               seconds_to_integrate,temp,rel_humidity,M,filename,AER,diurnal,
-               const_dict,date,lat,light_type,HMIX,initial_conditions_gas,
-               output_graph,output_species,timed_inputs,light_on_times,
-               glass,initials_from_run,custom_name,city,INDCM_additional)
+import modules.INCHEM_main

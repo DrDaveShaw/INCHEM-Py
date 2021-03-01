@@ -1,0 +1,4 @@
+tmp*
+[0-9]*
+extracted_outputs
+__pycache__/
