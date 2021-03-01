@@ -27,8 +27,6 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 
 filename = 'mcm_v331.fac' # facsimile format input filename
 
-build_only = 0 # 1 to only compile arrays, 0 to carry on to do full integration
-
 particles = 1 # Are we including particles. 1 for yes, 0 for no. 
 # Need the full MCM to use particles. Smaller reaction sets will fail the 
 # total suspended particles calculation
@@ -142,9 +140,4 @@ output_species = ['O3',"O3OUT"]
 """
 Run the simulation
 """
-import INCHEM_main
-INCHEM_main.INCHEM(build_only,particles,custom,timed_concentrations,dt,t0,
-               seconds_to_integrate,temp,rel_humidity,M,filename,AER,diurnal,
-               const_dict,date,lat,light_type,HMIX,initial_conditions_gas,
-               output_graph,output_species,timed_inputs,light_on_times,
-               glass,initials_from_run,custom_name,city,INDCM_additional)
+import modules.INCHEM_main
