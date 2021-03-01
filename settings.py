@@ -38,7 +38,7 @@ custom = 0 # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
 temp = 293.         # temperature in celsius
-rel_humidity = 49.  # relative humidity
+rel_humidity = 50.  # relative humidity
 M = 2.51e+19        # number density of air (mol cm^-3)
 
 # place any species you wish to remain constant in the below dictionary. Follow the format
@@ -120,7 +120,7 @@ Integration
 """
 dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
-seconds_to_integrate = 86400*3    # how long to run the model in seconds 
+seconds_to_integrate = 86400*3  # how long to run the model in seconds 
 
 
 """
