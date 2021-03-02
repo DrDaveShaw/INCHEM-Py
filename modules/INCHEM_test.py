@@ -124,7 +124,7 @@ class TestImport(unittest.TestCase):
 test intial_dictionaries module
 '''       
 from initial_dictionaries import initial_conditions, master_calc, \
-    write_jacobian_build, INDCM_species_calc
+    write_jacobian_build, INCHEM_species_calc
  
 class TestInitial(unittest.TestCase):
     
@@ -209,13 +209,13 @@ class TestInitial(unittest.TestCase):
         self.assertMultiLineEqual(created_str, test_str, "files are not the same")
         os.remove("test_files/Jacobian.py") #clean up
     
-    def test_INDCM_species_calc(self):
-        from test_files.INDCM_test import INDCM_reactions
+    def test_INCHEM_species_calc(self):
+        from test_files.INCHEM_test import INCHEM_reactions
         species = ["species1","OH","NO"]
-        INDCM_species = INDCM_species_calc(INDCM_reactions,species)
-        self.assertFalse(any(item in species for item in INDCM_species),\
+        INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
+        self.assertFalse(any(item in species for item in INCHEM_species),\
                          "Did not remove current species from new species")
-        self.assertEqual(len(INDCM_species), 15, "15 species in list")
+        self.assertEqual(len(INCHEM_species), 15, "15 species in list")
 '''
 test outdoor concentration module
 '''

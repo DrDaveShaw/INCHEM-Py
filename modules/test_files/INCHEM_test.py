@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-INDCM_reactions = [
+INCHEM_reactions = [
 ["1.7e-10*0.23","LINALOOL+OH=LINALAO2"],
 ["1.7e-10*0.77","LINALOOL+OH=LINALBO2"],
 ["KRO2NO*0.772","LINALAO2+NO=LINALAO+NO2"],
