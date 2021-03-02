@@ -31,7 +31,7 @@ import all user set variables
 import sys
 sys.path.append("..") #needed to import the variables from settings.py
 
-from settings import filename, particles, INDCM_additional, custom, temp,\
+from settings import filename, particles, INCHEM_additional, custom, temp,\
     rel_humidity, M, const_dict, AER, diurnal, city, date, lat, light_type,\
         light_on_times, glass, HMIX, initials_from_run, initial_conditions_gas,\
             timed_concentrations, timed_inputs, dt, t0, seconds_to_integrate,\
@@ -45,7 +45,7 @@ from modules.Import import import_all, custom_import
 from modules.particle_input import particle_import, particle_calcs, reactions_check
 from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
 from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
-    reaction_rate_compile, reaction_eval, write_jacobian_build, INDCM_species_calc
+    reaction_rate_compile, reaction_eval, write_jacobian_build, INCHEM_species_calc
 from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc
 import numpy as np
 import numba as nb
@@ -607,42 +607,42 @@ if custom == 1:
     copyfile("custom_input.txt", "%s/%s/custom_input.txt" % (path,output_folder))
  
 '''
-INDCM reactions and rates that are not included in MCM download.
+INCHEM reactions and rates that are not included in MCM download.
 '''    
-if INDCM_additional == 1:
-    from modules.INDCM_Additional import INDCM_RO2, INDCM_reactions, \
-        INDCM_rates, INDCM_sums
-    INDCM_species = INDCM_species_calc(INDCM_reactions,species)
-    species = species + INDCM_species
-    ppool = ppool + INDCM_RO2
-    reactions_numba = reactions_numba + INDCM_reactions
-    rate_numba = rate_numba + INDCM_rates
-    sums.extend(INDCM_sums)
+if INCHEM_additional == 1:
+    from modules.INCHEM_Additional import INCHEM_RO2, INCHEM_reactions, \
+        INCHEM_rates, INCHEM_sums
+    INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
+    species = species + INCHEM_species
+    ppool = ppool + INCHEM_RO2
+    reactions_numba = reactions_numba + INCHEM_reactions
+    rate_numba = rate_numba + INCHEM_rates
+    sums.extend(INCHEM_sums)
     '''
-    Write INDCM inputs to output folder for future reference
+    Write INCHEM inputs to output folder for future reference
     '''
-    with open("%s/%s/INDCM_inputs.txt" % (path,output_folder), 'w') as f:
+    with open("%s/%s/INCHEM_inputs.txt" % (path,output_folder), 'w') as f:
         f.write('Species:\n')
-        for i in INDCM_species:
+        for i in INCHEM_species:
             f.write("%s\n" % i)
         f.write('RO2 species:\n')
-        for i in INDCM_RO2:
+        for i in INCHEM_RO2:
             f.write("%s\n" % i)
         f.write('Summations:\n')
-        for i in INDCM_sums:
+        for i in INCHEM_sums:
             f.write("%s\n" % i)
         f.write('Rates:\n')
-        for i in INDCM_rates:
+        for i in INCHEM_rates:
             f.write("%s\n" % i)
         f.write('Reactions:\n')
-        for i in INDCM_reactions:
+        for i in INCHEM_reactions:
             f.write("%s\n" % i)
 
 '''
 Additional clean up, checking for summations from custom inputs
 '''
 summations = 0
-if custom == 1 or INDCM_additional == 1:
+if custom == 1 or INCHEM_additional == 1:
     if len(sums) >= 1:
         summations = 1
        

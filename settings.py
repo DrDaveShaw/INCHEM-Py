@@ -29,7 +29,7 @@ filename = 'mcm_v331.fac' # facsimile format input filename
 
 particles = 1 # Are we including particles. 1 for yes, 0 for no. 
 
-INDCM_additional = 1 #Set to 1 if additional reactions from the INDCM are being used
+INCHEM_additional = 1 #Set to 1 if additional reactions from the INCHEM are being used
 #that do not appear in the MCM download
 
 custom = 0 # Custom reactions that are not in the MCM included?

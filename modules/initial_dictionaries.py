@@ -317,21 +317,21 @@ def write_jacobian_build(master_array_dict,species,output_folder,path):
     f.write('    return dy_dy_dict\n')
     f.close
     
-def INDCM_species_calc(INDCM_reactions,species):
+def INCHEM_species_calc(INCHEM_reactions,species):
     '''
-    extracts species from the INDCM reactions and returns any that are not
+    extracts species from the INCHEM reactions and returns any that are not
     already included in the species list
     
     inputs:
-        INDCM_reactions = list of reactions from INDCM file
+        INCHEM_reactions = list of reactions from INCHEM file
         
     returns:
-        INDCM_species = list of species in INDCM if not already in species list
+        INCHEM_species = list of species in INCHEM if not already in species list
     '''
     temp=[]
-    for i in INDCM_reactions:
+    for i in INCHEM_reactions:
         temp.extend(re.split('[=+]',i[1]))
     temp = [x for x in temp if x != ""]
     temp = list( dict.fromkeys(temp) )                  #removes duplicates
-    INDCM_species = [item for item in temp if item not in species]
-    return INDCM_species
+    INCHEM_species = [item for item in temp if item not in species]
+    return INCHEM_species
