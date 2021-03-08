@@ -138,4 +138,5 @@ output_species = ['O3',"O3OUT"]
 """
 Run the simulation
 """
-import modules.INCHEM_main
+if __name__ == "__main__":
+    import modules.INCHEM_main
