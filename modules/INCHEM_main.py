@@ -34,7 +34,7 @@ sys.path.append("..") #needed to import the variables from settings.py
 from settings import filename, particles, INCHEM_additional, custom, temp,\
     rel_humidity, M, const_dict, AER, diurnal, city, date, lat, light_type,\
         light_on_times, glass, HMIX, initials_from_run, initial_conditions_gas,\
-            timed_concentrations, timed_inputs, dt, t0, seconds_to_integrate,\
+            timed_emissions, timed_inputs, dt, t0, seconds_to_integrate,\
                 custom_name, output_graph, output_species
   
 '''
@@ -272,12 +272,14 @@ def dydt(t,y0):
         
     #checks time, if between times set for a forced density change the rate
     #is applied to the specific species
-    if timed_concentrations == 1:
+    if timed_emissions == 1:
         for key in timed_inputs:
-            if timed_inputs[key][0] <= t <= timed_inputs[key][1]:
-                timed_dict["%s_timed" % key] = timed_inputs[key][2]
-            else:
-                timed_dict["%s_timed" % key] = 0
+            for i in timed_inputs[key]:
+                if i[0] <= t <= i[1]:
+                    timed_dict["%s_timed" % key] = i[2]
+                    break
+                else:
+                    timed_dict["%s_timed" % key] = 0
     
     #recalculate reaction rates
     reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,\
@@ -370,12 +372,14 @@ def dydy(t,y0):
     
     #checks time, if between times set for a forced density change the rate
     #is applied to the specific species
-    if timed_concentrations == 1:
+    if timed_emissions == 1:
         for key in timed_inputs:
-            if timed_inputs[key][0] <= t <= timed_inputs[key][1]:
-                timed_dict["%s_timed" % key] = timed_inputs[key][2]
-            else:
-                timed_dict["%s_timed" % key] = 0
+            for i in timed_inputs[key]:
+                if i[0] <= t <= i[1]:
+                    timed_dict["%s_timed" % key] = i[2]
+                    break
+                else:
+                    timed_dict["%s_timed" % key] = 0
                 
     #recalculate reaction rates
     reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
@@ -754,14 +758,17 @@ for specie in species:
 '''
 timed concentrations
 '''
-timed_dict={}
-for specie in species:
-    timed_dict["%s_timed" % specie] = 0
-for key in timed_inputs:
-        if timed_inputs[key][0] <= t0 <= timed_inputs[key][1]:
-            timed_dict["%s_timed" % key] = timed_inputs[key][2]
-        else:
-            timed_dict["%s_timed" % key] = 0
+if timed_emissions == 1:
+    timed_dict={}
+    for specie in species:
+        timed_dict["%s_timed" % specie] = 0
+    for key in timed_inputs:
+        for i in timed_inputs[key]:
+            if i[0] <= t0 <= i[1]:
+                timed_dict["%s_timed" % key] = i[2]
+                break
+            else:
+                timed_dict["%s_timed" % key] = 0
 
 '''
 importing initial concentrations
@@ -805,7 +812,7 @@ reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
 
 #creating the master array
 master_array_dict=master_calc(reactions_numba,species,reaction_number,particles,\
-                              particle_species,timed_concentrations)
+                              particle_species,timed_emissions)
 
 #saving the master array to the output folder
 with open('%s/%s/master_array.pickle' % (path,output_folder),'wb') as handle:

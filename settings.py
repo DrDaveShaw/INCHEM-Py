@@ -35,9 +35,9 @@ INCHEM_additional = 1 #Set to 1 if additional reactions from the INCHEM are bein
 custom = 0 # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
-temp = 293.         # temperature in celsius
+temp = 293.         # temperature in Kelvin
 rel_humidity = 50.  # relative humidity
-M = 2.51e+19        # number density of air (mol cm^-3)
+M = 2.51e+19        # number density of air (molecule cm^-3)
 
 # place any species you wish to remain constant in the below dictionary. Follow the format
 const_dict = {
@@ -103,14 +103,15 @@ initial_conditions_gas = 'initial_concentrations.txt'
 """
 Timed concentrations
 """
-timed_concentrations = 0 # is there a species, or set of species that has a forced density change
+timed_emissions = 0 # is there a species, or set of species that has a forced density change
 # at a specific point in time during the integration? If so then this needs to be set to 1
 # and the dictionary called timed_inputs (below) needs to be populated
 
 # the dictionary should be populated as
-# timed_inputs = {species1:[start time (s), end time (s), rate of increase in (mol/cm^3)/s],
-#                 species2:[start time (s), end time (s), rate of increase in (mol/cm^3)/s]}
-timed_inputs = {"LIMONENE":[36720,37320,5e8]}
+# timed_inputs = {species1:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]],
+#                 species2:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]]}
+timed_inputs = {"LIMONENE":[[36720,37320,5e8],[37600,38000,5e8]],
+                "APINENE":[[36800,37320,5e8]]}
 
 
 """

@@ -109,7 +109,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         calc_dict[i[0]]=eval(i[1],{},{**density_dict,**calc_dict})    
     return density_dict,calc_dict
 
-def master_calc(reactions_in,species,reaction_number,particles,particle_species,timed_densities):
+def master_calc(reactions_in,species,reaction_number,particles,particle_species,timed_emissions):
     '''
     Creates the master array by populating with sting values for 
     species and rates. Sources and sinks are determined and negative and 
@@ -123,7 +123,7 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         reaction_number = list of strings to relate reactions to locations within master array
         particles = 0/1 depeding if using particles or not 
         particle_species = list of particle species
-        timed_densities = 0/1 depending on if using timed concentrations or not
+        timed_emissions = 0/1 depending on if using timed emissions or not
         
     returns:
         master_array_dict = dictionary of arrays of reactions that can be reduced
@@ -183,7 +183,7 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         master_array_dict[s].append(['%s_SURF' % s, s,'-1'])   
         
         #timed densities
-        if timed_densities == 1:
+        if timed_emissions == 1:
             master_array_dict[s].append(["%s_timed" % s, "1"])
             
     return master_array_dict
