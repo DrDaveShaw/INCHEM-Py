@@ -758,8 +758,8 @@ for specie in species:
 '''
 timed concentrations
 '''
+timed_dict={}
 if timed_emissions == 1:
-    timed_dict={}
     for specie in species:
         timed_dict["%s_timed" % specie] = 0
     for key in timed_inputs:
