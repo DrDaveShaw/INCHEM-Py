@@ -43,7 +43,7 @@ def reactivity_summation(master_array_dict):
         production_compiled = dictionary of the compiled production equations 
                               for the specified reactivity species
     '''
-    reactivity_species = ['OH','PAN','CH3O2','HCHO','NO2','C5H8','HONO','O3','CL2','NO','HO2','CL']
+    reactivity_species = ['OH']
     reactivity_compiled = {}
     for species in reactivity_species:
         x = []
