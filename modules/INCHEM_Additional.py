@@ -323,6 +323,10 @@ INCHEM_reactions=[
 ["5.00e-13","OH+HOCL=CLO"],
 ["1.80e-11","OH+CLO=HO2+CL"],
 ["1.20e-12","OH+CLO=HCL"],
+["J75","OCLO=O+CLO"],
+["J76","CLO=O+CL"],
+["J77","CLOOCL=CLOO+CL"],
+["J78","CLOOCL=CLO+CLO"],
 
 # Heterogeneous Processes 
 # Heterogeneous reactions of NO3 and N2O5
