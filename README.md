@@ -78,6 +78,6 @@ david.shaw@york.ac.uk
 nicola.carslaw@york.ac.uk
 
 INCHEM-Py is free software, but since it is a scientific code we also ask that you show professional courtesy when using this code:
-* Since you are benefiting from work on INCHEM-Py, we ask that you submit any improvements you make to the code to us by emailing us at david.shaw@york.ac.uk. Issues should be reported using the issue tracker.
+* Since you are benefiting from work on INCHEM-Py, we ask that you submit any improvements you make to the code to us by submitting a pull request. Issues should be reported using the issue tracker.
 * If you use INCHEM-Py results in a paper or professional publication, we ask that it includes an appropriate reference. It is understood that in most cases if one or more of the INCHEM-Py team are involved in preparing results then they should appear as co-authors.
 * The INCHEM-Py logo is included with the model and may optionally be used in any oral or poster presentations.
