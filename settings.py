@@ -119,7 +119,7 @@ Integration
 """
 dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
-seconds_to_integrate = 86400*3  # how long to run the model in seconds 
+seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 will run 3 days)
 
 
 """
