@@ -658,6 +658,10 @@ for i in range(len(reactions_numba)): #for assigning within the master array
 for i in calc_dict.keys():
     if i in species: 
         species.remove(i)
+    for j in rate_numba:
+        if j[0] == i:
+            rate_numba.remove(j)
+            print("%s from custom_input.txt ignored. Defined elsewhere." % i)
 
 
 '''
