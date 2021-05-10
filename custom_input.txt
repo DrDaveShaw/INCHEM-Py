@@ -26,6 +26,11 @@
 # Custom reaction input file. All lines that are not rate coefficients or 
 # reactions must start with a hash (#) and thus be commented out. 
 #
+# !! Be careful not to add any reactions that have already been included in
+# !! the model as adding them twice will duplicate them and therefore double
+# !! their rate. Any new species must have a unique name. Do not attempt to 
+# !! redefine anything that is already defined in any other file.
+#
 # Rates coefficients must be put in in the form:
 # name = calculation
 #
