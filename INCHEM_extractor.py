@@ -40,8 +40,8 @@ out_directories=[
     '20210212_153517_test3']
 
 #species to extract and plot
-species_to_extract=['LIMONENE','BENZENE','TOLUENE','HO2_reactivity',
-                 'HO2_production','J1']
+species_to_extract=['LIMONENE','BENZENE','TOLUENE','OH_reactivity',
+                 'OH_production','J1']
 #All species will be saved to a seperate csv for each input directory.
 #A maximum of three seperate graphs will be made; species concentrations, 
 #reactivity, and production. 
