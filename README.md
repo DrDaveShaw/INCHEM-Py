@@ -1,5 +1,7 @@
 ![INCHEM-Py](https://raw.githubusercontent.com/DrDaveShaw/INCHEM-Py/main/INCHEMPY_logo.png "INCHEM-Py logo")
 
+[![status](https://joss.theoj.org/papers/674233ae20533ddbc12e9d89eec7b3bb/status.svg)](https://joss.theoj.org/papers/674233ae20533ddbc12e9d89eec7b3bb)
+
 # INCHEM-Py
 
 The INdoor CHEMical model in Python (INCHEM-Py) is an open source box model that creates and solves a system of coupled Ordinary Differential Equations (ODEs) to provide predicted concentrations of indoor air pollutants through time. It is a refactor of the indoor detailed chemical model originally developed by [Carslaw (2007)](https://doi.org/10.1016/j.atmosenv.2006.09.038) with improvements in form, function, and accessibility. 
