@@ -29,7 +29,8 @@
 # !! Be careful not to add any reactions that have already been included in
 # !! the model as adding them twice will duplicate them and therefore double
 # !! their rate. Any new species must have a unique name. Do not attempt to 
-# !! redefine anything that is already defined in any other file.
+# !! redefine any constants within this file, they can be defined in the 
+# !! settings.py file.
 #
 # Rates coefficients must be put in in the form:
 # name = calculation
