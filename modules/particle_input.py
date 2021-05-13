@@ -5306,7 +5306,7 @@ def particle_calcs(part_calc_dict,density_dict):
     '''
     both_dict={**density_dict,**{'mwom' : 120,
                   'ACTIVITY' : 1,
-                  'SCALINGFAC' : 1}}
+                  'SCALINGFAC' : 120}}
     #both_dict['seed'] = eval('seed_1*1.33e-4',{},both_dict)
     both_dict['acidsum'] = eval(part_calc_dict['acidsum'],{},both_dict)
     both_dict['tsp'] = eval(part_calc_dict['tsp'],{},both_dict)
@@ -5318,9 +5318,9 @@ def particle_calcs(part_calc_dict,density_dict):
                    'tsp' : both_dict['tsp'],
                    'tspx' : both_dict['tspx'],
                    'mwomv' : both_dict['mwomv'],
-                   'mwom' : 120,
-                   'ACTIVITY' : 1,
-                   'SCALINGFAC' : 120} #[Carslaw2012]
+                   'mwom' : both_dict['mwom'],
+                   'ACTIVITY' : both_dict['ACTIVITY'],
+                   'SCALINGFAC' : both_dict['SCALINGFAC']} #[Carslaw2012]
     return particle_dict
 
 
