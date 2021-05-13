@@ -5320,7 +5320,7 @@ def particle_calcs(part_calc_dict,density_dict):
                    'mwomv' : both_dict['mwomv'],
                    'mwom' : 120,
                    'ACTIVITY' : 1,
-                   'SCALINGFAC' : 1}
+                   'SCALINGFAC' : 120} #[Carslaw2012]
     return particle_dict
 
 
