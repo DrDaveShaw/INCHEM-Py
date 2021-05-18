@@ -264,7 +264,6 @@ def dydt(t,y0):
     calc_dict['h2o']=h2o
  
     #recalculate particle sums
-    global particle_dict
     if particles == 1:
         particle_dict = particle_calcs(part_calc_dict,density_dict)
     else:
@@ -364,7 +363,6 @@ def dydy(t,y0):
     calc_dict['h2o']=h2o
  
     #recalculate particle sums
-    global particle_dict
     if particles == 1:
         particle_dict = particle_calcs(part_calc_dict,density_dict)
     else:
