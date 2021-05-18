@@ -101,9 +101,9 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
             elif i not in density_dict:
                 density_dict[i]=0
             
-    if particles == 1:
+    if particles == 1 and 'seed_1' not in density_dict:
         density_dict['seed_1']=2.09e10
-        density_dict['seed']=2.09e10*1.33e-4
+        density_dict['seed']=density_dict['seed_1']*1.33e-4
             
     for i in rate_numba:
         calc_dict[i[0]]=eval(i[1],{},{**density_dict,**calc_dict})    
