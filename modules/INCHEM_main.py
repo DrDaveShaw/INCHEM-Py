@@ -138,7 +138,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     
     
     def dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,outdoor_dict,\
-                surface_dict,particle_dict,species,timed_dict):
+                surface_dict,species,timed_dict):
         '''
         evaluating the master array of species
         
@@ -149,7 +149,6 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
             density_dict = dictionary of current concentrations
             outdoor_dict = dictionary of outdoor species concentrations
             surface_dict = dictionary of surface deposition rates for each species
-            particle_dict = dictionary of particle constants and variables for particle calculations
             species = list of species
             timed_dict = dictionary of rates for any timed inputs for current time
             
@@ -158,7 +157,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         '''
         dy_dict={}    
         full_dict={**reaction_rate_dict,**calc_dict,**density_dict,**outdoor_dict,\
-                   **surface_dict,**particle_dict,**timed_dict}
+                   **surface_dict,**timed_dict}
         
         for specie in species:
             dy_dict[specie]=(eval(master_compiled[specie],{},full_dict))
@@ -166,7 +165,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     
     
     def dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,outdoor_dict,\
-                   surface_dict,particle_dict,num_species,timed_dict,reaction_rate_dict):
+                   surface_dict,num_species,timed_dict,reaction_rate_dict):
         '''
         Evaluating the Jacobian during integration
         
@@ -178,7 +177,6 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
             density_dict = dictionary of current concentrations
             outdoor_dict = dictionary of outdoor species concentrations
             surface_dict = dictionary of surface deposition rates for each species
-            particle_dict = dictionary of particle constants and variables for particle calculations
             num_species = number of species
             
         returns:
@@ -187,7 +185,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         dy_dy=np.zeros((num_species,num_species),dtype=np.float32) #twice as fast as lil_matrix
         
         full_dict={**reaction_rate_dict,**density_dict,**outdoor_dict,**surface_dict,\
-                   **particle_dict,**calc_dict,**timed_dict}
+                   **calc_dict,**timed_dict}
         for k,v in dy_dy_dict.items():
                 dy_dy[v[0],v[1]]=eval(v[2],{},full_dict)
         return dy_dy
@@ -260,8 +258,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         #recalculate particle sums
         if particles == True:
             particle_dict = particle_calcs(part_calc_dict,density_dict)
-        else:
-            particle_dict={}
+            density_dict.update(particle_dict)
             
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
@@ -277,12 +274,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         #recalculate reaction rates
         reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,\
                                          density_dict,dt,reaction_compiled_dict,\
-                                             outdoor_dict,surface_dict,particle_dict,\
+                                             outdoor_dict,surface_dict,\
                                                  timed_dict)
         
         #evaluate the mater array to recalculate concentrations
         dy_dict=dy_calc(master_compiled,reaction_rate_dict,calc_dict,density_dict,\
-                        outdoor_dict,surface_dict,particle_dict,species,timed_dict)
+                        outdoor_dict,surface_dict,species,timed_dict)
         
         #output the new concentration values
         dy=np.zeros([num_species])
@@ -359,8 +356,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         #recalculate particle sums
         if particles == True:
             particle_dict = particle_calcs(part_calc_dict,density_dict)
-        else:
-            particle_dict={}
+            density_dict.update(particle_dict)
         
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
@@ -376,11 +372,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         #recalculate reaction rates
         reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
                                          dt,reaction_compiled_dict,outdoor_dict,\
-                                             surface_dict,particle_dict,timed_dict)
+                                             surface_dict,timed_dict)
         
         #recalculate jacobian
         dydy_jac=dy_dy_calc(dy_dy_dict,J_dict,calc_dict,density_dict,species,\
-                            outdoor_dict,surface_dict,particle_dict,num_species,\
+                            outdoor_dict,surface_dict,num_species,\
                                 timed_dict,reaction_rate_dict)
         return dydy_jac
     
@@ -460,18 +456,18 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                 iter_time.append(timing.time()-start_time)
                 calculated_output['RO2'].append(density_dict["RO2"])
                 reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,\
-                                calc_dict,density_dict,particle_dict)
+                                calc_dict,density_dict)
                 production_calc(production_dict,production_compiled,reaction_rate_dict,\
-                                calc_dict,density_dict,particle_dict)
+                                calc_dict,density_dict)
                 for i in reactivity_dict:
                     calculated_output[i].append(reactivity_dict[i])
                 for i in production_dict:
                     calculated_output[i].append(production_dict[i])
                 if particles == True:
-                    calculated_output['tsp'].append(particle_dict['tsp'])
-                    calculated_output['acidsum'].append(particle_dict['acidsum'])
-                    calculated_output['tspx'].append(particle_dict['tspx'])
-                    calculated_output['mwomv'].append(particle_dict['mwomv'])
+                    calculated_output['tsp'].append(density_dict['tsp'])
+                    calculated_output['acidsum'].append(density_dict['acidsum'])
+                    calculated_output['tspx'].append(density_dict['tspx'])
+                    calculated_output['mwomv'].append(density_dict['mwomv'])
                 for i in range(num_species):
                     n_new[i].append(r.y[i])
                 for i in J_dict:
@@ -583,8 +579,6 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         reactions_numba = reactions_check(reactions_numba,particle_reactions,species)
         rate_numba = rate_numba + [['kacid' , '1.5e-32*numba_exp(14770/temp)']]
         calc_dict.update(particle_vap_dict)
-    else:
-        particle_dict={}
     
     '''
     Custom reactions and rates. Those not in the MCM download, the code does not
@@ -784,8 +778,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     
     if particles == True:
         particle_dict = particle_calcs(part_calc_dict,density_dict)
-    else:
-        particle_dict={}
+        density_dict.update(particle_dict)
     
     '''    
     saving initial conditions to an output directory for reference
@@ -804,7 +797,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     reaction_compiled_dict=reaction_rate_compile(reactions_numba,reaction_number)
     reaction_rate_dict=reaction_eval(reaction_number,J_dict,calc_dict,density_dict,\
                                      dt,reaction_compiled_dict,outdoor_dict,\
-                                         surface_dict,particle_dict,timed_dict)
+                                         surface_dict,timed_dict)
     
     #creating the master array
     master_array_dict=master_calc(reactions_numba,species,reaction_number,particles,\
@@ -833,10 +826,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     reactivity_compiled, production_compiled = reactivity_summation(master_array_dict)
     reactivity_dict = {}
     reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,\
-                    density_dict,particle_dict)
+                    density_dict)
     production_dict = {}
     production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,\
-                    density_dict,particle_dict)
+                    density_dict)
      
     '''
     #Integration
@@ -855,10 +848,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     calculated_output_tot = {}
     calculated_output_tot['RO2'] = [density_dict['RO2']]
     if particles == True:
-        calculated_output_tot['tsp'] = [particle_dict['tsp']]
-        calculated_output_tot['acidsum'] = [particle_dict['acidsum']]
-        calculated_output_tot['tspx'] = [particle_dict['tspx']]
-        calculated_output_tot['mwomv'] = [particle_dict['mwomv']]
+        calculated_output_tot['tsp'] = [density_dict['tsp']]
+        calculated_output_tot['acidsum'] = [density_dict['acidsum']]
+        calculated_output_tot['tspx'] = [density_dict['tspx']]
+        calculated_output_tot['mwomv'] = [density_dict['mwomv']]
     for i in reactivity_dict:
         calculated_output_tot[i] = [reactivity_dict[i]]
     for i in production_dict:

@@ -233,7 +233,7 @@ def reaction_rate_compile(reactions_numba,reaction_number):
     return reaction_compiled_dict
 
 
-def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,particle_dict,timed_dict):
+def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,timed_dict):
     '''
     compiling specific reaction rates for evaluation during integration
     
@@ -246,7 +246,6 @@ def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_comp
         reaction_compiled_dict = dictionary of compiled reaction rates {reaction number : reaction rate}
         outdoor_dict = dictionary of outdoor species concentrations
         surface_dict = dictionary of surface deposition rates for each species
-        particle_dict = dictionary of particle constants and variables for particle calculations
         timed_dict = dictionary of rates for any timed inputs for current time
         
     returns:
@@ -254,7 +253,7 @@ def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_comp
     '''
     reaction_rate_dict={}
     
-    full_dict={**J_dict,**calc_dict,**density_dict,**outdoor_dict,**surface_dict,**timed_dict,**particle_dict}
+    full_dict={**J_dict,**calc_dict,**density_dict,**outdoor_dict,**surface_dict,**timed_dict}
     
     #for key in tqdm(reaction_compiled_dict.keys(),desc='Calculating reaction rate'):
     for key in reaction_compiled_dict.keys():

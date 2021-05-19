@@ -5304,22 +5304,14 @@ def particle_calcs(part_calc_dict,density_dict):
         particle_dict = dictionary of constants and calculated values for use in
                         particle calculations
     '''
-    both_dict={**density_dict,**{'mwom' : 120,
-                  'ACTIVITY' : 1,
-                  'SCALINGFAC' : 1}}
-    both_dict['acidsum'] = eval(part_calc_dict['acidsum'],{},both_dict)
-    both_dict['tsp'] = eval(part_calc_dict['tsp'],{},both_dict)
-    both_dict['tspx'] =  eval(part_calc_dict['tspx'],{},both_dict)
-    both_dict['mwomv'] = eval(part_calc_dict['mwomv'],{},both_dict)
-    
-    particle_dict={#'seed' : both_dict['seed'],
-                   'acidsum' : both_dict['acidsum'],
-                   'tsp' : both_dict['tsp'],
-                   'tspx' : both_dict['tspx'],
-                   'mwomv' : both_dict['mwomv'],
-                   'mwom' : both_dict['mwom'],
-                   'ACTIVITY' : both_dict['ACTIVITY'],
-                   'SCALINGFAC' : both_dict['SCALINGFAC']} #[Carslaw2012]
+    particle_dict={'mwom' : 120,
+               'ACTIVITY' : 1,
+               'SCALINGFAC' : 1}
+    particle_dict['acidsum'] = eval(part_calc_dict['acidsum'],density_dict,particle_dict)
+    particle_dict['tsp'] = eval(part_calc_dict['tsp'],density_dict,particle_dict)
+    particle_dict['tspx'] =  eval(part_calc_dict['tspx'],density_dict,particle_dict)
+    particle_dict['mwomv'] = eval(part_calc_dict['mwomv'],density_dict,particle_dict)
+
     return particle_dict
 
 
