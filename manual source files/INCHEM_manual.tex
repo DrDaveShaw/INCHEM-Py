@@ -32,7 +32,7 @@
 \newcommand{\eg}{e.\,g..}
 \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
 
-\title{Indoor Chemical Model (INCHEM-Py v1.x) \\
+\title{Indoor Chemical Model (INCHEM-Py v1.1) \\
 User Manual\\
 \begin{figure}
     \hspace{-0.25\textwidth}\hspace{0.25in}
@@ -176,9 +176,9 @@ If you're new to Python then the following guide will take you through a quick w
 \linespread{2.0}\selectfont
 \begin{enumerate}
 \setcounter{enumi}{9}
-    \item The full output is saved in "out\_data.pickle". To extract other species concentrations to a csv file for analysis in other software the "INCHEM\_extractor.py" file is used. Double click on this file to open it in the left hand window. 
+    \item The full output is saved in "out\_data.pickle". To extract other species concentrations to a csv file for analysis in other software the "inchem\_extractor.py" file is used. Double click on this file to open it in the left hand window. 
     
-    The following variables can be changed to extract different outputs. Full details of these variables and how to change them can be found in appendix \ref{INCHEM_extractor.py}.
+    The following variables can be changed to extract different outputs. Full details of these variables and how to change them can be found in appendix \ref{inchem_extractor.py}.
                         
             \vspace{1em}
             \begin{minipage}[t]{\linewidth}
@@ -256,14 +256,14 @@ The following files show the folder structure of INCHEM-Py after extraction. If 
  .4 test\_files/.
  .5 custom\_input\_test.txt.
  .5 in\_data.pickle. 
- .5 INCHEM\_test.py. 
+ .5 inchem\_test.py. 
  .5 initial\_test.txt.
- .5 Jacobian\_test.txt.
+ .5 jacobian\_test.txt.
  .5 mcm\_parse\_test.fac.
- .4 Import.py.
- .4 INCHEM\_main.py.
- .4 INCHEM\_test.py.
- .4 INCHEM\_Additional.py.
+ .4 inchem\_import.py.
+ .4 inchem\_main.py.
+ .4 inchem\_test.py.
+ .4 inchem\_chemistry.py.
  .4 initial\_dictionaries.py.
  .4 outdoor\_concentrations.py.
  .4 particle\_input.py.
@@ -271,7 +271,7 @@ The following files show the folder structure of INCHEM-Py after extraction. If 
  .4 reactivity.py.
  .4 surface\_dictionary.py.
  .3 custom\_input.txt.
- .3 INCHEM\_extractor.py.
+ .3 inchem\_extractor.py.
  .3 INCHEMPY\_logo.png.
  .3 INCHEMPY\_logo.svg.
  .3 initial\_concentrations.txt.
@@ -288,7 +288,7 @@ INCHEM-Py consists of a number of input files and a single settings file in whic
 \subsection{Naming conventions}\index{Naming conventions}\label{Naming conventions}
 All species names are in the format given by the MCM download. There is no guide to these but they are self explanatory in most cases. If you are unsure of a species name, then check using \href{http://mcm.leeds.ac.uk/MCM/}{the MCM website} and search for the species using its MCM name or SMILES string.
 
-When using custom inputs it is important that any new species do not share a name with any of the existing species, including those used in the INCHEM\_Additional file inputs.\seealso{\hyperref[custom_input.txt]{custom\_input.txt}}
+When using custom inputs it is important that any new species do not share a name with any of the existing species, including those used in the inchem\_chemistry file inputs.\seealso{\hyperref[custom_input.txt]{custom\_input.txt}}
 
 Other names are assigned within INCHEM-Py. \seealso{\hyperref[outputs]{outputs}}The following naming conventions are used:
 \begin{itemize}
@@ -308,16 +308,16 @@ The file name for the download of the MCM from the MCM website. The format and p
 
 \index{particles}\marginlabel{particles}
 \label{particles}
-\texttt{1 or 0}\\
-Set to 1 to include gas-to-particle partitioning for limonene, alpha-pinene and beta-pinene within the simulation and to 0 to exclude particle formation. Details of how particles are implemented can be found in Carslaw et al. (2012), which is based on the methodology of Pankow (1994) \cite{Carslaw2012,Pankow1994}.
+\texttt{True or False}\\
+Set to True to include gas-to-particle partitioning for limonene, alpha-pinene and beta-pinene within the simulation and to False to exclude particle formation. Details of how particles are implemented can be found in Carslaw et al. (2012), which is based on the methodology of Pankow (1994) \cite{Carslaw2012,Pankow1994}.
 
-\index{INCHEM\_additional}\marginlabel{INCHEM\_additional}
-\texttt{1 or 0}\\
-Set as 1 to use the INCHEM\_additional.py module which includes additional reaction mechanisms developed specifically for indoor air chemistry. \seealso{\hyperref[INCHEM_additional.py]{INCHEM reactions}}
+\index{inchem\_chemistry}\marginlabel{inchem\_chemistry}
+\texttt{True or False}\\
+Set as True to use the inchem\_chemistry.py module which includes additional reaction mechanisms developed specifically for indoor air chemistry. \seealso{\hyperref[inchem_chemistry]{INCHEM reactions}}
 
 \index{custom}\marginlabel{custom}
-\texttt{1 or 0}\\
-Set as 1 to use the custom\_input.txt file to include user set reactions that are not included in the MCM. Set as 0 to ignore custom\_input.txt. The formatting of this file is detailed within the file itself and also within the \seealso{\hyperref[custom_input.txt]{custom\_input.txt}} custom\_input.txt section of this document.
+\texttt{True or False}\\
+Set as True to use the custom\_input.txt file to include user set reactions that are not included in the MCM. Set as False to ignore custom\_input.txt. The formatting of this file is detailed within the file itself and also within the \seealso{\hyperref[custom_input.txt]{custom\_input.txt}} custom\_input.txt section of this document.
 
 \index{temp}\marginlabel{temp}
 \texttt{293 K}\\
@@ -340,8 +340,8 @@ Dictionary of species or values that should remain constant throughout the simul
 The Air Exchange Rate per second. The number of times the volume of air in the room is fully exchanged with the air from outside. In this example we want 0.5 changes per hour which is divided by 3600 to convert to per second. For reference, 0.2 is considered to be a reasonable value for a very well insulated building, 2.0 would be considered reasonable for a very loosely built building \cite{Weschler2000}.
 
 \index{diurnal}\marginlabel{diurnal}
-\texttt{1 or 0}\\
-Set as 1 to include diurnal outdoor concentrations and as 0 to use constant values. These outdoor concentrations are for OH and HO2 radicals, NO, NO$_2$, tsp, O$_3$ and HONO. Both the diurnal equations and the constant values can be adjusted in the outdoor\_concentrations.py \seealso{\hyperref[outdoor_concentrations.py]{outdoor\_concentrations.py}} file within the modules folder.
+\texttt{True or False}\\
+Set as True to include diurnal outdoor concentrations and as False to use constant values. These outdoor concentrations are for OH and HO2 radicals, NO, NO$_2$, tsp, O$_3$ and HONO. Both the diurnal equations and the constant values can be adjusted in the outdoor\_concentrations.py \seealso{\hyperref[outdoor_concentrations.py]{outdoor\_concentrations.py}} file within the modules folder.
 
 \index{city}\marginlabel{city}
 \texttt{"London\_urban", "London\_suburban", "Bergen\_urban",\\ or "Milan\_urban\_Aug2003"}\\
@@ -372,8 +372,8 @@ Type of window glass used for the attenuation of outdoor light by wavelength ran
 Surface to volume ratio, used as a coefficient in the calculation of surface deposition. Individual species deposition rates can be adjusted in the surface\_dictionary.py \seealso{\hyperref[surface_dictionary.py]{surface\_dictionary.py}} file in the modules folder. Setting HMIX to 0 will remove surface deposition from the simulation.
 
 \index{initials\_from\_run}\marginlabel{initials\_from\_run}\label{initials_from_run}
-\texttt{1 or 0}\\
-Initial gas concentrations are either provided by a text file (when initials\_from\_run = 0 and initial\_conditions\_gas is provided with the name of a text file) or by an output file from a previous run (when initials\_from\_run = 1 and providing an input as detailed below). 
+\texttt{True or False}\\
+Initial gas concentrations are either provided by a text file (when initials\_from\_run = False and initial\_conditions\_gas is provided with the name of a text file) or by an output file from a previous run (when initials\_from\_run = True and providing an input as detailed below). 
 
 The benefits of using an output file from a previous run are that the model will change the initial values depending on the start time of the simulation. E.g. if you set your model to run from 3600 seconds then by using initials\_from\_run the initial species concentrations will be from the 3600 second mark of the input file. The initial integration steps will be faster and require less time to equilibrate. This is especially useful if there is an event within the model, such as a timed input, which you are varying on multiple model runs and wish only to run the model over the short period where that event is occurring. 
 
@@ -384,8 +384,8 @@ To use data from a previous run for initialising species concentrations, the out
 The string file name of the text file containing the initial species concentrations in molecules cm$^{-3}$, the format of this file is detailed later in this document\seealso{\hyperref[initial_concentrations.txt]{initial\_concentrations.txt}}. If a species concentration is not given then the model will assume it is 0. To use this file, initials\_from\_run must be set to 0.
 
 \index{timed\_emissions}\marginlabel{timed\_emissions}\label{timed emissions}
-\texttt{0 or 1}\\
-Set as 0 to not include additional emissions and 1 to include additional emissions. Emissions can be added at specific points in time during the simulation. The times and emission rates are set using timed\_inputs.
+\texttt{True or False}\\
+Set as False to not include additional emissions and True to include additional emissions. Emissions can be added at specific points in time during the simulation. The times and emission rates are set using timed\_inputs.
 
 \index{timed\_inputs}\marginlabel{timed\_inputs}
 \texttt{\{"species":[[start time, end time, rate]],\\
@@ -411,15 +411,15 @@ The length of the model run in seconds, starting at t=0. Arithmetic is accepted 
 String that is added to the end of the output folder name to make output folders easier to find and identify. 
 
 \index{output\_graph}\marginlabel{output\_graph}
-\texttt{0 or 1}\\
-1 to produce a graph of selected species (output\_species) and write it to file as "graph.png" in the output folder, 0 to not produce a graph. The species chosen will also have their concentrations saved in a csv format in the output folder in molecules cm$^{-3}$.
+\texttt{True or False}\\
+True to produce a graph of selected species (output\_species) and write it to file as "graph.png" in the output folder, False to not produce a graph. The species chosen will also have their concentrations saved in a csv format in the output folder in molecules cm$^{-3}$.
 
 \index{output\_species}\marginlabel{output\_species}
 \texttt{['species 1','species 2','species 3']}\\
 A list of string names of species to be plotted on a graph if output\_graph is set to 1.
 
 \subsection{custom\_input.txt (optional)}\label{custom_input.txt}
-A file for inputting rates, reactions, additional peroxy radical species for the RO2 summation, as well as additional organic nitrate and PAN-type species for the summations of these that are not already included in the model. To use this file then custom in settings.py must be set to 1. This allows users to add custom mechanisms. A description of how to format the file is included here and within the file itself. Any species that are not already in the MCM download but that do appear in any of the additional custom equations will be automatically added to the species list. The user must be careful to spell the species names correctly. The user also needs to check that any new species formed on the right-hand side of a reaction, also appears on the left-hand side of at least one other reaction. Otherwise, the species would play no other part in the chemistry once formed. Finally, the user should be careful not to include species or reactions that are already in the model mechanism and should check against the species and reactions in the MCM and INCHEM\_additional.py carefully (it is possible to search the MCM by molecular weight and smiles string at \url{mcm.leeds.ac.uk}).
+A file for inputting rates, reactions, additional peroxy radical species for the RO2 summation, as well as additional organic nitrate and PAN-type species for the summations of these that are not already included in the model. To use this file then custom in settings.py must be set to 1. This allows users to add custom mechanisms. A description of how to format the file is included here and within the file itself. Any species that are not already in the MCM download but that do appear in any of the additional custom equations will be automatically added to the species list. The user must be careful to spell the species names correctly. The user also needs to check that any new species formed on the right-hand side of a reaction, also appears on the left-hand side of at least one other reaction. Otherwise, the species would play no other part in the chemistry once formed. Finally, the user should be careful not to include species or reactions that are already in the model mechanism and should check against the species and reactions in the MCM and inchem\_chemistry.py carefully (it is possible to search the MCM by molecular weight and smiles string at \url{mcm.leeds.ac.uk}).
 
 The format of any calculations (e.g. for rate coefficients) should be acceptable for Python, such as 'temp' for temperature. Any additional photolysis rates must be added in the appropriate module file and not here\seealso{\hyperref[photolysis.py]{photolysis.py}}.
 
@@ -502,10 +502,10 @@ The settings.py file can be modified to produce batch runs of multiple variable 
 
 Using this method does have some limitations, such as not being able to change any variables set in any of the INCHEM-Py modules (not set in the settings file, i.e. the outdoor concentrations) with each run. Modification of INCHEM-Py itself would be required to achieve this.
 
-\subsection{Checking model function}\index{INCHEM\_test.py}
+\subsection{Checking model function}\index{inchem\_test.py}
 When first running the model it is possible to check that the default model downloaded is functioning as intended. To do this a copy of the output of a working default model run (default\_output.csv) containing the species concentrations with time for O$_3$ and O$_3$ outdoors can be found in the test\_files folder, as shown in the folder structure. After running the model as downloaded with no changes to default values the output.csv created can be manually compared with the default\_output.csv to confirm validity of the run.
 
-Included in the INCHEM-Py module folder is INCHEM\_test.py. This script can be run to test functions of INCHEM-Py that manipulate the input data into useful formats within the model. It uses preset inputs, found within the test\_files folder, to check that the model outputs are expected.
+Included in the INCHEM-Py module folder is inchem\_test.py. This script can be run to test functions of INCHEM-Py that manipulate the input data into useful formats within the model. It uses preset inputs, found within the test\_files folder, to check that the model outputs are expected.
 
 When entering new species or chemical mechanisms via the custom\_input.txt file, users should be careful that names are correct and reactions are not duplicated. The model does not test for duplicate species or new species as both are valid inputs. Many outputs are produced by INCHEM-Py that can be used to check that the model ODEs are constructed as expected by the user or that custom chemistry has been entered correctly. The master\_array can be viewed to validate reactions, and the Jacobian is saved for a similar purpose. Any user entered mechanisms are also saved alongside mechanisms provided by the INCHEM-Py team.
 
@@ -547,11 +547,11 @@ If optional settings are also used, then the following are also included in the 
     \item Particle concentrations
 \end{itemize}
 
-To analyse the output data, there are two approaches. The first is to use INCHEM\_extractor.py (included in the INCHEM-Py download) which requires little/no working knowledge of Python. The second is to manually extract data from the out\_data.pickle file. Both approaches are outlined below and the choice of which to use depends on the level of analysis required.
+To analyse the output data, there are two approaches. The first is to use inchem\_extractor.py (included in the INCHEM-Py download) which requires little/no working knowledge of Python. The second is to manually extract data from the out\_data.pickle file. Both approaches are outlined below and the choice of which to use depends on the level of analysis required.
 
-\marginlabel{INCHEM\_extractor.py}\index{INCHEM\_extractor.py}
+\marginlabel{inchem\_extractor.py}\index{inchem\_extractor.py}
 
-A main aim for producing this model was to improve accessibility for use across a wide audience. Therefore, included in the INCHEM-Py download is the INCHEM\_extractor.py. This provides an easy method of extracting required outputs from model runs that requires little/no prior knowledge of Python. Using this script, all output elements can be extracted from multiple out\_data.pickle files into .csv files and will be plotted for initial assessment of results. A description of this file and its usage is given in appendix \ref{INCHEM_extractor.py}. 
+A main aim for producing this model was to improve accessibility for use across a wide audience. Therefore, included in the INCHEM-Py download is the inchem\_extractor.py. This provides an easy method of extracting required outputs from model runs that requires little/no prior knowledge of Python. Using this script, all output elements can be extracted from multiple out\_data.pickle files into .csv files and will be plotted for initial assessment of results. A description of this file and its usage is given in appendix \ref{inchem_extractor.py}. 
 
 \marginlabel{Manual data extraction}
 
@@ -587,7 +587,7 @@ with open("master_array.pickle", "rb") as handle:
 \end{verbatim}
 
 
-\subsection{Jacobian.py}\index{Jacobian}
+\subsection{jacobian.py}\index{Jacobian}
 This script is created by the model and imported again to create the Jacobian (the user cannot edit this file before use). Details of this process can be found later in this document for interested users. \seealso{\hyperref[Jacobian]{Jacobian}}
 
 \subsection{integration\_times.csv}\index{integration\_times.csv}
@@ -597,7 +597,7 @@ A CSV of time stamps tracking the time from the start of the model to the start 
 A CSV table of output species concentrations with time for the species specified in the output\_species variable of settings.py if the output\_graph variable is set to 1.
 
 \subsection{graph.png (optional)}\index{graph.png}
-A graph of species concentrations with time for the species specified in the output\_species variable of settings.py. This is only produced if output\_graph = 1.
+A graph of species concentrations with time for the species specified in the output\_species variable of settings.py. This is only produced if output\_graph = True.
 
 \newpage
 \section{Implementations}
@@ -784,7 +784,7 @@ The HMIX variable represents the surface to volume (A/V) ratio of a given space.
 \end{verbatim}
 
 
-\subsection{Additonal INCHEM reactions}\label{INCHEM_additional.py}
+\subsection{Additonal INCHEM reactions}\label{inchem_chemistry}
 To analyse varying scenarios indoors, additional chemistry mechanisms have been developed by Carslaw and coworkers, and can be included within INCHEM-Py if required. These schemes are not fully explicit as per the MCM. They typically use the rate coefficients for the preliminary oxidation steps using data from the literature and then map onto existing MCM species after a few degradation steps where relevant, to reduce additional complexity. The following species have been treated in this way:
 \begin{itemize}
     \item Linalool \cite{Carslaw2017}
@@ -794,7 +794,7 @@ To analyse varying scenarios indoors, additional chemistry mechanisms have been 
     \item Lactic acid
 \end{itemize}
 
-This chemistry is included in the INCHEM\_Additional.py module and careful modification is possible but we ask that any additional chemistry is added using the custom\_inputs.txt file as detailed in section \ref{custom_input.txt}. The chemistry is stored in the following format that any modification should follow:
+This chemistry is included in the inchem\_chemistry.py module and careful modification is possible but we ask that any additional chemistry is added using the custom\_inputs.txt file as detailed in section \ref{custom_input.txt}. The chemistry is stored in the following format that any modification should follow:
 
 \marginlabel{Peroxy radical species}
 These species are peroxy radicals to be added to the peroxy radical summation. They are not species included in the MCM.
@@ -831,7 +831,7 @@ All generic rate coefficients, species and summations can be called in any addit
 
 \subsection{Master array and Jacobian}
 \index{master array}\marginlabel{Master array}
-The master array is a dictionary of species and their ordinary differential equations (ODEs) that are processed by the integrator. The ODEs are constructed from the reactions input from the MCM, the INCHEM additional input file, any custom reactions added via the custom inputs file, and the gas-to-particle reactions. 
+The master array is a dictionary of species and their ordinary differential equations (ODEs) that are processed by the integrator. The ODEs are constructed from the reactions input from the MCM, the INCHEM chemistry input file, any custom reactions added via the custom inputs file, and the gas-to-particle reactions. 
 
 To compute the ODEs the reactions must be parsed. Each reaction comprises of a reaction equation and a rate coefficient. For example:
 \begin{equation*}
@@ -951,8 +951,8 @@ The authors would like to thank Magdalena Kruza, Freja Oesterstroem, Helen Davie
 \end{figure}
 
 \clearpage
-\section{INCHEM\_extractor.py}\label{INCHEM_extractor.py}\index{INCHEM\_extractor.py}
-INCHEM\_extractor.py will extract data from the out\_data.pickle files produced by INCHEM-Py and save the species concentrations, or other outputs that are specified, to a csv file. Multiple output files can be read at a time. Plots comparing results from any files input will be saved to an output folder to get quick and easy comparisons between model runs. 
+\section{inchem\_extractor.py}\label{inchem_extractor.py}\index{inchem\_extractor.py}
+inchem\_extractor.py will extract data from the out\_data.pickle files produced by INCHEM-Py and save the species concentrations, or other outputs that are specified, to a csv file. Multiple output files can be read at a time. Plots comparing results from any files input will be saved to an output folder to get quick and easy comparisons between model runs. 
 
 This script is not part of INCHEM-Py but is additional to it to give greater accessibility to any users that are not comfortable with Python. It is intended to provide quick access to data, not as a tool for further analysis.
 
@@ -962,7 +962,7 @@ All elements that should be changed by the user are at the top of the file.
 \begin{verbatim}
 out_directories = ['directory1','directory2','directory3']
 \end{verbatim}
-A list of output folder names that INCHEM\_extractor will take output data from. These are created by INCHEM-Py when it is run in the format YYYYMMDD\_hhmmss\_custom and should be listed here. These names are not the full file path as this script expects to be one directory above these.
+A list of output folder names that inchem\_extractor will take output data from. These are created by INCHEM-Py when it is run in the format YYYYMMDD\_hhmmss\_custom and should be listed here. These names are not the full file path as this script expects to be one directory above these.
 
 \marginlabel{species\_to\_extract}
 \begin{verbatim}
@@ -991,8 +991,8 @@ String name of output folder, that either exists already or is to be created, wh
 
 \marginlabel{log\_plot}
 \begin{verbatim}
-log_plot = 1
+log_plot = True
 \end{verbatim}
-Can be 1 or 0. 1 to set the y axis to a log scale, 0 to set the y axis to a linear scale.
+Can be True or False. True to set the y axis to a log scale, False to set the y axis to a linear scale.
 
 \end{document}
