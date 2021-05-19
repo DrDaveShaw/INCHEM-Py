@@ -57,8 +57,8 @@ scale = "hours"
 #it will be created
 output_folder = "extracted_outputs"
 
-#should the y scale be log or not. 1 for log, 0 for not
-log_plot = 0
+#should the y scale be log or not. Boolean
+log_plot = False
 
 '''
 Extract and plot the data
@@ -113,7 +113,7 @@ def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_p
             plt.plot(list(out_data[k][l][start_time:end_time].index/factor),
                      list(out_data[k][l][start_time:end_time]),
                      label="%s_%s" % (k,l),c=c)
-    if log_plot == 1:
+    if log_plot == True:
         if name != "Photolysis":        
             plt.yscale("log") #can be commented out for a non-log plot
     plt.ylabel(units)

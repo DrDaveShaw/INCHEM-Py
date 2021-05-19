@@ -33,7 +33,7 @@ import re
 
 def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path):
     '''
-    importing initial concentrations of gas phase species and particles if particles = 1
+    importing initial concentrations of gas phase species and particles if particles = True
     
     inputs:
         initial_filename = initial conditions filename
@@ -41,8 +41,8 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         species = list of species
         rate_numba = rates of reactions with expressions replaced with numba versions
         calc_dict = dictionary of constants and variables for use in calculations
-        particles = 0/1 depeding if using particles or not
-        initials_from_run = 0/1 depending if taking initials from previous run
+        particles = True/False depeding if using particles or not
+        initials_from_run = True/False depending if taking initials from previous run
         t0 = starting time of simulation (s)
         path = current working directory
         
@@ -52,7 +52,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
     '''
     initial=[]
     
-    if initials_from_run == 1:
+    if initials_from_run == True:
         '''import initial conditions from previous run'''
         from bisect import bisect_left
         #with open("%s/in_data.pickle" % path,'rb') as handle:
@@ -101,7 +101,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
             elif i not in density_dict:
                 density_dict[i]=0
             
-    if particles == 1 and 'seed_1' not in density_dict:
+    if particles == True and 'seed_1' not in density_dict:
         density_dict['seed_1']=2.09e10
         density_dict['seed']=density_dict['seed_1']*1.33e-4
             
@@ -121,9 +121,9 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         reactions_in = full list of included chemical reactions [rate, reaction]
         species = list of species
         reaction_number = list of strings to relate reactions to locations within master array
-        particles = 0/1 depeding if using particles or not 
+        particles = True/False depeding if using particles or not 
         particle_species = list of particle species
-        timed_emissions = 0/1 depending on if using timed emissions or not
+        timed_emissions = True/False depending on if using timed emissions or not
         
     returns:
         master_array_dict = dictionary of arrays of reactions that can be reduced
@@ -169,7 +169,7 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
     
     for s in species:
         #outdoor exchange
-        if particles == 1 and s in particle_species:
+        if particles == True and s in particle_species:
             master_array_dict[s].append(['%s' % s, 'AER', '-1'])
             if s == 'seed_1':
                 master_array_dict[s].append(['TSPOUT','AER*0.3'])
@@ -183,7 +183,7 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         master_array_dict[s].append(['%s_SURF' % s, s,'-1'])   
         
         #timed densities
-        if timed_emissions == 1:
+        if timed_emissions == True:
             master_array_dict[s].append(["%s_timed" % s, "1"])
             
     return master_array_dict

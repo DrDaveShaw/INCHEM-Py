@@ -29,7 +29,7 @@ def outdoor_rates(AER,particles,species):
     
     inputs:
         AER = Air exchange rate per hour
-        particles = 1 or 0 for whether particles are included in the simulation
+        particles = True or False for whether particles are included in the simulation
         species = list of species
     
     returns:
@@ -126,7 +126,7 @@ def outdoor_rates(AER,particles,species):
     outdoor_dict['OHOUT']=1e6
     outdoor_dict['PANOUT']=1.51e10
     
-    if particles == 1:
+    if particles == True:
         outdoor_dict['TSPOUT']=1.4e11
     
     for specie in species:

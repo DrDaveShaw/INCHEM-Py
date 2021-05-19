@@ -210,7 +210,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         density_dict['RO2']=ppool_density_calc(density_dict,ppool)
         
         #if summations are included they need to be updated to the density dictionary also           
-        if summations == 1:
+        if summations == True:
             sums_dict = summations_eval(summations_dict,density_dict,calc_dict)
             density_dict.update(sums_dict)
             
@@ -247,7 +247,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                 photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
         
         #diurnal outdoor rates
-        if diurnal == 1:
+        if diurnal == True:
             out_calc_dict["n"] = n
             out_calc_dict["cosx"] = cosx
             out_calc_dict["secx"] = secx
@@ -258,14 +258,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         calc_dict['h2o']=h2o
      
         #recalculate particle sums
-        if particles == 1:
+        if particles == True:
             particle_dict = particle_calcs(part_calc_dict,density_dict)
         else:
             particle_dict={}
             
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
-        if timed_emissions == 1:
+        if timed_emissions == True:
             for key in timed_inputs:
                 for i in timed_inputs[key]:
                     if i[0] <= t <= i[1]:
@@ -309,7 +309,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         density_dict['RO2']=ppool_density_calc(density_dict,ppool)
         
         #if summations are included they need to be updated to the density dictionary also            
-        if summations == 1:
+        if summations == True:
             sums_dict = summations_eval(summations_dict,density_dict,calc_dict)
             density_dict.update(sums_dict)
         
@@ -346,7 +346,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                 photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
         
         #diurnal outdoor rates
-        if diurnal == 1:
+        if diurnal == True:
             out_calc_dict["n"] = n
             out_calc_dict["cosx"] = cosx
             out_calc_dict["secx"] = secx
@@ -357,14 +357,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         calc_dict['h2o']=h2o
      
         #recalculate particle sums
-        if particles == 1:
+        if particles == True:
             particle_dict = particle_calcs(part_calc_dict,density_dict)
         else:
             particle_dict={}
         
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
-        if timed_emissions == 1:
+        if timed_emissions == True:
             for key in timed_inputs:
                 for i in timed_inputs[key]:
                     if i[0] <= t <= i[1]:
@@ -421,7 +421,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         
         calculated_output = {}
         calculated_output['RO2'] = []
-        if particles == 1:
+        if particles == True:
             calculated_output['tsp'] = []
             calculated_output['acidsum'] = []
             calculated_output['tspx'] = []
@@ -434,7 +434,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
             calculated_output[i] = []
         for i in outdoor_dict:
             calculated_output[i] = []
-        if summations == 1:
+        if summations == True:
             for i in sums_dict:
                 calculated_output[i] = []
         
@@ -467,7 +467,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                     calculated_output[i].append(reactivity_dict[i])
                 for i in production_dict:
                     calculated_output[i].append(production_dict[i])
-                if particles == 1:
+                if particles == True:
                     calculated_output['tsp'].append(particle_dict['tsp'])
                     calculated_output['acidsum'].append(particle_dict['acidsum'])
                     calculated_output['tspx'].append(particle_dict['tspx'])
@@ -478,7 +478,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                     calculated_output[i].append(J_dict[i])
                 for i in outdoor_dict:
                     calculated_output[i].append(outdoor_dict[i])
-                if summations == 1:
+                if summations == True:
                     for i in sums_dict:
                         calculated_output[i].append(density_dict[i])
         return dt_out,n_new,iters,ret,iter_time,calculated_output
@@ -575,7 +575,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     Particles
     '''
     particle_species=[]
-    if particles == 1:
+    if particles == True:
         #if the full MCM is not being used then the calcuations for tsp and anything involving tsp
         #will fail so particles can only be used with the full MCM at the moment 04/2020
         particle_species, particle_reactions, particle_vap_dict, part_calc_dict = particle_import()
@@ -592,7 +592,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     exist as it will just duplicate them.
     '''
     sums = []
-    if custom == 1:
+    if custom == True:
         custom_filename="custom_input.txt"
         custom_rates, custom_reactions, custom_species, custom_RO2, sums = \
             custom_import(custom_filename,species)
@@ -605,7 +605,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     '''
     INCHEM reactions and rates that are not included in MCM download.
     '''    
-    if INCHEM_additional == 1:
+    if INCHEM_additional == True:
         from modules.INCHEM_Additional import INCHEM_RO2, INCHEM_reactions, \
             INCHEM_rates, INCHEM_sums
         INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
@@ -637,10 +637,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     '''
     Additional clean up, checking for summations from custom inputs
     '''
-    summations = 0
-    if custom == 1 or INCHEM_additional == 1:
+    summations = False
+    if custom == True or INCHEM_additional == True:
         if len(sums) >= 1:
-            summations = 1
+            summations = True
            
     reaction_number=[]
     for i in range(len(reactions_numba)): #for assigning within the master array
@@ -736,7 +736,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     
     #Outdoor dictionaries
     outdoor_dict=outdoor_rates(AER,particles,species)
-    if diurnal == 1:
+    if diurnal == True:
         outdoor_dict_diurnal = outdoor_rates_diurnal(city)
         outdoor_rates_calc(outdoor_dict,outdoor_dict_diurnal,out_calc_dict)
         #diurnal rates will overide static rates if species shown in both
@@ -746,7 +746,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     '''
     surface_dict=surface_deposition(HMIX)
     for specie in species:
-        if particles == 1 and specie in particle_species:
+        if particles == True and specie in particle_species:
             surface_dict['%s_SURF' % specie]=0.004*HMIX
         elif '%s_SURF' % specie not in surface_dict.keys():
             surface_dict['%s_SURF' % specie]=0
@@ -755,7 +755,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     timed concentrations
     '''
     timed_dict={}
-    if timed_emissions == 1:
+    if timed_emissions == True:
         for specie in species:
             timed_dict["%s_timed" % specie] = 0
         for key in timed_inputs:
@@ -776,13 +776,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     
     #calculating t0 summations
     summations_dict={}
-    if summations == 1:
+    if summations == True:
         summations_dict = summations_compile(sums)
         sums_dict={}
         sums_dict=summations_eval(summations_dict,density_dict,calc_dict)
         density_dict.update(sums_dict)
     
-    if particles == 1:
+    if particles == True:
         particle_dict = particle_calcs(part_calc_dict,density_dict)
     else:
         particle_dict={}
@@ -854,7 +854,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     iter_time_tot=[timing.time()-start_time]
     calculated_output_tot = {}
     calculated_output_tot['RO2'] = [density_dict['RO2']]
-    if particles == 1:
+    if particles == True:
         calculated_output_tot['tsp'] = [particle_dict['tsp']]
         calculated_output_tot['acidsum'] = [particle_dict['acidsum']]
         calculated_output_tot['tspx'] = [particle_dict['tspx']]
@@ -867,7 +867,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         calculated_output_tot[i] = [J_dict[i]]
     for i in outdoor_dict:
         calculated_output_tot[i] = [outdoor_dict[i]]
-    if summations == 1:
+    if summations == True:
         for i in sums_dict:
             calculated_output_tot[i] = [density_dict[i]]
     
@@ -908,7 +908,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     #analysing slow points in the system
     integration_times.to_csv("%s/%s/integration_times.csv" % (path,output_folder))
         
-    if output_graph == 1:
+    if output_graph == True:
         # creates and saves a simple graph of the set species from settings
         import matplotlib.pyplot as plt
         from itertools import cycle

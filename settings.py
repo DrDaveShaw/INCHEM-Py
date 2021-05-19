@@ -27,12 +27,12 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 
 filename = 'mcm_v331.fac' # facsimile format input filename
 
-particles = 1 # Are we including particles. 1 for yes, 0 for no. 
+particles = True # Are we including particles. Boolean
 
-INCHEM_additional = 1 #Set to 1 if additional reactions from the INCHEM are being used
+INCHEM_additional = True #Set to True if additional reactions from the INCHEM are being used
 #that do not appear in the MCM download
 
-custom = 0 # Custom reactions that are not in the MCM included?
+custom = False # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
 temp = 293.         # temperature in Kelvin
@@ -54,7 +54,7 @@ const_dict = {
 Outdoor indoor exchange
 """
 AER = 0.5/3600  # Air exchange rate per second
-diurnal = 1     # diurnal outdoor concentrations on (1) or off (0).
+diurnal = True     # diurnal outdoor concentrations. Boolean
 city = "Bergen_urban" #source city of outdoor concentrations of O3, NO, NO2, and PM2.5
 # options are "London_urban", "London_suburban" or "Bergen_urban"
 # Changes to outdoor concentrations can be done in outdoor_concentrations.py
@@ -86,16 +86,16 @@ HMIX = 0.02 #0.01776
 """
 Initial concentrations in molecules/cm^3 saved in a text file
 """
-initials_from_run = 0
+initials_from_run = False
 # initial gas concentrations can be taken from a previous run of the model. 
-# Set initials_from_run to 1 if this is the case and move a previous out_data.pickle
+# Set initials_from_run to True if this is the case and move a previous out_data.pickle
 # to the main folder and rename to in_data.pickle. The code will then take this
 # file and extract the concentrations from the time point closest to t0 as 
 # initial conditions.
 
 # in_data.pickle must contain all of the species required, including particles if used.
 
-# If initials_from_run is set to 0 then initial gas conditions must be available
+# If initials_from_run is set to False then initial gas conditions must be available
 # in the file specified by initial_conditions_gas, the inclusion of particles is optional.
 initial_conditions_gas = 'initial_concentrations.txt'
 
@@ -103,8 +103,8 @@ initial_conditions_gas = 'initial_concentrations.txt'
 """
 Timed concentrations
 """
-timed_emissions = 0 # is there a species, or set of species that has a forced density change
-# at a specific point in time during the integration? If so then this needs to be set to 1
+timed_emissions = False # is there a species, or set of species that has a forced density change
+# at a specific point in time during the integration? If so then this needs to be set to True
 # and the dictionary called timed_inputs (below) needs to be populated
 
 # the dictionary should be populated as
@@ -132,7 +132,7 @@ custom_name = "Bergen_urban"
 # This function purely outputs a graph to the 
 # output folder of a list of selected species and a CSV of concentrations. 
 # If the species do not exist in the run then a key error will cause it to fail
-output_graph = 1 #1 for yes, 0 for no
+output_graph = True #Boolean
 output_species = ['O3',"O3OUT"]
 
 
