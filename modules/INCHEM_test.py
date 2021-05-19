@@ -125,10 +125,16 @@ test intial_dictionaries module
 '''       
 from initial_dictionaries import initial_conditions, master_calc, \
     write_jacobian_build, INCHEM_species_calc
+import pandas
+from packaging import version
  
 class TestInitial(unittest.TestCase):
     
+    @unittest.skipIf(version.parse(pandas.__version__) < version.parse('1.1.0'),
+                     "Test requires pandas > v1.1.0, this does not impact\
+                         INCHEM-Py function.")    
     def test_initial_conditions_infile(self):
+                         
         filename = "test_files/initial_test.txt"
         species = ['species1','species2','species3','species4','HONO']
         rate_numba = [["rate1","2*numba_exp(4)"],["rate2","20"]]
@@ -235,4 +241,4 @@ class TestOutdoor(unittest.TestCase):
                         "not all species from test present in dictionary") 
         
 if __name__ == '__main__':
-    unittest.main()   
+    unittest.main()
