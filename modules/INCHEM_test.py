@@ -31,7 +31,7 @@ import numpy as np
 '''
 testing the Import module
 '''
-from Import import custom_import, speciesin, rate_coeff, ppool_in,\
+from inchem_import import custom_import, speciesin, rate_coeff, ppool_in,\
     reactionslist, numba_rate, numba_reactions, import_all
 
 class TestImport(unittest.TestCase):
@@ -210,13 +210,13 @@ class TestInitial(unittest.TestCase):
         write_jacobian_build(master_array_dict,species,output_folder,path)
         with open("test_files/Jacobian.py") as created_file:
             created_str = created_file.read().replace('\n', '')
-        with open("test_files/Jacobian_test.txt") as test_file:
+        with open("test_files/jacobian_test.txt") as test_file:
             test_str = test_file.read().replace('\n', '')
         self.assertMultiLineEqual(created_str, test_str, "files are not the same")
         os.remove("test_files/Jacobian.py") #clean up
     
     def test_INCHEM_species_calc(self):
-        from test_files.INCHEM_test import INCHEM_reactions
+        from test_files.chemistry_test import INCHEM_reactions
         species = ["species1","OH","NO"]
         INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
         self.assertFalse(any(item in species for item in INCHEM_species),\

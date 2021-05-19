@@ -140,7 +140,7 @@ output_species = ['O3',"O3OUT"]
 Run the simulation
 """
 if __name__ == "__main__":
-    from modules.INCHEM_main import run_inchem
+    from modules.inchem_main import run_inchem
     run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidity,
                M, const_dict, AER, diurnal, city, date, lat, light_type, 
                light_on_times, glass, HMIX, initials_from_run,

@@ -35,7 +35,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     '''
     import sys
     import pickle
-    from modules.Import import import_all, custom_import 
+    from modules.inchem_import import import_all, custom_import 
     from modules.particle_input import particle_import, particle_calcs, reactions_check
     from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
     from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
@@ -600,7 +600,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     INCHEM reactions and rates that are not included in MCM download.
     '''    
     if INCHEM_additional == True:
-        from modules.INCHEM_Additional import INCHEM_RO2, INCHEM_reactions, \
+        from modules.inchem_chemistry import INCHEM_RO2, INCHEM_reactions, \
             INCHEM_rates, INCHEM_sums
         INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
         species = species + INCHEM_species
