@@ -129,11 +129,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         returns:
             RO2 = summed peroxy radical species
         '''
-        ppool_new=np.zeros([len(ppool)]).tolist()
-        for i in range(len(ppool)):
-            ppool_new[i]=eval(ppool[i],{},density_dict)
-        
-        RO2=sum(ppool_new)
+        RO2 = 0.
+        for p in ppool:
+            RO2 += eval(p,{},density_dict)
         return RO2
     
     
@@ -282,9 +280,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
                         outdoor_dict,surface_dict,species,timed_dict)
         
         #output the new concentration values
-        dy=np.zeros([num_species])
-        for i in range(num_species):
-            dy[i]=dy_dict[species[i]]
+        dy = [dy_dict[i] for i in species]
         return dy
     
     

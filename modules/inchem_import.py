@@ -59,8 +59,8 @@ def speciesin(filename):
     
     del species_in
     
-    for i in range(len(species)):
-        species[i]=species[i].rstrip()
+    species = [i.rstrip() for i in species]
+    
     return species
 
 
