@@ -749,12 +749,15 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         for specie in species:
             timed_dict["%s_timed" % specie] = 0
         for key in timed_inputs:
-            for i in timed_inputs[key]:
-                if i[0] <= t0 <= i[1]:
-                    timed_dict["%s_timed" % key] = i[2]
-                    break
-                else:
-                    timed_dict["%s_timed" % key] = 0
+            if key in species:
+                for i in timed_inputs[key]:
+                    if i[0] <= t0 <= i[1]:
+                        timed_dict["%s_timed" % key] = i[2]
+                        break
+                    else:
+                        timed_dict["%s_timed" % key] = 0
+            else:
+                print('%s not found in species list (timed input)' % key)
     
     '''
     importing initial concentrations
