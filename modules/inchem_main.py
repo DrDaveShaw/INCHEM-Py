@@ -899,7 +899,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     #saves times for integrating each time step to a csv, useful for
     #analysing slow points in the system
     integration_times.to_csv("%s/%s/integration_times.csv" % (path,output_folder))
-        
+    print('Output saved')
     if output_graph == True:
         # creates and saves a simple graph of the set species from settings
         import matplotlib.pyplot as plt
@@ -917,10 +917,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         plt.xlabel("Time of day (hours)")
         plt.ylabel("Concentration (molecules/cm\N{SUPERSCRIPT THREE})")
         plt.savefig('%s/%s/graph.png' % (path,output_folder), bbox_inches='tight')
-        plt.show()
-        
+
         # additionally saves a csv of these set species for easy analysis
         output_data.to_csv("%s/%s/output.csv" % (path,output_folder), columns = output_species)
-    
-    print('Output saved')
+
+        plt.show()
+
     return None
+
