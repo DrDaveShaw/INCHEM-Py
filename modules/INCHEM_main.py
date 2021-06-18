@@ -586,6 +586,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         custom_filename="custom_input.txt"
         custom_rates, custom_reactions, custom_species, custom_RO2, sums = \
             custom_import(custom_filename,species)
+        # Check that rates/constants/RO2 have not been added as species
+        custom_species = [item for item in custom_species
+                          if item not in (['RO2'] + list(calc_dict.keys()) +
+                                          [name[0] for name in rate_numba])]
         species = species + custom_species
         rate_numba = rate_numba + custom_rates
         reactions_numba = reactions_numba + custom_reactions
