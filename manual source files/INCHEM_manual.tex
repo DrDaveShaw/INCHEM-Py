@@ -356,16 +356,16 @@ The day of the simulation in the format "DD-MM-YYYY" as a string. The model will
 The latitude of the simulation location.
 
 \index{light\_type}\marginlabel{light\_type}
-\texttt{"Incand", "Halogen", "LED", "CFL", "UFT", "CFT", or "FT"}\\
-The type of indoor lighting used within the simulation as a string. Incand for incandescent, Halogen for halogen, LED for light emitting diodes, CFL for compact fluorescent lighting, UFT for uncovered fluorescent tubes, CFT for covered fluorescent tubes, and FT for fluorescent tubes. The values used for these are included in the photolysis.py \seealso{\hyperref[photolysis.py]{photolysis.py}} module and are taken from work done by Wang and Carslaw (2021) \cite{Wang2021}.
+\texttt{"Incand", "Halogen", "LED", "CFL", "UFT", "CFT", "FT", or "off"}\\
+The type of indoor lighting used within the simulation as a string. Incand for incandescent, Halogen for halogen, LED for light emitting diodes, CFL for compact fluorescent lighting, UFT for uncovered fluorescent tubes, CFT for covered fluorescent tubes, and FT for fluorescent tubes. The values used for these are included in the photolysis.py \seealso{\hyperref[photolysis.py]{photolysis.py}} module and are taken from work done by Wang and Carslaw (2021) \cite{Wang2021}. "off" sets the attenuation factors of indoor lights to 0 and therefore removes indoor lighting from the simulation.
 
 \index{light\_on\_times}\marginlabel{light\_on\_times}
 \texttt{[[light on time (h), light off time (h)],[light on time (h), light off time (h)]]}\\
 A list of times at which the indoor lights are turned on and turned off. These times are in hours from 00:00 on the first day of the simulation. E.g. an input of 7 would be 7 AM on the first day and an input of 31 would be 7 AM on the second day. These are irrespective of the time at which the simulation starts, if the simulation is set to start at 8 am and the lights are set to come on at 7 AM, then the simulation would start with the lights on. Decimals can be used to fine tune the times, e.g. 7.5 as an input would equate to 7:30 AM on the first day.
 
 \index{glass}\marginlabel{glass}
-\texttt{"glass\_C", "low\_emissivity", or "low\_emissivity\_film"}\\
-Type of window glass used for the attenuation of outdoor light by wavelength range as a string. The values are given in the photolysis.py module \seealso{\hyperref[photolysis.py]{photolysis.py}} and are based on the paper by Blocquet et al., (2018) \cite{Blocquet2018}.
+\texttt{"glass\_C", "low\_emissivity", "low\_emissivity\_film", or "no\_sunlight"}\\
+Type of window glass used for the attenuation of outdoor light by wavelength range as a string. The values are given in the photolysis.py module \seealso{\hyperref[photolysis.py]{photolysis.py}} and are based on the paper by Blocquet et al., (2018) \cite{Blocquet2018}. "no\_sunlight" sets all window attenuation factors to 0 and therefore no light enters from outdoors.
 
 \index{HMIX}\marginlabel{HMIX}
 \texttt{0.02}\\

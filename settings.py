@@ -66,10 +66,12 @@ Photolysis
 """
 date = "21-06-2020"  # day of simulation in format "DD-MM-YYYY"
 lat = 45.4         # Latitude of simulation location
-light_type="Incand"  # Can be "Incand", "Halogen", "LED", "CFL", "UFT", "CFT", or "FT"
+light_type="Incand"  # Can be "Incand", "Halogen", "LED", "CFL", "UFT", "CFT", "FT", or "off"
+#"off" sets all light attenuation factors to 0 and therefore no indoor lighting is present.
 light_on_times=[[7,19],[31,43],[55,67],[79,91]] 
 #[[light on time (hours), light off time (hours)],[light on time (hours),light_off_time (hours)],...]
-glass="glass_C" # Can be "glass_C", "low_emissivity", or "low_emissivity_film" 
+glass="glass_C" # Can be "glass_C", "low_emissivity", "low_emissivity_film", or "no_sunlight".
+#"no_sunlight" sets all window attenuation factors to 0 and therefore no light enters from outdoors.
 
 
 """
