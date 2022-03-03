@@ -81,7 +81,7 @@ Surface deposition
 # To change any surface deposition rates of individual species, or to add species
 # this file must be edited. Production rates can be added as normal reactions
 # in the custom inputs file. To remove surface deposition HMIX can be set to 0.
-# HMIX is the surface to volume ratio
+# HMIX is the surface to volume ratio (cm^-1)
 HMIX = 0.02 #0.01776
 
 
