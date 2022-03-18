@@ -109,7 +109,7 @@ timed_emissions = False # is there a species, or set of species that has a force
 # at a specific point in time during the integration? If so then this needs to be set to True
 # and the dictionary called timed_inputs (below) needs to be populated
 
-# When using timed emissions it's important that the start time and end times are divisible by dt
+# When using timed emissions it's suggested that the start time and end times are divisible by dt
 # and that (start time - end time) is larger then 2*dt to avoid the integrator skipping any 
 # emissions over small periods of time.
 
