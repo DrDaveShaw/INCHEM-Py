@@ -109,6 +109,10 @@ timed_emissions = False # is there a species, or set of species that has a force
 # at a specific point in time during the integration? If so then this needs to be set to True
 # and the dictionary called timed_inputs (below) needs to be populated
 
+# When using timed emissions it's important that the start time and end times are divisible by dt
+# and that (start time - end time) is larger then 2*dt to avoid the integrator skipping any 
+# emissions over small periods of time.
+
 # the dictionary should be populated as
 # timed_inputs = {species1:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]],
 #                 species2:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]]}
@@ -120,6 +124,7 @@ timed_inputs = {"LIMONENE":[[36720,37320,5e8],[37600,38000,5e8]],
 Integration
 """
 dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
+                                # also used as max_step for the scipy.integrate.ode integrator
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
 seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 will run 3 days)
 
