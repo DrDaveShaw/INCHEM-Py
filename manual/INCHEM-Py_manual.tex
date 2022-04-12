@@ -251,19 +251,31 @@ The following files show the folder structure of INCHEM-Py after extraction. If 
 \dirtree{%
  .1 /.
  .2 INCHEM-Py/.
- .3 manual source files/.
+ .3 joss/.
+ .4 paper.bib.
+ .4 paper.md.
+ .3 logo/.
+ .4 INCHEMPY\_logo.png.
+ .4 INCHEMPY\_logo.svg.
+ .3 manual/.
+ .4 INCHEM-Py\_manual.pdf.
+ .4 INCHEM-Py\_manual.tex.
+ .4 references.bib.
+ .4 *.png.
+ .4 pagepc.sty, refman.*.
  .3 modules/.
  .4 test\_files/.
+ .5 chemistry\_test.py.
  .5 custom\_input\_test.txt.
+ .5 default\_output.csv.
  .5 in\_data.pickle.
- .5 inchem\_test.py.
  .5 initial\_test.txt.
- .5 jacobian\_test.txt.
+ .5 Jacobian\_test.txt.
  .5 mcm\_parse\_test.fac.
+ .4 inchem\_chemistry.py.
  .4 inchem\_import.py.
  .4 inchem\_main.py.
  .4 inchem\_test.py.
- .4 inchem\_chemistry.py.
  .4 initial\_dictionaries.py.
  .4 outdoor\_concentrations.py.
  .4 particle\_input.py.
@@ -271,9 +283,7 @@ The following files show the folder structure of INCHEM-Py after extraction. If 
  .4 reactivity.py.
  .4 surface\_dictionary.py.
  .3 custom\_input.txt.
- .3 inchem\_extractor.py.
- .3 INCHEMPY\_logo.png.
- .3 INCHEMPY\_logo.svg.
+ .3 INCHEM\_extractor.py.
  .3 initial\_concentrations.txt.
  .3 LICENSE.
  .3 mcm\_v331.fac.
@@ -460,7 +470,7 @@ To add summations of species that are to be used in custom scenarios in this fil
 where the word \texttt{sum} is used by the model to parse this line as a summation.
 
 \subsection{initial\_concentrations.txt (optional)}\label{initial_concentrations.txt}
-The file setting the starting concentrations of species within the model when initials\_from\_run is used and is set to 0. The name of this file must match the name given in settings.py for initial\_conditions\_gas. This text file is a list of species and their concentrations in molecules cm$^{-3}$. The format of the list is
+The file setting the starting concentrations of species within the model when initials\_from\_run is set to \texttt{FALSE}. The name of this file must match the name given in settings.py for initial\_conditions\_gas. This text file is a list of species and their concentrations in molecules cm$^{-3}$. The format of the list is
 \begin{verbatim}
     species = concentration ;
     species2 = concentration ;
