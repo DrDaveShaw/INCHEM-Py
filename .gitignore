@@ -3,3 +3,12 @@ tmp*
 extracted_outputs
 __pycache__/
 *.backup
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.log
+*.out
+*.toc
+*.xml
