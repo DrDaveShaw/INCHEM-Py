@@ -1,8 +1,9 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 INCHEM and INCHEM-Py Additional reactions maintained by Shaw and Carslaw.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -22,7 +23,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
-'''
+"""
 
 #RO2 to add to summation
 INCHEM_RO2 = ["LINALAO2","LINALBO2","C7H15CO3","C8H17CO3","C9H19CO3","CH3CHOHO2"
@@ -275,8 +276,8 @@ INCHEM_reactions=[
 #additional surface transformation
 ["4.83E-3*HMIX","NO2=HONO"],
 
-# new chemistry for lactic acid + OH                                  
-#     - based on 3-hydroxy propanoic acid + OH (MCM)                  
+# new chemistry for lactic acid + OH
+#     - based on 3-hydroxy propanoic acid + OH (MCM)
 #     - lactic acid = 2-hydroxy propanoic acid
 ["1.39e-11","OH+CH3CHOHCO2H=CH3CHOHO2"],
 ["1.53e-13*numba_exp(1300/temp)","CH3CHOHO2+HO2=HY2ETHO2H"],
@@ -294,16 +295,16 @@ INCHEM_reactions=[
 ["KROPRIM*O2","CH3CHOHO=HO2+CH3CO2H"],
 ["1.45e-11","ETH2OH+OH=CH3CO2H+HO2"],
 
-# CL reaction scheme to be incorporated to the MCM framework          
-# Code compiled by Drs Likun Xue and Sam Saunders                     
+# CL reaction scheme to be incorporated to the MCM framework
+# Code compiled by Drs Likun Xue and Sam Saunders
 
-# Inorganic reactions                                                 
-# All of the kinetic data are taken from the IUPAC summary created    
-# on 01 March 2010                                                    
-# The outdoor photolysis frequencies are scaled to JNO2 based on the  
-# TUV model calculations for Hong Kong                                
+# Inorganic reactions
+# All of the kinetic data are taken from the IUPAC summary created
+# on 01 March 2010
+# The outdoor photolysis frequencies are scaled to JNO2 based on the
+# TUV model calculations for Hong Kong
 
-# top three reactions relate to mopping event 
+# top three reactions relate to mopping event
 ["1.7e-12*numba_exp(-230/temp)","HCL+OH=CL"],
 ["J70","CL2=CL+CL"],
 ["J71","CLNO2=NO2+CL"],
@@ -328,7 +329,7 @@ INCHEM_reactions=[
 ["J77","CLOOCL=CLOO+CL"],
 ["J78","CLOOCL=CLO+CLO"],
 
-# Heterogeneous Processes 
+# Heterogeneous Processes
 # Heterogeneous reactions of NO3 and N2O5
 ["KNO3","NO3="],
 ["KN2O5*0.90","N2O5=NA+NA"],
@@ -337,14 +338,14 @@ INCHEM_reactions=[
 ["KCLNO3","CLONO2=CL2+HNO3"],
 ["KHOCL","HOCL=CL2"],
 
-# Organic reactions                                                  
-# Reactions of CL + OVOCs                                            
-# H abstraction pathway dominates with the products already existing 
-# in the MCM                                                                                                                             
-# Reactions of CL + Aldehydes                                        
-# Kinetic data from IUPAC for HCHO, CH3CHO AND C2H5CHO               
-# Average ratio of kcl/koh for CH3CHO AND C2H5CHO is used for        
-# other species                                                      
+# Organic reactions
+# Reactions of CL + OVOCs
+# H abstraction pathway dominates with the products already existing
+# in the MCM
+# Reactions of CL + Aldehydes
+# Kinetic data from IUPAC for HCHO, CH3CHO AND C2H5CHO
+# Average ratio of kcl/koh for CH3CHO AND C2H5CHO is used for
+# other species
 ["8.1e-11*numba_exp(-34/temp)","HCHO+CL=HCL+HO2+CO"],
 ["8.0e-11*0.99","CL+CH3CHO=CH3CO3+HCL"],
 ["8.0e-11*0.01","CL+CH3CHO=HCOCH2O2+HCL"],
@@ -375,10 +376,10 @@ INCHEM_reactions=[
 # Hence, 55MACR is assigned to the lumped species OLEFIN, see later
 # 6.08*8.0e-12*numba_exp(380/temp)*0.45 "," CL + MACR = MACO3 + HCL
 
-# Reactions of CL + Ketones 
-# Kinetic data from IUPAC for CH3COCH3 AND MEK 
+# Reactions of CL + Ketones
+# Kinetic data from IUPAC for CH3COCH3 AND MEK
 # Average ratio of kcl/koh for CH3COCH3 AND MEK is used for
-# other species 
+# other species
 ["1.5e-11*numba_exp(-590/temp)","CH3COCH3+CL=CH3COCH2O2+HCL"],
 ["3.05e-11*numba_exp(80/temp)*0.459","MEK+CL=MEKAO2+HCL"],
 ["3.05e-11*numba_exp(80/temp)*0.462","MEK+CL=MEKBO2+HCL"],
@@ -406,8 +407,8 @@ INCHEM_reactions=[
 # In MCM, OH oxidation of MVK takes place by addition of OH to
 # double bond
 # Hence, MVK is assigned to the lumped species OLEFIN, see later
-                                                                 
-# Reactions of CL + Alcohols 
+
+# Reactions of CL + Alcohols
 # Kinetic data from IUPAC for CH3OH, C2H5OH, C3H7OH AND NC4H90H
 # Average ratio of kcl/koh for IC3H7OH is used for other species
 ["7.1e-11*numba_exp(-75/temp)","CH3OH+CL=HO2+HCHO+HCL"],
@@ -456,8 +457,8 @@ INCHEM_reactions=[
 # The mechanism is adopted from SAPRC
 ["6.2e-11","CRESOL+CL=OXYL1O2+HCL"],
 
-#Reactions of CL + selected organic acids and nitrates 
-#Kinetic data from IUPAC 
+#Reactions of CL + selected organic acids and nitrates
+#Kinetic data from IUPAC
 ["5.9e-11*0.6","CL+CH3OOH=CH3O2+HCL"],
 ["5.9e-11*0.4","CL+CH3OOH=HCHO+OH+HCL"],
 ["1.9e-13","HCOOH+CL=HO2+HCL"],
@@ -468,14 +469,14 @@ INCHEM_reactions=[
 ["2.2e-11","CL+NC3H7NO3=C2H5CHO+NO2+HCL"],
 ["3.8e-12","CL+IC3H7NO3=CH3COCH3+NO2+HCL"],
 ["8.5e-11","CL+NC4H9NO3=C3H7CHO+NO2+HCL"],
-                                                                   
-# Reactions of CL + Aromatics 
-# Kinetic data from Shi and Bernhard 1997 for toluene and oXylene 
+
+# Reactions of CL + Aromatics
+# Kinetic data from Shi and Bernhard 1997 for toluene and oXylene
 # Average ratio of kcl/koh for toluene and oXylene is used for
 # the other species
 # Addition of Cl to aromatic ring is very slow, about 100 folder
 # slower than addition of OH to the aromatic ring, thus only H abstraction
-# pathway was considered here 
+# pathway was considered here
 ["5.9e-11","TOLUENE+CL=C6H5CH2O2+HCL"],
 ["1.5e-10","OXYL+CL=OXYLO2+HCL"],
 ["185.0*2.31e-11*0.04","MXYL+CL=MXYLO2+HCL"],
@@ -488,19 +489,19 @@ INCHEM_reactions=[
 ["185.0*5.67e-11*0.03","TM135B+CL=TMBO2+HCL"],
 ["185.0*1.19e-11*0.05","OETHTOL+CL=ETOLO2+HCL"],
 ["185.0*1.86e-11*0.04","METHTOL+CL=ETOLO2+HCL"],
-["185.0*1.18e-11*0.10","PETHTOL+CL=ETOLO2+HCL"], 
-                                                                   
-# Reactions of CL + Alkenes 
-# Addition of CL to the double bond dominates 
+["185.0*1.18e-11*0.10","PETHTOL+CL=ETOLO2+HCL"],
 
-# Reaction of CL + C2H4 
-# Kinetic data from IUPAC 
-# Product CH2CLCH2O2 already exists in the MCM 
+# Reactions of CL + Alkenes
+# Addition of CL to the double bond dominates
+
+# Reaction of CL + C2H4
+# Kinetic data from IUPAC
+# Product CH2CLCH2O2 already exists in the MCM
 ["1.0e-10","C2H4+CL=CH2CLCH2O2"],
 
-# Reaction of CL + C3H6 
+# Reaction of CL + C3H6
 # Reaction scheme from Riedel et al., ACP, 2014 with Kinetic data
-# from IUPAC 
+# from IUPAC
 ["2.7e-10*0.10","C3H6+CL=C3H5O2+HCL"],
 ["2.7e-10*0.50","C3H6+CL=IPROCLO2"],
 ["2.7e-10*0.40","C3H6+CL=HYPROCLO2"],
@@ -523,14 +524,14 @@ INCHEM_reactions=[
 ["KRO2NO3","IPROCLO2+NO3=CH3CHCLCHO+NO2+HO2"],
 ["2.00e-12*0.6*RO2","IPROCLO2=CH3CHCLCHO+HO2"],
 ["2.00e-12*0.4*RO2","IPROCLO2="],
-# Simplification -  further reactions of IPROCLO2H not considered 
+# Simplification -  further reactions of IPROCLO2H not considered
 
-# Reactions of CH3CHCLCHO 
+# Reactions of CH3CHCLCHO
 ["KNO3AL*2.4","CH3CHCLCHO+NO3=CH3CHCLCO3+HNO3"],
 ["1.7e-11","CH3CHCLCHO+OH=CH3CHCLCO3"],
-["J17","CH3CHCLCHO=CH3CHCLO2+HO2+CO"], 
-# Product CH3CHCLO2 already exsited in the MCM 
-# Reactions of CH3CHCLCO3 
+["J17","CH3CHCLCHO=CH3CHCLO2+HO2+CO"],
+# Product CH3CHCLO2 already exsited in the MCM
+# Reactions of CH3CHCLCO3
 ["KAPHO2*0.44","CH3CHCLCO3+HO2=CH3CHCLO2+OH"],
 ["KAPHO2*0.41","CH3CHCLCO3+HO2=IPROCLPER"],
 ["KAPHO2*0.15","CH3CHCLCO3+HO2=C2H4CLCO2H+O3"],
@@ -538,7 +539,7 @@ INCHEM_reactions=[
 ["KFPAN","CH3CHCLCO3+NO2=IPROCLPAN"],
 ["KRO2NO3*1.74","CH3CHCLCO3+NO3=CH3CHCLO2+NO2"],
 ["1.00e-11*RO2*0.70","CH3CHCLCO3=CH3CHCLO2"],
-["1.00e-11*RO2*0.30","CH3CHCLCO3=C2H4CLCO2H"], 
+["1.00e-11*RO2*0.30","CH3CHCLCO3=C2H4CLCO2H"],
 
 ["9.34e-12","IPROCLPER+OH=CH3CHCLCO3"],
 ["J41","IPROCLPER=CH3CHCLO2+OH"],
@@ -546,7 +547,7 @@ INCHEM_reactions=[
 ["1.2e-12","C2H4CLCO2H+OH=CH3CHCLO2"],
 
 ["2.34e-12","IPROCLPAN+OH=CLETAL+CO+NO2"],
-["KBPAN","IPROCLPAN=CH3CHCLCO3+NO2"], 
+["KBPAN","IPROCLPAN=CH3CHCLCO3+NO2"],
 # Product CLETAL already exists in the MCM
 
 # Reactions of HYPROCLO2
@@ -558,26 +559,26 @@ INCHEM_reactions=[
 ["KRO2NO3","HYPROCLO2+NO3=CH3CHCLCHO+NO2+HO2"],
 ["8.80e-13*0.6*RO2","HYPROCLO2=CH3CHCLCHO+HO2"],
 ["8.80e-13*0.4*RO2","HYPROCLO2="],
-# Simplification - further reactions of products not considered 
-["KRO2NO","NO+HYPROCLO2=CH3CHCLCHO+NO2+HO2"], 
+# Simplification - further reactions of products not considered
+["KRO2NO","NO+HYPROCLO2=CH3CHCLCHO+NO2+HO2"],
 # Assuming unit conversion of NO to NO2
 # Simplification - assuming the same reactions of CH3CHCLCHO
 # to those of ACETCL
 
 # Reactions of CL + other alkenes
-# Given the complexity, a lump method is adopted here 
+# Given the complexity, a lump method is adopted here
 # Define a new parameter OLEFIN that is the sum of all primary alkenes
 # other than ethene and propene, styrene, MVK and 0.55#MACR
 #
 # OLEFIN reacts with CL by adding CL to the double bond, producing
-# OLECLO2 
-# OLECLO2 further reacts with NO, NO3, HO2, RO2 to produce OLECLCHO 
-# OLECLCHO reacts with OH and NO3 to produce OLECLCO3 
+# OLECLO2
+# OLECLO2 further reacts with NO, NO3, HO2, RO2 to produce OLECLCHO
+# OLECLCHO reacts with OH and NO3 to produce OLECLCO3
 # OLECLCO3 then reacts with NO, NO3, HO2, RO2 to produce OVOCs that
-# are not further considered 
+# are not further considered
 #
 # Reaction rate of CL + OLEFIN is assumed to be 20 fold that
-# of OH + OLEFIN, based on the CB-IV protocol 
+# of OH + OLEFIN, based on the CB-IV protocol
 # Reaction rate of OH + OLEFIN is calculated as the average of those
 # for the 15 alkenes
 #
@@ -589,7 +590,7 @@ INCHEM_reactions=[
 ["KRO2NO3","OLECLO2+NO3=OLECLCHO+NO2+HO2"],
 ["2.00e-12*0.6*RO2","OLECLO2=OLECLCHO+HO2"],
 ["2.00e-12*0.4*RO2","OLECLO2="],
-# Simplification -further reactions of products not considered 
+# Simplification -further reactions of products not considered
 ["KNO3AL*5.5","OLECLCHO+NO3=OLECLCO3+HNO3"],
 ["6.34e-12*numba_exp(448/temp)","OLECLCHO+OH=OLECLCO3"],
 ["J15","OLECLCHO=OLECLO2+HO2+CO"],
@@ -605,9 +606,9 @@ INCHEM_reactions=[
 # Reaction of CL + C5H8
 # Reactions of CL + C5H8 are very complex and remain unclear, thus
 # the very simplified scheme from the CB-IV mechanism is adopted here,
-# to mainly represent the enhancement in ozone production 
+# to mainly represent the enhancement in ozone production
 # The reaction rate of CL + C5H8 is 4.75 fold that of OH + C5H8,
-# based on the CB-IV 
+# based on the CB-IV
 #
 ["4.75*2.7e-11*numba_exp(390/temp)","C5H8+CL=ISOCLO2"],
 ["KRO2NO","ISOCLO2+NO=ISOCLO+NO2"],
@@ -616,6 +617,6 @@ INCHEM_reactions=[
 #
 # Reaction of CL with acetylene
 # The mechanism is taken from SAPRC
-["4.97e-11","C2H2+CL=CHOCL+CO+HO2"] 
+["4.97e-11","C2H2+CL=CHOCL+CO+HO2"]
 # CHANGED PRODUCT CLCHO TO CHOCL AS ALREADY IN MCM
 ]

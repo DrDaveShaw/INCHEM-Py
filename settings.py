@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-User set variable input file for INCHEM-Py. 
+User set variable input file for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -68,7 +68,7 @@ date = "21-06-2020"  # day of simulation in format "DD-MM-YYYY"
 lat = 45.4         # Latitude of simulation location
 light_type="Incand"  # Can be "Incand", "Halogen", "LED", "CFL", "UFT", "CFT", "FT", or "off"
 #"off" sets all light attenuation factors to 0 and therefore no indoor lighting is present.
-light_on_times=[[7,19],[31,43],[55,67],[79,91]] 
+light_on_times=[[7,19],[31,43],[55,67],[79,91]]
 #[[light on time (hours), light off time (hours)],[light on time (hours),light_off_time (hours)],...]
 glass="glass_C" # Can be "glass_C", "low_emissivity", "low_emissivity_film", or "no_sunlight".
 #"no_sunlight" sets all window attenuation factors to 0 and therefore no light enters from outdoors.
@@ -89,10 +89,10 @@ HMIX = 0.02 #0.01776
 Initial concentrations in molecules/cm^3 saved in a text file
 """
 initials_from_run = False
-# initial gas concentrations can be taken from a previous run of the model. 
+# initial gas concentrations can be taken from a previous run of the model.
 # Set initials_from_run to True if this is the case and move a previous out_data.pickle
 # to the main folder and rename to in_data.pickle. The code will then take this
-# file and extract the concentrations from the time point closest to t0 as 
+# file and extract the concentrations from the time point closest to t0 as
 # initial conditions.
 
 # in_data.pickle must contain all of the species required, including particles if used.
@@ -110,7 +110,7 @@ timed_emissions = False # is there a species, or set of species that has a force
 # and the dictionary called timed_inputs (below) needs to be populated
 
 # When using timed emissions it's suggested that the start time and end times are divisible by dt
-# and that (start time - end time) is larger then 2*dt to avoid the integrator skipping any 
+# and that (start time - end time) is larger then 2*dt to avoid the integrator skipping any
 # emissions over small periods of time.
 
 # the dictionary should be populated as
@@ -123,7 +123,7 @@ timed_inputs = {"LIMONENE":[[36720,37320,5e8],[37600,38000,5e8]],
 """
 Integration
 """
-dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
+dt = 120                        # Time between outputs (s), simulation may fail if this is too large
                                 # also used as max_step for the scipy.integrate.ode integrator
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
 seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 will run 3 days)
@@ -133,11 +133,11 @@ seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 
 Output
 """
 # An output pickle file is automatically saved so that all data can be recovered
-# at a later date for analysis. 
+# at a later date for analysis.
 custom_name = "Bergen_urban"
 
-# This function purely outputs a graph to the 
-# output folder of a list of selected species and a CSV of concentrations. 
+# This function purely outputs a graph to the
+# output folder of a list of selected species and a CSV of concentrations.
 # If the species do not exist in the run then a key error will cause it to fail
 output_graph = True #Boolean
 output_species = ['O3',"O3OUT"]
@@ -149,7 +149,7 @@ Run the simulation
 if __name__ == "__main__":
     from modules.inchem_main import run_inchem
     run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidity,
-               M, const_dict, AER, diurnal, city, date, lat, light_type, 
+               M, const_dict, AER, diurnal, city, date, lat, light_type,
                light_on_times, glass, HMIX, initials_from_run,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species)

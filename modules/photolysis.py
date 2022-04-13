@@ -1,8 +1,9 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 Photolysis coefficients and calculations for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -22,80 +23,80 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
-'''
+"""
 
 """
-J1	O3 O(1D)
-J2	O3 O(3P)
-J3	H2O2
-J4	NO2
-J5	NO3 (NO + O2)
-J6	NO3( NO2 + O(3P))
-J7	HONO
-J8	HNO3(OH)
-J11	HCHO(H+HCO)
-J12	HCHO(H2+CO)
-J13	CH3CHO(CH3 + HCO)
-J14	C2H5CHO
-J15	C3H7CHO(n-C3H7 + HCO)
-J16	C3H7CHO(C2H4 + CH2CHOH)
-J17	IPRCHO(n-C4H9 + HCO)
-J18	MACR (CH2=CCH3+HCO
-J19	MACR (CH2C(CH3)CO+H
-J20	C5HPALD1
-J21	CH3C(O)CH3
-J22	MEK (CH3CO+C2H5)
-J23	MVK(CH3CH=CH2 + CO)
-J24	MVK(CH3CO + CH2=CH)
-J31	GLYOX(CO + CO + H2)
-J32	GLYOX(HCHO + CO)
-J33	GLYOX(HCO + HCO)
-J34	MGLYOX
-J35	BIACET
-J41	CH3OOH
-J51	CH3ONO2
-J52	C2H5ONO2
-J53	n-C3H7ONO2
-J54	i-C3H7ONO2
-J55	TC4H9NO3
-J56	NOA
-J57	route 2 NOA
-J70	CL2
-J71	ClNO2
-J72	ClONO2 = NO3
-J73	ClONO2 = NO2
-J74	HOCl
-J75	OClO
-J76	ClO
-J77	ClOOCl = Cl
-J78	ClOOCl = ClO
+J1      O3 O(1D)
+J2      O3 O(3P)
+J3      H2O2
+J4      NO2
+J5      NO3 (NO + O2)
+J6      NO3( NO2 + O(3P))
+J7      HONO
+J8      HNO3(OH)
+J11     HCHO(H+HCO)
+J12     HCHO(H2+CO)
+J13     CH3CHO(CH3 + HCO)
+J14     C2H5CHO
+J15     C3H7CHO(n-C3H7 + HCO)
+J16     C3H7CHO(C2H4 + CH2CHOH)
+J17     IPRCHO(n-C4H9 + HCO)
+J18     MACR (CH2=CCH3+HCO
+J19     MACR (CH2C(CH3)CO+H
+J20     C5HPALD1
+J21     CH3C(O)CH3
+J22     MEK (CH3CO+C2H5)
+J23     MVK(CH3CH=CH2 + CO)
+J24     MVK(CH3CO + CH2=CH)
+J31     GLYOX(CO + CO + H2)
+J32     GLYOX(HCHO + CO)
+J33     GLYOX(HCO + HCO)
+J34     MGLYOX
+J35     BIACET
+J41     CH3OOH
+J51     CH3ONO2
+J52     C2H5ONO2
+J53     n-C3H7ONO2
+J54     i-C3H7ONO2
+J55     TC4H9NO3
+J56     NOA
+J57     route 2 NOA
+J70     CL2
+J71     ClNO2
+J72     ClONO2 = NO3
+J73     ClONO2 = NO2
+J74     HOCl
+J75     OClO
+J76     ClO
+J77     ClOOCl = Cl
+J78     ClOOCl = ClO
 """
 
 def photolysis_J(indoor_photo,photo_dict,J_dict):
     '''
     Function for evaluating compiled photolysis equations
-    
+
     inputs:
         indoor_photo = dictionary of attenuation values for specific light
                        sources and window glass types
         photo_dict = dictionary of compiled photolysis equations
         J_dict = dictionary of photolysis values for calculating photolysis reactions
     '''
-    
+
     for i in photo_dict:
-        J_dict[i]=(eval(photo_dict[i],{},indoor_photo))  
-            
+        J_dict[i]=(eval(photo_dict[i],{},indoor_photo))
+
     return None
 
 def Zixu_photolysis(numba_abs,numba_exp):
     '''
     Attenuation values for photolysis 1m from a window. Details in Wang 2020.
     https://doi.org/10.1111/ina.12702
-    
+
     inputs:
         numba_abs = numba absolute function
         numba_exp = numba exponential function
-    
+
     returns:
         light_dict = dictionary of attenuation factors for varying light sources
                      and window glass types
@@ -453,11 +454,11 @@ def Zixu_photolysis(numba_abs,numba_exp):
                       "JIN76":0,
                       "JIN77":0,
                       "JIN78":0}
-    
+
     for key in light_dict:
         light_dict[key]['numba_abs']=numba_abs
         light_dict[key]['numba_exp']=numba_exp
-         
+
     light_dict["glass_C"]= {"ATTJ1":0.0030,
                             "ATTJ2":0.1666,
                             "ATTJ3":0.0593,
@@ -636,10 +637,10 @@ def Zixu_photolysis(numba_abs,numba_exp):
                                 "ATTJ78":0}
     return light_dict
 
-def Zixu_photolysis_compiled():   
+def Zixu_photolysis_compiled():
     '''
     Function to compile photolysis equations
-    
+
     returns:
         photo_dict = dictionary of compiled photolysis equations
     '''

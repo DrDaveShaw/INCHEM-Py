@@ -1,8 +1,8 @@
 #*****************************************************************************
-#User set chemical mechanism input file for INCHEM-Py. 
+#User set chemical mechanism input file for INCHEM-Py.
 #A detailed description of this file can be found within the user manual.
 #
-#Copyright (C) 2019-2021 
+#Copyright (C) 2019-2021
 #David Shaw : david.shaw@york.ac.uk
 #Nicola Carslaw : nicola.carslaw@york.ac.uk
 #
@@ -23,13 +23,13 @@
 #You should have received a copy of the GNU General Public License
 #along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 #*****************************************************************************
-# Custom reaction input file. All lines that are not rate coefficients or 
-# reactions must start with a hash (#) and thus be commented out. 
+# Custom reaction input file. All lines that are not rate coefficients or
+# reactions must start with a hash (#) and thus be commented out.
 #
 # !! Be careful not to add any reactions that have already been included in
 # !! the model as adding them twice will duplicate them and therefore double
-# !! their rate. Any new species must have a unique name. Do not attempt to 
-# !! redefine any constants within this file, they can be defined in the 
+# !! their rate. Any new species must have a unique name. Do not attempt to
+# !! redefine any constants within this file, they can be defined in the
 # !! settings.py file.
 #
 # Rates coefficients must be put in in the form:

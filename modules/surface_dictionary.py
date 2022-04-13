@@ -1,8 +1,9 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 Function defining surface depositions of chemical species for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -22,15 +23,16 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
-'''
+"""
+
 def surface_deposition(HMIX):
     '''
     Calculations of surface deposition rates, not all species have
     deposition rates
-    
+
     inputs:
         HMIX = surface to volume ratio
-        
+
     returns:
         surface_dict = dictionary of surface deposition rates
     '''

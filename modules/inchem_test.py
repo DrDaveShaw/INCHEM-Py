@@ -2,7 +2,7 @@
 """
 Unit testing for modules and functions used in INCHEM-Py
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -35,7 +35,7 @@ from inchem_import import custom_import, speciesin, rate_coeff, ppool_in,\
     reactionslist, numba_rate, numba_reactions, import_all
 
 class TestImport(unittest.TestCase):
-    
+
     def test_custom(self):
         filename = "test_files/custom_input_test.txt"
         species = ["species1","species5"]
@@ -53,26 +53,26 @@ class TestImport(unittest.TestCase):
                          "RO2 summation parsed incorrectly")
         self.assertEqual(sums, [['sum_name', 'species1+species2+species3+species4']],
                          "custom summation parsed incorrectly")
-        
+
     def test_speciesin(self):
         filename = "test_files/mcm_parse_test.fac"
         species = speciesin(filename)
         self.assertTrue(len(species) == 722, "there are 722 species in the test input")
         self.assertTrue(species[1] == "NC826OH", "incorrect species parsed from test")
-        
+
     def test_rate_coeff(self):
         filename = "test_files/mcm_parse_test.fac"
         rates_in = rate_coeff(filename)
         self.assertTrue(len(rates_in) == 139, "there are 139 rates in the test file")
-        self.assertTrue(rates_in[0] == ['KRO2NO', '2.7e-12*exp(360/TEMP)'], 
+        self.assertTrue(rates_in[0] == ['KRO2NO', '2.7e-12*exp(360/TEMP)'],
                         "incorrect rate parsed")
-        
+
     def test_ppool_in(self):
         filename = "test_files/mcm_parse_test.fac"
         ppool = ppool_in(filename)
         self.assertTrue(len(ppool) == 146, "there are 146 peroxy radicals in the test file")
         self.assertTrue(ppool[0] == 'NLIMO2', "incorrect radical parsed")
-        
+
     def test_reactionslist(self):
         filename = "test_files/mcm_parse_test.fac"
         reactions_in = reactionslist(filename)
@@ -82,7 +82,7 @@ class TestImport(unittest.TestCase):
                         "each reaction should consist of two parts")
         self.assertEqual(reactions_in[0][1], "O = O3",
                          "incorrect reaction parsed")
-        
+
     def test_numba_rate(self):
         rates_in = [["rate1","exp(x)+log10(y)*TEMP/sqrt(z)"],
                     ["rate2","exp(x)+log10(y)*TEMP/sqrt(z)"]]
@@ -91,7 +91,7 @@ class TestImport(unittest.TestCase):
                         "two rates provided for test")
         self.assertTrue(numbarates[0][1] == "numba_exp(x)+numba_log10(y)*temp/numba_sqrt(z)",
                         "numba conversions parsed incorrectly")
-        
+
     def test_numba_reactions(self):
         reactions_in = [["exp(x)+log10(y)*TEMP/sqrt(z)","spec1=spec2+spec3"],
                         ["exp(x)+log10(y)*TEMP/sqrt(z)","=spec2"],
@@ -103,7 +103,7 @@ class TestImport(unittest.TestCase):
                           "numba conversions parsed incorrectly")
         self.assertTrue(len(numbareactions) == 3,
                         "3 reactions given for test")
-        
+
     def test_import_all(self):
         filename = "test_files/mcm_parse_test.fac"
         species,ppool,numbarates,numbareactions = import_all(filename)
@@ -122,19 +122,19 @@ class TestImport(unittest.TestCase):
 
 '''
 test intial_dictionaries module
-'''       
+'''
 from initial_dictionaries import initial_conditions, master_calc, \
     write_jacobian_build, INCHEM_species_calc
 import pandas
 from packaging import version
- 
+
 class TestInitial(unittest.TestCase):
-    
+
     @unittest.skipIf(version.parse(pandas.__version__) < version.parse('1.1.0'),
                      "Test requires pandas > v1.1.0, this does not impact\
-                         INCHEM-Py function.")    
+                         INCHEM-Py function.")
     def test_initial_conditions_infile(self):
-                         
+
         filename = "test_files/initial_test.txt"
         species = ['species1','species2','species3','species4','HONO']
         rate_numba = [["rate1","2*numba_exp(4)"],["rate2","20"]]
@@ -151,7 +151,7 @@ class TestInitial(unittest.TestCase):
                         "seed value missing")
         self.assertTrue(len(density_dict) == 7,
                         "7 species total in test")
-        
+
     def test_initial_conditions_pickle(self):
         filename = "test_files/initial_test.txt"
         species = ['species1','species2','species3','species4','HONO']
@@ -171,7 +171,7 @@ class TestInitial(unittest.TestCase):
                         "7 species total in test")
         self.assertTrue(density_dict["HONO"] == 4639743671.834778,
                         "HONO value parsed incorrectly at 900 seconds")
-        
+
     def test_master_calc(self):
         reactions_in = [['5.5e-12*numba_exp(188/temp)', 'O + NO2 = NO'],
                         ['KMT03', 'NO2 + NO3 = N2O5'],
@@ -191,7 +191,7 @@ class TestInitial(unittest.TestCase):
                          "Equations parsed incorrectly")
         self.assertEqual(list(master_array_dict.keys()), species,
                          "species input do not match master array keys")
-        
+
     def test_write_jacobian(self):
         master_array_dict = {"species1" : [['2.0', '-1', 'species3', 'species2'],
                                    ['species1OUT', 'AER'],
@@ -214,7 +214,7 @@ class TestInitial(unittest.TestCase):
             test_str = test_file.read().replace('\n', '')
         self.assertMultiLineEqual(created_str, test_str, "files are not the same")
         os.remove("test_files/Jacobian.py") #clean up
-    
+
     def test_INCHEM_species_calc(self):
         from test_files.chemistry_test import INCHEM_reactions
         species = ["species1","OH","NO"]
@@ -226,9 +226,9 @@ class TestInitial(unittest.TestCase):
 test outdoor concentration module
 '''
 from outdoor_concentrations import outdoor_rates
-    
+
 class TestOutdoor(unittest.TestCase):
-    
+
     def test_outdoor_rates(self):
         AER = 100
         particles = 1
@@ -238,7 +238,7 @@ class TestOutdoor(unittest.TestCase):
                          "test_species value should be 0")
         species_out = ["NOOUT","NO2OUT","test_species1OUT"]
         self.assertTrue(set(species_out).issubset(list(outdoor_dict.keys())),
-                        "not all species from test present in dictionary") 
-        
+                        "not all species from test present in dictionary")
+
 if __name__ == '__main__':
     unittest.main()

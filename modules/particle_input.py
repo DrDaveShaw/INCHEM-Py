@@ -3,7 +3,7 @@
 Defines parameters for particle reactions for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -24,6 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 """
+
 import re
 
 def particle_species_def():
@@ -634,7 +635,7 @@ def particle_species_def():
 def particle_reactions_in():
     '''
     particle reactions
-    
+
     returns:
         part_in = dictionary of particle reactions
     '''
@@ -1771,7 +1772,7 @@ def particle_reactions_in():
             "KP610" : "((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*P610))*1e12*301.122/6.02e23*SCALINGFAC",
             "KON610" : "6.2E-3*1E12*301.122/6.02E23",
             "kacid" : "1.5e-32*numba_exp(14770/temp)"}
-    
+
     off_temp=  [['KOFF1', 'KON1/KP1'],
                 ['KOFF2A', 'KON2A/KP2A'],
                 ['KOFF2B', 'KON2B/KP2B'],
@@ -2337,15 +2338,15 @@ def particle_reactions_in():
                 ['KOFF607', 'KON607/KP607'],
                 ['KOFF608', 'KON608/KP608'],
                 ['KOFF609', 'KON609/KP609'],
-                ['KOFF610', 'KON610/KP610']]   
-    
+                ['KOFF610', 'KON610/KP610']]
+
     off_dict={}
     for i in off_temp:
         x=i[1].split('/')
         x[0]=on_dict[x[0]]
         x[1]=on_dict[x[1]]
         off_dict[i[0]]='('+x[0]+')/('+x[1]+')'
-    
+
     part_in=[['kacid*acidsum', 'LIMONONIC=PART1'],
             ['kacid*acidsum', 'LIMONIC=PART11'],
             ['kacid*acidsum', 'KLIMONONIC=PART13'],
@@ -4165,12 +4166,12 @@ def particle_reactions_in():
             ['5.3E-13', 'LIMBOO + KLIMONONIC = seed'],
             ['5.3E-13', 'LIMBOO + LIMONONIC = seed'],
             ['5.3e-13', 'LIMBOO + LIMONIC = seed']]
-            
+
     full_dict={**on_dict,**off_dict}
-    
+
     for i,s in enumerate(part_in):
         if s[0].upper() in full_dict.keys():
-            part_in[i][0] = full_dict[part_in[i][0].upper()]       
+            part_in[i][0] = full_dict[part_in[i][0].upper()]
     return part_in
 
 def part_vap_pres():
@@ -4757,7 +4758,7 @@ def particle_calc_dict():
     returns:
         part_calc_dict = dictionary of summations used in particle calculations
     '''
-    part_calc_dict={     
+    part_calc_dict={
     'tsp' : compile('seed + PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
     + PART13 + PART14 + PART15 + PART16 + PART17 + PART22 + PART23 + PART24 + PART25 \
     + PART26 + PART27 + PART28 + PART29 + PART30 + PART31 + PART32 + PART33 + PART34 \
@@ -4833,7 +4834,7 @@ def particle_calc_dict():
     + PART594 + PART595 + PART596 + PART597 + PART598 + PART599 + PART600 \
     + PART601 + PART602 + PART603 + PART604 + PART605 + PART606 + PART607 \
     + PART608 + PART609 + PART610','<string>','eval'),
-    #    
+    #
     'tspx' : compile('(1e12/6.02E23)*((seed_1*120) + (tspnonorg*mwom) + (seed*360) \
     + (PART1*184.26) + (PART2A*215.25) + (PART2B*215.25) + (PART3*215.25) \
     + (PART4*245.23) + (PART5*247.2) + (PART6*217.22) + (PART11*186.21) \
@@ -5277,9 +5278,9 @@ def particle_calc_dict():
 
 def particle_import():
     '''
-    Importing the particle chemistry, not from the MCM download. Created by 
-    Nic Carslaw as part of the INDCM 
-    
+    Importing the particle chemistry, not from the MCM download. Created by
+    Nic Carslaw as part of the INDCM
+
     returns:
         particle_species = list of particle species
         particle_reactions = dictionary of particle reactions
@@ -5289,17 +5290,17 @@ def particle_import():
     particle_species = particle_species_def()
     particle_reactions = particle_reactions_in()
     particle_vapour_pressure=part_vap_pres()
-    part_calc_dict=particle_calc_dict()   
+    part_calc_dict=particle_calc_dict()
     return particle_species,particle_reactions,particle_vapour_pressure,part_calc_dict
 
 def particle_calcs(part_calc_dict,density_dict):
     '''
     calculations specific to the particles during the integration
-    
+
     inputs:
         part_calc_dict = dictionary of compiled summations used in particle calculations
         density_dict = dictionary of current concentrations
-        
+
     returns:
         particle_dict = dictionary of constants and calculated values for use in
                         particle calculations
@@ -5319,13 +5320,13 @@ def reactions_check(reactions_numba,particle_reactions,species):
     '''
     Need to check that species in the particle reactions actually exist in the species list
     and remove reactions that don't
-    
+
     inputs:
         reactions_numba = full list of included chemical reactions [rate, reaction]
                           with reaction calculations in numba format
         particle_reactions = dictionary of particle reactions
         species = list of species
-        
+
     returns:
         reactions_numba = full list of included chemical reactions [rate, reaction]
                           with reaction calculations in numba format

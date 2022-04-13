@@ -1,8 +1,9 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 A series of functions defining outdoor rates for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -22,16 +23,17 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
-'''
+"""
+
 def outdoor_rates(AER,particles,species):
     '''
     Concentrations of outdoor species that are assumed to be constant
-    
+
     inputs:
         AER = Air exchange rate per hour
         particles = True or False for whether particles are included in the simulation
         species = list of species
-    
+
     returns:
         outdoor_dict = dictionary of fixed outdoor species concentrations
     '''
@@ -40,7 +42,7 @@ def outdoor_rates(AER,particles,species):
     outdoor_dict['NOOUT']=2.59e10
     outdoor_dict['NO2OUT']=9.52e10
     outdoor_dict['O3OUT']=7.68e11
-    
+
     #outdoor concentrations for Milan
     outdoor_dict['BENZENEOUT']=5.9e9
     outdoor_dict['TOLUENEOUT']=2e10
@@ -57,7 +59,7 @@ def outdoor_rates(AER,particles,species):
     outdoor_dict['HCHOOUT']=9.13e10
     outdoor_dict['CH3CHOOUT']=7.15e10
     outdoor_dict['BENZALOUT']=6.13e10
-    
+
     #other typical outdoor values, mainly from Sarwar
     outdoor_dict['C2H6OUT']=2.08e10
     outdoor_dict['C3H8OUT']=1.25e10
@@ -96,7 +98,7 @@ def outdoor_rates(AER,particles,species):
     outdoor_dict['C7H15CHOOUT']=7.25e9
     outdoor_dict['C8H17CHOOUT']=2.5e10
     outdoor_dict['C9H19CHOOUT']=2.75e9
-    
+
     #values below have been estimated and ideally need to be revised when
     #appropriate lit sources are found. They have been set to make indoor values
     #consistent with measurements reported in Canada by Zhu
@@ -117,35 +119,35 @@ def outdoor_rates(AER,particles,species):
     outdoor_dict['HNO3OUT']=5e10
     #outdoor_dict['CH4OUT']=4.63e13
     #outdoor_dict['COOUT']=2.5e12
-    
+
     outdoor_dict['BCARYOUT']=2.5e7
-    
+
     #non-diurnal outdoor concentrations from homechem
     outdoor_dict['HONOOUT']=1.6e9
     outdoor_dict['MVKOUT']=1.78e10
     outdoor_dict['OHOUT']=1e6
     outdoor_dict['PANOUT']=1.51e10
-    
+
     if particles == True:
         outdoor_dict['TSPOUT']=1.4e11
-    
+
     for specie in species:
         if '%sOUT' % specie not in outdoor_dict.keys():
-            outdoor_dict['%sOUT' % specie]=0   
+            outdoor_dict['%sOUT' % specie]=0
     return outdoor_dict
 
 
 def outdoor_rates_diurnal(city):
     '''
     Diurnal concentration calculations for outdoor species
-    
+
     returns:
         outdoor_dict_diurnal = dictionary of compiled equations for outdoor
                                species concentrations that vary throughout
                                the day
     '''
     outdoor_dict_diurnal={}
-    
+
     outdoor_dict_diurnal['OHOUT']=compile("5e4+(((6.073E-05*numba_abs(cosx)**(1.743)*numba_exp(-1.0*0.474*secx))*0.01)/3e-7*5e6)",'<string>','eval') #J1
     outdoor_dict_diurnal['HO2OUT']=compile("2.5e7+(((1.165E-02*numba_abs(cosx)**(0.244)*numba_exp(-1.0*0.267*secx))*0.1)/1e-3*1e8)",'<string>','eval') #J4
     outdoor_dict_diurnal['CH3O2OUT']=compile("2e6+(((1.165E-02*numba_abs(cosx)**(0.244)*numba_exp(-1.0*0.267*secx))*0.1)/1e-3*3e7)",'<string>','eval') #J4
@@ -170,16 +172,16 @@ def outdoor_rates_diurnal(city):
         outdoor_dict_diurnal['O3OUT']=compile("1.38e+12 - 6.305e+11*numba_cos(n*7.271e-05) - 9.43e+11*numba_sin(n*7.271e-05) + 3.484e+10*numba_cos(2*n*7.271e-05) + 1.832e+11*numba_sin(2*n*7.271e-05)","<string>","eval")
         outdoor_dict_diurnal['NO2OUT']=compile("9.498e+11 + 2.203e+11*numba_cos(n*7.272e-05) - 4.447e+10*numba_sin(n*7.272e-05) + 4.498e+10*numba_cos(2*n*7.272e-05) - 2.061e+11*numba_sin(2*n*7.272e-05) + 5.042e+10*numba_cos(3*n*7.272e-05) + 2.214e+10*numba_sin(3*n*7.272e-05) - 2.47e+10*numba_cos(4*n*7.272e-05) + 3.932e+10*numba_sin(4*n*7.272e-05)","<string>","eval")
         outdoor_dict_diurnal['NOOUT']=compile("4.337e+11 + 1.122e+11*numba_cos(n*7.274e-05) - 1.383e+11*numba_sin(n*7.274e-05) + 8.572e+10*numba_cos(2*n*7.274e-05) - 1.095e+11*numba_sin(2*n*7.274e-05) + 2.409e+10*numba_cos(3*n*7.274e-05) + 3.912e+10*numba_sin(3*n*7.274e-05) + 4.645e+10*numba_cos(4*n*7.274e-05) - 5.773e+10*numba_sin(4*n*7.274e-05) + 2.542e+10*numba_cos(5*n*7.274e-05) + 2.898e+10*numba_sin(5*n*7.274e-05)","<string>","eval")
-        outdoor_dict_diurnal['TSPOUT']=compile("1.394e+11 - 3.414e+10*numba_cos(n*7.275e-05) + 2.977e+10*numba_sin(n*7.275e-05) + 5.563e+08*numba_cos(2*n*7.275e-05) - 5.124e+08*numba_sin(2*n*7.275e-05) - 5.652e+09*numba_cos(3*n*7.275e-05) - 8.424e+08*numba_sin(3*n*7.275e-05) + 3.788e+09*numba_cos(4*n*7.275e-05) - 5.369e+09*numba_sin(4*n*7.275e-05) - 7.5e+09*numba_cos(5*n*7.275e-05) + 1.936e+09*numba_sin(5*n*7.275e-05) + 9.628e+09*numba_cos(6*n*7.275e-05) - 2.673e+08*numba_sin(6*n*7.275e-05)","<string>","eval")        
+        outdoor_dict_diurnal['TSPOUT']=compile("1.394e+11 - 3.414e+10*numba_cos(n*7.275e-05) + 2.977e+10*numba_sin(n*7.275e-05) + 5.563e+08*numba_cos(2*n*7.275e-05) - 5.124e+08*numba_sin(2*n*7.275e-05) - 5.652e+09*numba_cos(3*n*7.275e-05) - 8.424e+08*numba_sin(3*n*7.275e-05) + 3.788e+09*numba_cos(4*n*7.275e-05) - 5.369e+09*numba_sin(4*n*7.275e-05) - 7.5e+09*numba_cos(5*n*7.275e-05) + 1.936e+09*numba_sin(5*n*7.275e-05) + 9.628e+09*numba_cos(6*n*7.275e-05) - 2.673e+08*numba_sin(6*n*7.275e-05)","<string>","eval")
     else:
         print("City not recognised, no diurnal rates for O3, NO2, NO, or PM2.5")
-        
+
     return outdoor_dict_diurnal
 
 def outdoor_rates_calc(outdoor_dict,outdoor_dict_diurnal,out_calc_dict):
     '''
     Function for evaluating the diurnal outdoor concentration calculations
-    
+
     inputs:
         outdoor_dict = dictionary of fixed outdoor species concentrations
         outdoor_dict_diurnal = dictionary of compiled equations for outdoor

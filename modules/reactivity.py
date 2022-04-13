@@ -3,7 +3,7 @@
 Functions to calculate reactivity and production rates of species for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -24,23 +24,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 """
+
 def reactivity_summation(master_array_dict):
     '''
     Takes the master array and calculates summations for reactivity.
-    The total reactivity of a speacies is the inverse of the lifetime 
+    The total reactivity of a speacies is the inverse of the lifetime
     of the species and is calculated by summing the reactivity for each
-    chemical species with the reactivity species. Production is the 
+    chemical species with the reactivity species. Production is the
     other side of this where the rate of production of the species can be
     calculated.
-    
+
     inputs:
         master_array_dict = dictionary of arrays of reactions that can be reduced
                             to form the system of ODEs to be solved
-                            
+
     returns:
-        reactivity_compiled = dictionary of the compiled reactivity equations 
+        reactivity_compiled = dictionary of the compiled reactivity equations
                               for the specified reactivity species
-        production_compiled = dictionary of the compiled production equations 
+        production_compiled = dictionary of the compiled production equations
                               for the specified reactivity species
     '''
     reactivity_species = ['OH']
@@ -60,7 +61,7 @@ def reactivity_summation(master_array_dict):
                 reactivity_compiled[species] = compile(reactivity,'<string>','eval')
         except KeyError:
             continue
-     
+
     production_compiled = {}
     for species in reactivity_species:
         x = []
@@ -76,18 +77,18 @@ def reactivity_summation(master_array_dict):
                 production = '+'.join(x)
                 production_compiled[species] = compile(production,'<string>','eval')
         except KeyError:
-            continue        
-    
+            continue
+
     return reactivity_compiled, production_compiled
 
 
 def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,density_dict):
     """
     Evaluates the reactiivity equations
-    
+
     inputs:
         reactivity_dict = Dictionary of reactivity values to be updated
-        reactivity_compiled = dictionary of the compiled reactivity equations 
+        reactivity_compiled = dictionary of the compiled reactivity equations
                               for the specified reactivity species
         reaction_rate_dict = dictionary of reaction rate values at current time
         calc_dict = dictionary of constants and variables for use in calculations
@@ -101,10 +102,10 @@ def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_
 def production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,density_dict):
     '''
     Evaluates the production equations
-    
+
     inputs:
         production_dict = Dictionary of reactivity values to be updated
-        production_compiled = dictionary of the compiled production equations 
+        production_compiled = dictionary of the compiled production equations
                               for the specified reactivity species
         reaction_rate_dict = dictionary of reaction rate values at current time
         calc_dict = dictionary of constants and variables for use in calculations

@@ -8,17 +8,17 @@
 
 # INCHEM-Py
 
-The INdoor CHEMical model in Python (INCHEM-Py) is an open source box model that creates and solves a system of coupled Ordinary Differential Equations (ODEs) to provide predicted concentrations of indoor air pollutants through time. It is a refactor of the indoor detailed chemical model originally developed by [Carslaw (2007)](https://doi.org/10.1016/j.atmosenv.2006.09.038) with improvements in form, function, and accessibility. 
+The INdoor CHEMical model in Python (INCHEM-Py) is an open source box model that creates and solves a system of coupled Ordinary Differential Equations (ODEs) to provide predicted concentrations of indoor air pollutants through time. It is a refactor of the indoor detailed chemical model originally developed by [Carslaw (2007)](https://doi.org/10.1016/j.atmosenv.2006.09.038) with improvements in form, function, and accessibility.
 
 INCHEM-Py takes the [Master Chemical Mechanism (MCM)](http://mcm.leeds.ac.uk/MCM/), a near explicit mechanism developed for atmospheric chemistry, and additional chemical mechanisms that have been developed specifically for indoor air. These include gas-to-particle partitioning for three of the commonly encountered terpenes indoors (limonene and alpha- and beta-pinene), improved photolysis parametrisation, indoor-outdoor air exchange, and deposition to surfaces.
 
-Typical usage of INCHEM-Py is either alongside experiment, where it can be used to gain a deeper insight into the chemistry through its ability to track a vast array of species concentrations or as a stand-alone method of investigating chemical events that occur indoors over a range of conditions. INCHEM-Py is open source, has no black box processes, and all inputs can be tracked through the model allowing for complete understanding of the system.  
+Typical usage of INCHEM-Py is either alongside experiment, where it can be used to gain a deeper insight into the chemistry through its ability to track a vast array of species concentrations or as a stand-alone method of investigating chemical events that occur indoors over a range of conditions. INCHEM-Py is open source, has no black box processes, and all inputs can be tracked through the model allowing for complete understanding of the system.
 
 A wide array of outputs from the model can be accessed, including species concentrations, species reactivity and production rates, photolysis values, and summations such as the total peroxy radical concentration. Custom reactions and summations can also be added by users to tailor the model to specific indoor scenarios.
 
 A full pdf manual is included within this repository, including a quick start guide, this README is not intended to cover every aspect of INCHEM-Py but should be sufficient for users to get started.
 
-A copy of the GNU General Public License v3.0 under which this project is licenced is included in this repository. 
+A copy of the GNU General Public License v3.0 under which this project is licenced is included in this repository.
 
 # Table of contents
 1. [Installation](#Installation)
@@ -75,7 +75,7 @@ When entering new species or chemical mechanisms via the custom_input.txt file, 
 
 ## Community<a name="Community"></a>
 
-We welcome any contributions to INCHEM-Py and look forward to working with a community of people to develop the model further. 
+We welcome any contributions to INCHEM-Py and look forward to working with a community of people to develop the model further.
 
 Please contact us if you require any support.
 

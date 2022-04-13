@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Output extraction and plotting script for INCHEM-Py. 
+Output extraction and plotting script for INCHEM-Py.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2021
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -26,8 +26,8 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 
 This script inputs the out_data.pickle files from model runs of INCHEM-Py
 from specified output directories, saves and plots the species given in
-species_to_plot in a csv and a png respectively. These are saved in the 
-output_folder 
+species_to_plot in a csv and a png respectively. These are saved in the
+output_folder
 """
 
 '''
@@ -43,8 +43,8 @@ out_directories=[
 species_to_extract=['LIMONENE','BENZENE','TOLUENE','OH_reactivity',
                  'OH_production','J1']
 #All species will be saved to a seperate csv for each input directory.
-#A maximum of three seperate graphs will be made; species concentrations, 
-#reactivity, and production. 
+#A maximum of three seperate graphs will be made; species concentrations,
+#reactivity, and production.
 
 #times to plot from and to
 start_time = 0
@@ -75,22 +75,22 @@ for i in out_directories:
     with open("%s/out_data.pickle" % i,'rb') as handle:
         out_data[i]=pickle.load(handle)
 
-#get the current working directory and create the output folder 
-#if it doesn't exist        
+#get the current working directory and create the output folder
+#if it doesn't exist
 path=os.getcwd()
 if not os.path.exists('%s/%s' % (path,output_folder)):
     os.mkdir('%s/%s' % (path,output_folder))
 
 #create and save csvs
 for i in out_data:
-    out_data[i].to_csv("%s/%s/%s.csv" % (path,output_folder,i), 
+    out_data[i].to_csv("%s/%s/%s.csv" % (path,output_folder,i),
                        columns = species_to_extract)
-    
+
 #plotting function
 def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_plot):
     #figure resolution and size
     plt.figure(dpi=600,figsize=(8,4))
-    
+
     #set time conversion factor and labels
     if scale == "hours":
         factor = 3600
@@ -101,20 +101,20 @@ def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_p
     else:
         factor = 1
         plt.xlabel("Time (mins)")
-    
+
     #unique colours
     colour=iter(plt.cm.gist_rainbow(np.linspace(0,1,len(plot_species)*len(out_data))))
     for k in out_data:
         time_step = out_data[k].index[1]-out_data[k].index[0]
         start_time = int( time_step * round( start_time / time_step ))
         end_time = int( time_step * round( end_time / time_step ))
-        for l in plot_species: 
+        for l in plot_species:
             c=next(colour)
             plt.plot(list(out_data[k][l][start_time:end_time].index/factor),
                      list(out_data[k][l][start_time:end_time]),
                      label="%s_%s" % (k,l),c=c)
     if log_plot == True:
-        if name != "Photolysis":        
+        if name != "Photolysis":
             plt.yscale("log") #can be commented out for a non-log plot
     plt.ylabel(units)
     plt.legend(loc='upper center', bbox_to_anchor=(0.45, -0.15),
@@ -139,7 +139,7 @@ production = []
 reactivity = []
 concentration = []
 photolysis = []
-for i in species_to_extract: 
+for i in species_to_extract:
     if i.endswith("production"):
         production.append(i)
     elif i.endswith("reactivity"):
@@ -148,7 +148,7 @@ for i in species_to_extract:
         photolysis.append(i)
     else:
         concentration.append(i)
- 
+
 #plot graphs
 if len(production) > 0:
     plotting_function(production,out_data,units[2],start_time,end_time,name[2],log_plot)
