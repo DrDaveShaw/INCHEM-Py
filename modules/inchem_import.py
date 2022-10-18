@@ -335,15 +335,19 @@ def custom_import(custom_filename,species):
             if line.startswith('#'):                    #ignore comments
                 pass
             elif line.startswith('sum'):                #summations
+                temp = re.split('#', temp)[0]           #remove comments
                 temp = re.split('[:=]',temp)
                 del temp[0]
                 sums.append(temp)
             elif line.startswith('peroxy_radical'):     #RO2 additions
+                temp = re.split('#', temp)[0]           #remove comments
                 custom_RO2 = re.split('[=,]',temp)
                 del custom_RO2[0]
             elif ':' in line:                           #reactions
+                temp = re.split('#', temp)[0]           #remove comments
                 custom_reactions.append(temp.split(':'))
             else:                                       #rates
+                temp = re.split('#', temp)[0]           #remove comments
                 custom_rates.append(temp.split('=')) 
     custom_rates = numba_rate(custom_rates)
     custom_reactions = numba_reactions(custom_reactions)
