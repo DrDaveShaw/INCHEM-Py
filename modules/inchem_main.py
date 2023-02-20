@@ -76,7 +76,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         '''
         summation_dict={}
         for i in sums:
-            summation_dict[i[0]]=compile(i[1],'<string>','eval')
+            # set the summation to zero when none of the species in the chemical mechanism
+            # are in the inchem custom summation
+            summation_dict[i[0]]=compile(i[1] if i[1] else '0','<string>','eval')
+        print(summation_dict)
         return summation_dict
     
     
@@ -96,8 +99,42 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
         for spec in summation_dict.keys():
             sums_dict[spec]=(eval(summation_dict[spec],{},full_dict)) 
         return sums_dict
+
+
+    def correct_summations(sums,species):
+        '''
+        correct custom summations to include only the species
+        in the chemical mechanism (allows use of MCM subsets)
     
+        inputs:
+            sums = list of summations [name of sum, calculation]
+            species = list of species
     
+        returns:
+            new_sums = list of summations
+        '''
+    
+        # list of species in the custom summation
+        species_in_sums = sums[0][1].split('+')
+
+        # removing all the species which are not in the chemical mechanism
+        # from the inchem custom summation ('INCHEM_sums')
+        new_species_in_sums = []
+        for s in species_in_sums:
+            spec = s.strip()
+            # select only the species that are in the chemical mechanism
+            if (spec in species):
+                new_species_in_sums.append(spec)
+            # exception for 'MACR' which is scaled by 0.55 in the summation
+            if ('MACR' in spec) and ('MACR' in species):
+                new_species_in_sums.append(s)
+    
+        # create new 'sums' variable which includes only the species in the
+        # chemical mechanism
+        new_sums = [[sums[0][0], '+'.join(new_species_in_sums)]]
+        return new_sums
+
+
     def h2o_rh(time,temp,rel_humidity,numba_exp):
         '''
         calculates relative humidity and water at a given time and temperature
@@ -775,9 +812,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     #calculating t0 summations
     summations_dict={}
     if summations == True:
+        sums = correct_summations(sums,species) # allow use of MCM subsets with INCHEM chemistry
         summations_dict = summations_compile(sums)
-        sums_dict={}
-        sums_dict=summations_eval(summations_dict,density_dict,calc_dict)
+        sums_dict = {}
+        sums_dict = summations_eval(summations_dict,density_dict,calc_dict)
         density_dict.update(sums_dict)
     
     if particles == True:
