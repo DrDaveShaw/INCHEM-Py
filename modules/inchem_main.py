@@ -79,7 +79,6 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
             # set the summation to zero when none of the species in the chemical mechanism
             # are in the inchem custom summation
             summation_dict[i[0]]=compile(i[1] if i[1] else '0','<string>','eval')
-        print(summation_dict)
         return summation_dict
     
     
