@@ -605,9 +605,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidit
     '''
     particle_species=[]
     if particles == True:
-        #if the full MCM is not being used then the calcuations for tsp and anything involving tsp
-        #will fail so particles can only be used with the full MCM at the moment 04/2020
-        particle_species, particle_reactions, particle_vap_dict, part_calc_dict = particle_import()
+        #the full MCM or a subset containing at least one of limonene, a-pinene, b-pinene need
+        #to be used, otherwise the calcuations for tsp and anything involving tsp will fail
+        particle_species, particle_reactions, particle_vap_dict, part_calc_dict = particle_import(species)
         species = species + particle_species #add particle species to species list
         reactions_numba = reactions_check(reactions_numba,particle_reactions,species)
         rate_numba = rate_numba + [['kacid' , '1.5e-32*numba_exp(14770/temp)']]
