@@ -4752,7 +4752,37 @@ def part_vap_pres():
     #
     return vap_pres_dict
 
-def particle_calc_dict():
+def create_acidsum(species):
+    '''
+    create sum of acid species for particle calculations
+    
+    inputs:
+        species = list of species
+
+    returns:
+        acid_sum = sum of acid species
+    '''
+    # complete sum of acid species
+    full_acid_sum = 'LIMONONIC + LIMONIC + KLIMONONIC + KLIMONIC + C731CO2H + C822CO2H \
+            + HOPINONIC + H3C25CCO2H + PINIC + NORPINIC + H3C2C4CO2H + PINONIC + C89CO2H \
+            + PERPINONIC + CO13C3CO2H + C512CO2H + C615CO2H + C617CO2H + C618CO2H \
+            + C718CO2H + C87CO2H + C88CO2H + CO1M22CO2H + MC3ODBCO2H + HC4CCO2H \
+            + HC4ACO2H + CO2C4CO2H + C518CO2H + HMVKBCO2H + C624CO2H + C622CO2H \
+            + C23O3CCO2H + C519CO2H + C517CO2H + C729CO2H + CONM2CO2H + MMALNBCO2H \
+            + MMALNACO2H + C58NO3CO2H + C57NO3CO2H + INCNCO2H + INB1NBCO2H + INB1NACO2H'
+    # complete list of acid species
+    acids_in_sum = full_acid_sum.split('+')
+    # select only the acid species that are in the chemical mechanism
+    new_acids_in_sum = []
+    for a in acids_in_sum:
+        spec = a.strip()
+        if (spec in species):
+            new_acids_in_sum.append(spec)
+    # create new acid sum with only the species that are in the chemical mechanism
+    acid_sum = ' + '.join(new_acids_in_sum)
+    return acid_sum
+
+def particle_calc_dict(species):
     '''
     returns:
         part_calc_dict = dictionary of summations used in particle calculations
@@ -4978,14 +5008,7 @@ def particle_calc_dict():
     + (PART604*256.1244) + (PART605*256.1244) + (PART606*263.2445) + (PART607*272.1238) \
     + (PART608*301.122) + (PART609*301.122) + (PART610*301.122))','<string>','eval'),
     #
-    'acidsum' : compile('LIMONONIC + LIMONIC + KLIMONONIC + KLIMONIC + C731CO2H + C822CO2H \
-    + HOPINONIC + H3C25CCO2H + PINIC + NORPINIC + H3C2C4CO2H + PINONIC \
-    + C89CO2H + PERPINONIC + CO13C3CO2H + C512CO2H + C615CO2H + C617CO2H \
-    + C618CO2H + C718CO2H + C87CO2H + C88CO2H + CO1M22CO2H + MC3ODBCO2H \
-    + HC4CCO2H + HC4ACO2H + CO2C4CO2H + C518CO2H + HMVKBCO2H + C624CO2H \
-    + C622CO2H + C23O3CCO2H + C519CO2H + C517CO2H + C729CO2H + CONM2CO2H \
-    + MMALNBCO2H + MMALNACO2H + C58NO3CO2H + C57NO3CO2H + INCNCO2H \
-    + INB1NBCO2H + INB1NACO2H','<string>','eval'),
+    'acidsum' : compile(create_acidsum(species),'<string>','eval'),
     #
     'mwomv' : compile('(1e12/6.02E23)*((tspnonorg/tspx*mwom**2) +\
     (seed_1/tspx*120**2) + (seed/tspx*360**2) +\
@@ -5275,7 +5298,7 @@ def particle_calc_dict():
     (NA/tspx*62.01**2))','<string>','eval')}
     return part_calc_dict
 
-def particle_import():
+def particle_import(species):
     '''
     Importing the particle chemistry, not from the MCM download. Created by 
     Nic Carslaw as part of the INDCM 
@@ -5289,7 +5312,7 @@ def particle_import():
     particle_species = particle_species_def()
     particle_reactions = particle_reactions_in()
     particle_vapour_pressure=part_vap_pres()
-    part_calc_dict=particle_calc_dict()   
+    part_calc_dict=particle_calc_dict(species)
     return particle_species,particle_reactions,particle_vapour_pressure,part_calc_dict
 
 def particle_calcs(part_calc_dict,density_dict):
