@@ -194,14 +194,14 @@ class TestInitial(unittest.TestCase):
         
     def test_write_jacobian(self):
         master_array_dict = {"species1" : [['2.0', '-1', 'species3', 'species2'],
-                                   ['species1OUT', 'AER'],
-                                   ['species1', 'AER', '-1'],
+                                   ['species1OUT', 'ACRate'],
+                                   ['species1', 'ACRate', '-1'],
                                    ['species1_SURF', 'species1', '-1']],
                      "species2" : [['1.0', '-1', 'species1', 'species2'],
                                    ['2.0', '-1', 'species2', 'species3'],
                                    ['5.0', '-1', 'species2'],
-                                   ['species2OUT', 'AER'],
-                                   ['species2', 'AER', '-1'],
+                                   ['species2OUT', 'ACRate'],
+                                   ['species2', 'ACRate', '-1'],
                                    ['species2_SURF', 'species2', '-1']],
                      "species3" : [['a','-1','species3']]}
         species = ['species1','species2','species3']
@@ -230,10 +230,9 @@ from outdoor_concentrations import outdoor_rates
 class TestOutdoor(unittest.TestCase):
     
     def test_outdoor_rates(self):
-        AER = 100
         particles = 1
         species = ["NO","NO2","test_species1"]
-        outdoor_dict = outdoor_rates(AER,particles,species)
+        outdoor_dict = outdoor_rates(particles,species)
         self.assertEqual(outdoor_dict["test_species1OUT"],0,
                          "test_species value should be 0")
         species_out = ["NOOUT","NO2OUT","test_species1OUT"]

@@ -35,26 +35,34 @@ INCHEM_additional = True #Set to True if additional reactions from the INCHEM ar
 custom = False # Custom reactions that are not in the MCM included?
 # Format of this file is in an included custom file called custom_input.txt.
 
-temp = 293.         # temperature in Kelvin
+# Temperatures are interpolated from values given here using either a linear method
+# or a BSpline. Details of these methods are given in the user manual. 
+# A constant temperature can also be set without interpolation.
+spline = 293. # either 'BSpline', 'Linear' or a temperature in K for constant
+temperatures = [[25200,288.15],[50400,294.15]] # not used if spline parameter is a numerical value
+# [[time (s), temperature (K)],[time (s), temperature (K)], ...]
+# Make sure the times are ascending
+
 rel_humidity = 50.  # relative humidity
 M = 2.51e+19        # number density of air (molecule cm^-3)
 
 # place any species you wish to remain constant in the below dictionary. Follow the format
-const_dict = {
+const_dict = { 
     'O2':0.2095*M,
     'N2':0.7809*M,
     'H2':550e-9*M,
-    'saero':1.3e-2, #aerosol surface area concentration
-    'CO':2.5e12,
-    'CH4':4.685E13,
-    'SO2':2.5e10}
+    'saero':1.3e-2} #aerosol surface area concentration
 
 
 """
-Outdoor indoor exchange
+Outdoor indoor change rates
 """
-AER = 0.5/3600  # Air exchange rate per second
-diurnal = True     # diurnal outdoor concentrations. Boolean
+# Dictionary of air change rates per second
+# Needs to be in the format {time (s) from which ACRate should apply : ACRate}
+ACRate =    {0        :   0.5/3600,
+            3600 * 24:   1/3600,
+            3600 * 48:   2/3600} 
+diurnal = True    # diurnal outdoor concentrations. Boolean
 city = "Bergen_urban" #source city of outdoor concentrations of O3, NO, NO2, and PM2.5
 # options are "London_urban", "London_suburban" or "Bergen_urban"
 # Changes to outdoor concentrations can be done in outdoor_concentrations.py
@@ -65,7 +73,7 @@ city = "Bergen_urban" #source city of outdoor concentrations of O3, NO, NO2, and
 Photolysis
 """
 date = "21-06-2020"  # day of simulation in format "DD-MM-YYYY"
-lat = 45.4         # Latitude of simulation location
+lat = 45         # Latitude of simulation location
 light_type="Incand"  # Can be "Incand", "Halogen", "LED", "CFL", "UFT", "CFT", "FT", or "off"
 #"off" sets all light attenuation factors to 0 and therefore no indoor lighting is present.
 light_on_times=[[7,19],[31,43],[55,67],[79,91]] 
@@ -80,10 +88,38 @@ Surface deposition
 # The surface dictionary exists in surface_dictionary.py in the modules folder.
 # To change any surface deposition rates of individual species, or to add species
 # this file must be edited. Production rates can be added as normal reactions
-# in the custom inputs file. To remove surface deposition HMIX can be set to 0.
-# HMIX is the surface to volume ratio (cm^-1)
-HMIX = 0.02 #0.01776
+# in the custom inputs file. To remove surface deposition AV should be set to 0 and
+# H2O2_dep and O3_dep should be set to False.
 
+# AV is the surface to volume ratio (cm^-1)
+AV = 0.02
+
+# Schemes for deposition of O3 and H2O2 are optionally provided. These schemes 
+# provide calculated surface emissions proportional to O3 and H2O2 deposition
+# to different surfaces. The schemes can be turned off or on below.
+# If either scheme is on then AV will be calculated as a sum of the AVs given
+# for the individual surfaces.
+
+surfaces_AV = {             # (cm^-1)
+    'AVSOFT' : 0.0035,      # soft furnishings
+    'AVPAINT' : 0.0114,     # painted surfaces
+    'AVWOOD' : 0.0061,      # wood
+    'AVMETAL' : 0.0025,     # metal
+    'AVCONCRETE' : 0.0001,  # concrete
+    'AVPAPER' : 0.0006,     # paper
+    'AVLINO' : 0.0000,      # linoleum
+    'AVPLASTIC' : 0.0048,   # plastic
+    'AVGLASS' : 0.0009,     # glass
+    'AVHUMAN' : 0.0000}     # humans
+
+H2O2_dep = True
+O3_dep = True
+
+'''
+Breath emissions from humans
+'''
+adults = 0     #Number of adults in the room
+children = 0   #Number of children in the room (10 years old)
 
 """
 Initial concentrations in molecules/cm^3 saved in a text file
@@ -116,15 +152,15 @@ timed_emissions = False # is there a species, or set of species that has a force
 # the dictionary should be populated as
 # timed_inputs = {species1:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]],
 #                 species2:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]]}
-timed_inputs = {"LIMONENE":[[36720,37320,5e8],[37600,38000,5e8]],
-                "APINENE":[[36800,37320,5e8]]}
+timed_inputs = {"LIMONENE":[[46800,47400,5e8],[107600,108000,5e8]],
+                "BPINENE":[[46800,47400,5e8]]}
 
 
 """
 Integration
 """
-dt = 120                        # Time between outputs (s), simulation may fail if this is too large 
-                                # also used as max_step for the scipy.integrate.ode integrator
+dt = 120                        # Time between outputs (s), simulation may fail if this is too large
+                                # also used as max_step for the scipy.integrate.ode integrator 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
 seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 will run 3 days)
 
@@ -133,14 +169,21 @@ seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 
 Output
 """
 # An output pickle file is automatically saved so that all data can be recovered
-# at a later date for analysis. 
+# at a later date for analysis. Applies to folder name and settings file copy name.
 custom_name = "Bergen_urban"
+
+# INCHEM-Py calculates the rate constant for each reaction at every time point
+# Setting reactions_output to True saves all reactions and their assigned constant
+# to reactions.pickle and adds all calculated reaction rates to the out_data.pickle
+# file which will increase its size substantially. Surface deposition rates are also
+# added to the out_data.pickle file for analysis.  
+reactions_output = True
 
 # This function purely outputs a graph to the 
 # output folder of a list of selected species and a CSV of concentrations. 
 # If the species do not exist in the run then a key error will cause it to fail
 output_graph = True #Boolean
-output_species = ['O3',"O3OUT"]
+output_species = ['LIMONENE','APINENE']
 
 
 """
@@ -148,8 +191,10 @@ Run the simulation
 """
 if __name__ == "__main__":
     from modules.inchem_main import run_inchem
-    run_inchem(filename, particles, INCHEM_additional, custom, temp, rel_humidity,
-               M, const_dict, AER, diurnal, city, date, lat, light_type, 
-               light_on_times, glass, HMIX, initials_from_run,
+    run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
+               M, const_dict, ACRate, diurnal, city, date, lat, light_type, 
+               light_on_times, glass, AV, initials_from_run,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
-               seconds_to_integrate, custom_name, output_graph, output_species)
+               seconds_to_integrate, custom_name, output_graph, output_species,
+               reactions_output, H2O2_dep, O3_dep, adults,
+               children, surfaces_AV, __file__, temperatures, spline)
