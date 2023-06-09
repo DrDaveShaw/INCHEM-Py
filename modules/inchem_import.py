@@ -327,6 +327,7 @@ def custom_import(custom_filename,species):
     custom_species=[]
     custom_RO2=[]
     sums = []
+    
     with open(custom_filename,'r') as file:
         line = file.readline()
         for line in file:

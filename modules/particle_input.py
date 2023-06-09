@@ -34,7 +34,6 @@ def particle_species_def():
         particle_species = list of particle species
     '''
     particle_species=   ['seed_1',
-                         'seed',
                          'tspnonorg',
                          'PART1',
                         'PART100',
@@ -4087,12 +4086,6 @@ def particle_reactions_in():
             ['KOFF608', 'PART608=INCNPAN'],
             ['KOFF609', 'PART609=INB1NBPAN'],
             ['KOFF610', 'PART610=INB1NAPAN'],
-            ['0.8E-14', 'HNO3+seed=HNO3S+seed'],
-            ['0.8E-14', 'PART14+seed=PART14S+seed'],
-            ['0.8E-14', 'PART15+seed=PART15S+seed'],
-            ['0.8E-14', 'PART1+seed=PART1S+seed'],
-            ['0.8E-14', 'PART17+seed=PART17S+seed'],
-            ['0.8E-14', 'PART13+seed=PART13S+seed'],
             ['0.0001', 'HNO3S=HNO3'],
             ['0.0001', 'PART14S=PART14'],
             ['0.0001', 'PART15S=PART15'],
@@ -4157,14 +4150,14 @@ def particle_reactions_in():
             ['1.40D-17*H2O', 'LIMBOO = LIMAL + H2O2'],
             ['2.00D-18*H2O', 'LIMBOO = LIMONONIC'],
             ['4e-16', 'LIMBOO + HCHO = LIMONONIC + HCHO'],
-            ['2E-14', 'LIMBOO + LIMAL = seed'],
-            ['2E-14', 'LIMBOO + LMLKET = seed'],
-            ['2e-14', 'LIMBOO + LIMALBOH = seed'],
-            ['2e-14', 'LIMBOO + C825CO = seed'],
-            ['2e-14', 'LIMBOO + HCOOH = seed'],
-            ['5.3E-13', 'LIMBOO + KLIMONONIC = seed'],
-            ['5.3E-13', 'LIMBOO + LIMONONIC = seed'],
-            ['5.3e-13', 'LIMBOO + LIMONIC = seed']]
+            ['2E-14', 'LIMBOO + LIMAL = seed_1'],
+            ['2E-14', 'LIMBOO + LMLKET = seed_1'],
+            ['2e-14', 'LIMBOO + LIMALBOH = seed_1'],
+            ['2e-14', 'LIMBOO + C825CO = seed_1'],
+            ['2e-14', 'LIMBOO + HCOOH = seed_1'],
+            ['5.3E-13', 'LIMBOO + KLIMONONIC = seed_1'],
+            ['5.3E-13', 'LIMBOO + LIMONONIC = seed_1'],
+            ['5.3e-13', 'LIMBOO + LIMONIC = seed_1']]
             
     full_dict={**on_dict,**off_dict}
     
@@ -4758,7 +4751,7 @@ def particle_calc_dict():
         part_calc_dict = dictionary of summations used in particle calculations
     '''
     part_calc_dict={     
-    'tsp' : compile('seed + PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
+    'tsp' : compile('PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
     + PART13 + PART14 + PART15 + PART16 + PART17 + PART22 + PART23 + PART24 + PART25 \
     + PART26 + PART27 + PART28 + PART29 + PART30 + PART31 + PART32 + PART33 + PART34 \
     + PART35 + PART36 + PART37 + PART38 + PART39 + PART40 + PART41 + PART42 + PART43 \
@@ -4834,7 +4827,7 @@ def particle_calc_dict():
     + PART601 + PART602 + PART603 + PART604 + PART605 + PART606 + PART607 \
     + PART608 + PART609 + PART610','<string>','eval'),
     #    
-    'tspx' : compile('(1e12/6.02E23)*((seed_1*120) + (tspnonorg*mwom) + (seed*360) \
+    'tspx' : compile('(1e12/6.02E23)*((seed_1*120) + (tspnonorg*mwom) \
     + (PART1*184.26) + (PART2A*215.25) + (PART2B*215.25) + (PART3*215.25) \
     + (PART4*245.23) + (PART5*247.2) + (PART6*217.22) + (PART11*186.21) \
     + (PART13*186.21) + (PART14*168.23) + (PART15*170.21) + (PART16*184.23) \
@@ -4988,7 +4981,7 @@ def particle_calc_dict():
     + INB1NBCO2H + INB1NACO2H','<string>','eval'),
     #
     'mwomv' : compile('(1e12/6.02E23)*((tspnonorg/tspx*mwom**2) +\
-    (seed_1/tspx*120**2) + (seed/tspx*360**2) +\
+    (seed_1/tspx*120**2) + \
     (PART1/tspx*184.26**2) + (PART2A/tspx*215.25**2) +\
     (PART2B/tspx*215.25**2) + (PART3/tspx*215.25**2) +\
     (PART4/tspx*245.23**2) + (PART5/tspx*247.2**2) +\
@@ -5272,7 +5265,9 @@ def particle_calc_dict():
     (PART605/tspx*256.1244**2) + (PART606/tspx*263.2445**2) +\
     (PART607/tspx*272.1238**2) + (PART608/tspx*301.122**2) +\
     (PART609/tspx*301.122**2) + (PART610/tspx*301.122**2) +\
-    (NA/tspx*62.01**2))','<string>','eval')}
+    (NA/tspx*62.01**2))','<string>','eval'),
+    #
+    "soacalc" : compile("tspx-(NA*62.01*1e12/6.02E23)",'<string>','eval')}
     return part_calc_dict
 
 def particle_import():
@@ -5311,6 +5306,7 @@ def particle_calcs(part_calc_dict,density_dict):
     particle_dict['tsp'] = eval(part_calc_dict['tsp'],density_dict,particle_dict)
     particle_dict['tspx'] =  eval(part_calc_dict['tspx'],density_dict,particle_dict)
     particle_dict['mwomv'] = eval(part_calc_dict['mwomv'],density_dict,particle_dict)
+    particle_dict['soacalc'] = eval(part_calc_dict['soacalc'],density_dict,particle_dict)
 
     return particle_dict
 

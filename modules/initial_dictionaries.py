@@ -45,7 +45,6 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         initials_from_run = True/False depending if taking initials from previous run
         t0 = starting time of simulation (s)
         path = current working directory
-        sums = dictionary of additional summations
         
     returns:
         density_dict = dictionary of current species concentrations {species : concentration}
@@ -95,17 +94,12 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         for i in initial:
             if i[0] in species:
                 density_dict[i[0]]=eval(i[1],{},calc_dict)
-            if i[0] == "RO2":
-                density_dict[i[0]]=eval(i[1],{},calc_dict)
                 
         for i in species:
             if i not in density_dict and i.startswith('PART'):
                 density_dict[i]=0
             elif i not in density_dict:
                 density_dict[i]=0
-        
-        if 'RO2' not in density_dict:
-            density_dict['RO2'] = 0
             
     if particles == True and 'seed_1' not in density_dict:
         density_dict['seed_1']=2.09e10
@@ -176,14 +170,14 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
     for s in species:
         #outdoor exchange
         if particles == True and s in particle_species:
-            master_array_dict[s].append(['%s' % s, 'AER', '-1'])
+            master_array_dict[s].append(['%s' % s, 'ACRate', '-1'])
             if s == 'seed_1':
-                master_array_dict[s].append(['TSPOUT','AER*0.3'])
+                master_array_dict[s].append(['TSPOUT','ACRate*0.3'])
             elif s == 'tspnonorg':
-                master_array_dict[s].append(['TSPOUT','AER*0.7'])
+                master_array_dict[s].append(['TSPOUT','ACRate*0.7'])
         else:
-            master_array_dict[s].append(['%sOUT' % s, 'AER'])
-            master_array_dict[s].append(['%s' % s, 'AER', '-1'])
+            master_array_dict[s].append(['%sOUT' % s, 'ACRate'])
+            master_array_dict[s].append(['%s' % s, 'ACRate', '-1'])
         
         #surface deposition
         master_array_dict[s].append(['%s_SURF' % s, s,'-1'])   
@@ -239,7 +233,7 @@ def reaction_rate_compile(reactions_numba,reaction_number):
     return reaction_compiled_dict
 
 
-def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,timed_dict):
+def reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_dict,dt,reaction_compiled_dict,outdoor_dict,surface_dict,timed_dict):
     '''
     compiling specific reaction rates for evaluation during integration
     
@@ -257,14 +251,15 @@ def reaction_eval(reaction_number,J_dict,calc_dict,density_dict,dt,reaction_comp
     returns:
         reaction_rate_dict = dictionary of reaction rate values at current time
     '''
-    reaction_rate_dict={}
+    reaction_rate_temp={}
     
     full_dict={**J_dict,**calc_dict,**density_dict,**outdoor_dict,**surface_dict,**timed_dict}
     
     #for key in tqdm(reaction_compiled_dict.keys(),desc='Calculating reaction rate'):
     for key in reaction_compiled_dict.keys():
-        reaction_rate_dict[key]=(eval(reaction_compiled_dict[key],{},full_dict))   
-    return reaction_rate_dict
+        reaction_rate_temp[key]=(eval(reaction_compiled_dict[key],{},full_dict))
+        
+    reaction_rate_dict.update(reaction_rate_temp)
 
 
 def write_jacobian_build(master_array_dict,species,output_folder,path):

@@ -50,7 +50,7 @@ def reactivity_summation(master_array_dict):
         try:
             for i in master_array_dict[species]:
                 if "-1" in i:
-                    if "AER" not in i:
+                    if "ACRate" not in i:
                         if "%s_SURF" % species not in i:
                             if "%s_timed" % species not in i:
                                 i = list(filter((species).__ne__, i))
@@ -67,7 +67,7 @@ def reactivity_summation(master_array_dict):
         try:
             for i in master_array_dict[species]:
                 if "-1" not in i:
-                    if "AER" not in i:
+                    if "ACRate" not in i:
                         if "%s_SURF" % species not in i:
                             if "%s_timed" % species not in i:
                                 i = list(filter((species).__ne__, i))
