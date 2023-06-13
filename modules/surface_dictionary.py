@@ -3438,7 +3438,7 @@ def O3_deposition():
     ['vdLINOO3','0.007'],
     ['vdPLASTICO3','0.1225'],
     ['vdGLASSO3','0.0005'],
-    ['vdHUMANO3','0.2850'],
+    ['vdHUMANO3','0.6000'],
     #
     #Soft Fabrics
     ['YIELDSOFTO3FORMALDEHYDE','0.0335'],
