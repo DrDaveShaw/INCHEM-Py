@@ -84,7 +84,7 @@ if not os.path.exists('%s/%s' % (path,output_folder)):
 #create and save csvs
 for i in out_data:
     out_data[i].to_csv("%s/%s/%s.csv" % (path,output_folder,i), 
-                       columns = species_to_extract)
+                       columns = species_to_extract, index_label='Time (s)')
     
 #plotting function
 def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_plot):
