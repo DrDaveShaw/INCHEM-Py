@@ -178,7 +178,7 @@ def outdoor_rates(particles,species):
     outdoor_dict['H2O2OUT']=3.13E10
     outdoor_dict['BCARYOUT']=9.348E7
     outdoor_dict['CH4OUT']=4.652E13
-    outdoor_dict['COOUT']=6.642E12
+    outdoor_dict['COOUT']=4.797E12
     outdoor_dict['SO2OUT']=1.715E10
     outdoor_dict['HNO3OUT']=9.557E9
     outdoor_dict['HONOOUT']=1.588E10
