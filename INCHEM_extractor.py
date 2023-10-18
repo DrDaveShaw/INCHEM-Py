@@ -124,9 +124,9 @@ def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_p
     return None
 
 #units for the graphs
-units = ["Concentration (molecules/cm\N{SUPERSCRIPT THREE})",
+units = ["Concentration (molecule/cm\N{SUPERSCRIPT THREE})",
 "Reactivity (s\N{SUPERSCRIPT MINUS}\N{SUPERSCRIPT ONE})",
-"Production (molecules/cm\N{SUPERSCRIPT THREE}s\N{SUPERSCRIPT MINUS}\N{SUPERSCRIPT ONE})",
+"Production (molecule/cm\N{SUPERSCRIPT THREE}s\N{SUPERSCRIPT MINUS}\N{SUPERSCRIPT ONE})",
 "Photolysis coefficient (s\N{SUPERSCRIPT MINUS}\N{SUPERSCRIPT ONE})"]
 
 #additional name for graphs
