@@ -290,12 +290,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #is applied to the specific species
         if timed_emissions == True:
             for key in timed_inputs:
+                sequence = iter(range(len(timed_inputs[key])))
                 for i in timed_inputs[key]:
                     if i[0] <= t <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 1
                         break
                     else:
-                        timed_dict["%s_timed" % key] = 0
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 0
         
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,\
@@ -391,12 +392,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #is applied to the specific species
         if timed_emissions == True:
             for key in timed_inputs:
+                sequence = iter(range(len(timed_inputs[key])))
                 for i in timed_inputs[key]:
                     if i[0] <= t <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 1
                         break
                     else:
-                        timed_dict["%s_timed" % key] = 0
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 0
                     
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_dict,\
@@ -498,9 +500,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                 iter_time.append(timing.time()-start_time)
                 calculated_output['RO2'].append(density_dict["RO2"])
                 reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,\
-                                calc_dict,density_dict)
+                                calc_dict,density_dict,outdoor_dict,timed_dict)
                 production_calc(production_dict,production_compiled,reaction_rate_dict,\
-                                calc_dict,density_dict)
+                                calc_dict,density_dict,outdoor_dict,timed_dict)
                 for i in reactivity_dict:
                     calculated_output[i].append(reactivity_dict[i])
                 for i in production_dict:
@@ -851,16 +853,15 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     timed_dict={}
     if timed_emissions == True:
-        for specie in species:
-            timed_dict["%s_timed" % specie] = 0
         for key in timed_inputs:
             if key in species:
+                sequence = iter(range(len(timed_inputs[key])))
                 for i in timed_inputs[key]:
                     if i[0] <= t0 <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 1
                         break
                     else:
-                        timed_dict["%s_timed" % key] = 0
+                        timed_dict["%s_timed_%s" % (key,next(sequence))] = 0
             else:
                 print('%s not found in species list (timed input)' % key)
     
@@ -917,7 +918,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     
     #creating the master array
     master_array_dict=master_calc(reactions_numba,species,reaction_number,particles,\
-                                  particle_species,timed_emissions)
+                                  particle_species,timed_emissions,timed_inputs)
     
     #saving the master array to the output folder
     with open('%s/%s/master_array.pickle' % (path,output_folder),'wb') as handle:
@@ -942,10 +943,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     reactivity_compiled, production_compiled = reactivity_summation(master_array_dict)
     reactivity_dict = {}
     reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,\
-                    density_dict)
+                    density_dict,outdoor_dict,timed_dict)
     production_dict = {}
     production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,\
-                    density_dict)
+                    density_dict,outdoor_dict,timed_dict)
      
     '''
     #Integration
