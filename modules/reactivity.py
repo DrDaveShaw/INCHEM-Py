@@ -81,8 +81,7 @@ def reactivity_summation(master_array_dict):
     return reactivity_compiled, production_compiled
 
 
-def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,
-                    density_dict,outdoor_dict,timed_dict):
+def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_dict,density_dict):
     """
     Evaluates the reactiivity equations
     
@@ -94,13 +93,12 @@ def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_
         calc_dict = dictionary of constants and variables for use in calculations
         density_dict = dictionary of current concentrations
     """
-    full_dict={**reaction_rate_dict,**calc_dict,**density_dict,**outdoor_dict,**timed_dict}
+    full_dict={**reaction_rate_dict,**calc_dict,**density_dict}
     for species in reactivity_compiled.keys():
         reactivity_dict['%s_reactivity' % species] = eval(reactivity_compiled[species],{},full_dict)*(-1)
     return None
 
-def production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,
-                    density_dict,outdoor_dict,timed_dict):
+def production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,density_dict):
     '''
     Evaluates the production equations
     
@@ -112,7 +110,7 @@ def production_calc(production_dict,production_compiled,reaction_rate_dict,calc_
         calc_dict = dictionary of constants and variables for use in calculations
         density_dict = dictionary of current concentrations
     '''
-    full_dict={**reaction_rate_dict,**calc_dict,**density_dict,**outdoor_dict,**timed_dict}
+    full_dict={**reaction_rate_dict,**calc_dict,**density_dict}
     for species in production_compiled.keys():
         production_dict['%s_production' % species] = eval(production_compiled[species],{},full_dict)
     return None
