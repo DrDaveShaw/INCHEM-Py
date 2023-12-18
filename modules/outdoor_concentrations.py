@@ -189,7 +189,7 @@ def outdoor_rates(particles,species):
     outdoor_dict['O3OUT']=6.11e11   #Average London_suburban
 
     #Total Suspended Particles (TSP)
-    if particles == 1:
+    if particles == True:
         outdoor_dict['TSPOUT']=1.4E11
     
     for specie in species:
