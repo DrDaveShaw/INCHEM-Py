@@ -290,12 +290,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #is applied to the specific species
         if timed_emissions == True:
             for key in timed_inputs:
+                iterator = iter(range(len(timed_inputs[key])))
                 for i in timed_inputs[key]:
+                    iterator_next = next(iterator)
                     if i[0] <= t <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
-                        break
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
                     else:
-                        timed_dict["%s_timed" % key] = 0
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
         
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,\
@@ -391,12 +392,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #is applied to the specific species
         if timed_emissions == True:
             for key in timed_inputs:
+                iterator = iter(range(len(timed_inputs[key])))
                 for i in timed_inputs[key]:
+                    iterator_next = next(iterator)
                     if i[0] <= t <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
-                        break
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
                     else:
-                        timed_dict["%s_timed" % key] = 0
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
                     
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_dict,\
@@ -733,6 +735,25 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         reactions_numba = reactions_numba + breath_reactions
         rate_numba = rate_numba + breath_rates
         
+    '''
+    timed concentrations
+    '''
+    timed_dict = {}
+    timed_reactions = []
+    if timed_emissions == True:
+        for key in timed_inputs:
+            if key in species:
+                iterator = iter(range(len(timed_inputs[key])))
+                for i in timed_inputs[key]:
+                    iterator_next = next(iterator)
+                    timed_reactions.append(["%s_timed_%s*(%s)" % (key,iterator_next,i[2]),"= %s" % key])
+                    if i[0] <= t0 <= i[1]:
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
+                    else:
+                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
+            else:
+                print('%s not found in species list (timed input)' % key)
+        reactions_numba = reactions_numba + timed_reactions      
     
     '''
     Additional clean up, checking for summations from custom inputs
@@ -845,24 +866,6 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             surface_dict['%s_SURF' % specie]=0.004*AV
         elif '%s_SURF' % specie not in surface_dict.keys():
             surface_dict['%s_SURF' % specie]=0
-    
-    '''
-    timed concentrations
-    '''
-    timed_dict={}
-    if timed_emissions == True:
-        for specie in species:
-            timed_dict["%s_timed" % specie] = 0
-        for key in timed_inputs:
-            if key in species:
-                for i in timed_inputs[key]:
-                    if i[0] <= t0 <= i[1]:
-                        timed_dict["%s_timed" % key] = i[2]
-                        break
-                    else:
-                        timed_dict["%s_timed" % key] = 0
-            else:
-                print('%s not found in species list (timed input)' % key)
     
     '''
     importing initial concentrations

@@ -181,10 +181,6 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         
         #surface deposition
         master_array_dict[s].append(['%s_SURF' % s, s,'-1'])   
-        
-        #timed densities
-        if timed_emissions == True:
-            master_array_dict[s].append(["%s_timed" % s, "1"])
             
     return master_array_dict
 
