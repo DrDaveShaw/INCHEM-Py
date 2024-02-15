@@ -30,7 +30,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults, children,
-               surfaces_AV, settings_file, temperatures, spline):
+               surfaces_AV, settings_file, temperatures, spline, custom_filename):
   
     '''
     import all modules
@@ -661,7 +661,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     sums = []
     if custom == True:
-        custom_filename="custom_input.txt"
+        #custom_filename="custom_input.txt"
         custom_rates, custom_reactions, custom_species, custom_RO2, sums = \
             custom_import(custom_filename,species)
         # Check that rates/constants/RO2 have not been added as species
@@ -672,7 +672,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         rate_numba = rate_numba + custom_rates
         reactions_numba = reactions_numba + custom_reactions
         ppool = ppool + custom_RO2
-        copyfile("custom_input.txt", "%s/%s/custom_input.txt" % (path,output_folder))
+        copyfile(custom_filename, "%s/%s/%s" % (path,output_folder,custom_filename))
      
     '''
     INCHEM reactions and rates that are not included in MCM download.

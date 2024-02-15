@@ -33,7 +33,9 @@ INCHEM_additional = True #Set to True if additional reactions from the INCHEM ar
 #that do not appear in the MCM download
 
 custom = False # Custom reactions that are not in the MCM included?
-# Format of this file is in an included custom file called custom_input.txt.
+# The default filename is custom_input.txt, this can be renamed to have multiple custom
+# input files.
+custom_filename = 'custom_input.txt'
 
 # Temperatures are interpolated from values given here using either a linear method
 # or a BSpline. Details of these methods are given in the user manual. 
@@ -197,4 +199,4 @@ if __name__ == "__main__":
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults,
-               children, surfaces_AV, __file__, temperatures, spline)
+               children, surfaces_AV, __file__, temperatures, spline, custom_filename)
