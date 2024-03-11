@@ -133,38 +133,37 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
     master_array_dict={} #for saving array as dict
     for s in species:
         master_array_dict[s]=[]
-
-    reaction=np.zeros([len(reactions_in)]).tolist()
-    loss_array_temp=[[] for i in range(len(reactions_in))] #temporary array for loss side of reaction
-    gain_array_temp=[[] for i in range(len(reactions_in))] #temporary array for loss side of reaction
     
-    for i in tqdm(range(len(reactions_in)),desc="Creating master array"):
-        reaction[i]=reactions_in[i][1].replace(' ','') #remove spaces
-        reaction[i]=reaction[i].split('=') #split into loss and gain
-        loss_array_temp[i]=reaction[i][0].split('+')
-        gain_array_temp[i]=reaction[i][1].split('+')
-        for j in species:
-            temp_loss=[]
-            temp_loss.append('%s' % reaction_number[i]) #assign reaction
-            temp_loss.append('-1') #negative if loss
-            if loss_array_temp[i] != ['']:
-                temp_loss.extend(loss_array_temp[i])
+    reaction = []
+    for i in range(len(reactions_in)):
+        reaction.append(reactions_in[i][1].replace(' ',''))
+        reaction[i] = reaction[i].split('=')
+        reaction[i][0] = reaction[i][0].split('+')
+        reaction[i][1] = reaction[i][1].split('+')
+        reaction[i].append(reaction_number[i])
+        #print(reaction[i])
+        
+    for i in tqdm(range(len(reaction)),desc="Creating master array"):
+        for spec in reaction[i][0]:
+            loss_rate = reaction[i][0].copy()
+            if loss_rate != ['']:
+                loss_rate.extend([reaction[i][2],'-1'])
             else:
-                temp_loss.extend('1')
-            temp_gain=[]
-            temp_gain.append('%s' % reaction_number[i]) #assign reaction
-            if loss_array_temp[i] != ['']:
-                temp_gain.extend(loss_array_temp[i])
+                loss_rate = [reaction[i][2],'-1']
+            try:
+                master_array_dict[spec].append(loss_rate)
+            except KeyError:
+                continue
+        for spec in reaction[i][1]:
+            gain_rate = reaction[i][0].copy()
+            if gain_rate != ['']:
+                gain_rate.extend([reaction[i][2]])
             else:
-                temp_gain.extend('1')
-            
-            #if species is being lost append loss, if gained append gain
-            for k in loss_array_temp[i]:
-                if j == k:
-                    master_array_dict[j].append(temp_loss)
-            for k in gain_array_temp[i]:
-                if j == k:
-                    master_array_dict[j].append(temp_gain)
+                gain_rate = [reaction[i][2]]
+            try:
+                master_array_dict[spec].append(gain_rate)
+            except KeyError:
+                continue
                     
     
     for s in species:
