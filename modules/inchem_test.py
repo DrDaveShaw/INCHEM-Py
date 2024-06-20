@@ -147,8 +147,8 @@ class TestInitial(unittest.TestCase):
                         "rate 2 should be parsed as 20")
         self.assertTrue(len(calc_dict) == 3,
                         "incorrect length calc_dict (3)")
-        self.assertTrue("seed" in density_dict,
-                        "seed value missing")
+        self.assertTrue("SEED" in density_dict,
+                        "SEED value missing")
         self.assertTrue(len(density_dict) == 7,
                         "7 species total in test")
         
@@ -165,8 +165,8 @@ class TestInitial(unittest.TestCase):
                         "rate 2 should be parsed as 20")
         self.assertTrue(len(calc_dict) == 3,
                         "incorrect length calc_dict (3)")
-        self.assertTrue("seed" in density_dict,
-                        "seed value missing")
+        self.assertTrue("SEED" in density_dict,
+                        "SEED value missing")
         self.assertTrue(len(density_dict) == 7,
                         "7 species total in test")
         self.assertTrue(density_dict["HONO"] == 4639743671.834778,
@@ -187,7 +187,7 @@ class TestInitial(unittest.TestCase):
                                         timed_densities)
         self.assertEqual(len(master_array_dict), 9,
                          "9 species in test")
-        self.assertEqual(master_array_dict['NO2'][2], ['5.0', '-1', 'NO2'],
+        self.assertEqual(master_array_dict['NO2'][2], ['NO2', 5.0, '-1'],
                          "Equations parsed incorrectly")
         self.assertEqual(list(master_array_dict.keys()), species,
                          "species input do not match master array keys")
