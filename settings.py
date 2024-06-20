@@ -23,6 +23,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
+
+Version: 1.2.1
 """
 
 filename = 'mcm_v331.fac' # facsimile format input filename
@@ -90,29 +92,30 @@ Surface deposition
 # The surface dictionary exists in surface_dictionary.py in the modules folder.
 # To change any surface deposition rates of individual species, or to add species
 # this file must be edited. Production rates can be added as normal reactions
-# in the custom inputs file. To remove surface deposition AV should be set to 0 and
-# H2O2_dep and O3_dep should be set to False.
+# in the custom inputs file.
 
-# AV is the surface to volume ratio (cm^-1)
-AV = 0.02
+# Room volume (cm^3)
+volume = 2.97e7
 
 # Schemes for deposition of O3 and H2O2 are optionally provided. These schemes 
 # provide calculated surface emissions proportional to O3 and H2O2 deposition
 # to different surfaces. The schemes can be turned off or on below.
-# If either scheme is on then AV will be calculated as a sum of the AVs given
-# for the individual surfaces.
+# Surface deposition of other species is calculates using the total of the surface 
+# areas given divided by the volume. To avoid surface emissions from H2O2 and O3
+# deposition then set H2O2_dep and O3_dep to False
 
-surfaces_AV = {             # (cm^-1)
-    'AVSOFT' : 0.0035,      # soft furnishings
-    'AVPAINT' : 0.0114,     # painted surfaces
-    'AVWOOD' : 0.0061,      # wood
-    'AVMETAL' : 0.0025,     # metal
-    'AVCONCRETE' : 0.0001,  # concrete
-    'AVPAPER' : 0.0006,     # paper
-    'AVLINO' : 0.0000,      # linoleum
-    'AVPLASTIC' : 0.0048,   # plastic
-    'AVGLASS' : 0.0009,     # glass
-    'AVHUMAN' : 0.0000}     # humans
+surface_area = {          # (cm2)
+    'SOFT' : 10.42e4,      # soft furnishings
+    'PAINT' : 33.76e4,     # painted surfaces
+    'WOOD' : 18.23e4,      # wood
+    'METAL' : 7.46e4,      # metal
+    'CONCRETE' : 0.391e4,  # concrete
+    'PAPER' : 1.89e4,      # paper
+    'LINO' : 0,            # linoleum
+    'PLASTIC' : 14.18e4,   # plastic
+    'GLASS' : 2.61e4,      # glass
+    'HUMAN' : 0,           # humans, does not automatically include breath emissions
+    'OTHER': 0}            # other surfaces, no emissions
 
 H2O2_dep = True
 O3_dep = True
@@ -195,8 +198,8 @@ if __name__ == "__main__":
     from modules.inchem_main import run_inchem
     run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                M, const_dict, ACRate, diurnal, city, date, lat, light_type, 
-               light_on_times, glass, AV, initials_from_run,
+               light_on_times, glass, volume, initials_from_run,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults,
-               children, surfaces_AV, __file__, temperatures, spline, custom_filename)
+               children, surface_area, __file__, temperatures, spline, custom_filename)
