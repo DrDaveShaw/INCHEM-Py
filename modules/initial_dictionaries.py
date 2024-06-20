@@ -101,9 +101,9 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
             elif i not in density_dict:
                 density_dict[i]=0
             
-    if particles == True and 'seed_1' not in density_dict:
-        density_dict['seed_1']=2.09e10
-        density_dict['seed']=density_dict['seed_1']*1.33e-4
+    if particles == True and 'SEED_1' not in density_dict:
+        density_dict['SEED_1']=2.09e10
+        density_dict['SEED']=density_dict['SEED_1']*1.33e-4
             
     for i in rate_numba:
         calc_dict[i[0]]=eval(i[1],{},{**density_dict,**calc_dict})    
@@ -170,9 +170,9 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
         #outdoor exchange
         if particles == True and s in particle_species:
             master_array_dict[s].append(['%s' % s, 'ACRate', '-1'])
-            if s == 'seed_1':
+            if s == 'SEED_1':
                 master_array_dict[s].append(['TSPOUT','ACRate*0.3'])
-            elif s == 'tspnonorg':
+            elif s == 'TSPNONORG':
                 master_array_dict[s].append(['TSPOUT','ACRate*0.7'])
         else:
             master_array_dict[s].append(['%sOUT' % s, 'ACRate'])

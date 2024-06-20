@@ -450,9 +450,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         calculated_output = {}
         calculated_output['RO2'] = []
         if particles == True:
-            calculated_output['tsp'] = []
+            calculated_output['TSP'] = []
             calculated_output['acidsum'] = []
-            calculated_output['tspx'] = []
+            calculated_output['TSPx'] = []
             calculated_output['mwomv'] = []
             calculated_output['soacalc'] = []
         for i in reactivity_dict:
@@ -508,9 +508,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                 for i in production_dict:
                     calculated_output[i].append(production_dict[i])
                 if particles == True:
-                    calculated_output['tsp'].append(density_dict['tsp'])
+                    calculated_output['TSP'].append(density_dict['TSP'])
                     calculated_output['acidsum'].append(density_dict['acidsum'])
-                    calculated_output['tspx'].append(density_dict['tspx'])
+                    calculated_output['TSPx'].append(density_dict['TSPx'])
                     calculated_output['mwomv'].append(density_dict['mwomv'])
                     calculated_output['soacalc'].append(density_dict['soacalc'])
                 for i in range(num_species):
@@ -711,7 +711,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     particle_species=[]
     if particles == True:
-        #if the full MCM is not being used then the calcuations for tsp and anything involving tsp
+        #if the full MCM is not being used then the calcuations for TSP and anything involving TSP
         #will fail so particles can only be used with the full MCM at the moment 04/2020
         particle_species, particle_reactions, particle_vap_dict, part_calc_dict = particle_import()
         species = species + particle_species #add particle species to species list
@@ -967,9 +967,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     calculated_output_tot = {}
     calculated_output_tot['RO2'] = [density_dict['RO2']]
     if particles == True:
-        calculated_output_tot['tsp'] = [density_dict['tsp']]
+        calculated_output_tot['TSP'] = [density_dict['TSP']]
         calculated_output_tot['acidsum'] = [density_dict['acidsum']]
-        calculated_output_tot['tspx'] = [density_dict['tspx']]
+        calculated_output_tot['TSPx'] = [density_dict['TSPx']]
         calculated_output_tot['mwomv'] = [density_dict['mwomv']]
         calculated_output_tot['soacalc'] = [density_dict['soacalc']]
     for i in reactivity_dict:

@@ -33,9 +33,10 @@ def particle_species_def():
     returns:
         particle_species = list of particle species
     '''
-    particle_species=   ['seed_1',
-                         'tspnonorg',
-                         'PART1',
+    particle_species=   ['SEED', # aerosol formed from chemistry
+                        'SEED_1', # 30% TSPOUT
+                        'TSPNONORG', # 70% TSPOUT
+                        'PART1',
                         'PART100',
                         'PART101',
                         'PART102',
@@ -2388,1138 +2389,1138 @@ def particle_reactions_in():
             ['kacid*acidsum', 'INCNCO2H=PART590'],
             ['kacid*acidsum', 'INB1NBCO2H=PART591'],
             ['kacid*acidsum', 'INB1NACO2H=PART592'],
-            ['KON1', 'LIMONONIC+seed_1=PART1+seed_1'],
-            ['KON2A', 'LIMANO3+seed_1=PART2A+seed_1'],
-            ['KON2B', 'LIMBNO3+seed_1=PART2B+seed_1'],
-            ['KON3', 'LIMCNO3+seed_1=PART3+seed_1'],
-            ['KON4', 'C923PAN+seed_1=PART4+seed_1'],
-            ['KON5', 'C817PAN+seed_1=PART5+seed_1'],
-            ['KON6', 'LMKANO3+seed_1=PART6+seed_1'],
-            ['KON11', 'LIMONIC+seed_1=PART11+seed_1'],
-            ['KON13', 'KLIMONONIC+seed_1=PART13+seed_1'],
-            ['KON14', 'LIMAL+seed_1=PART14+seed_1'],
-            ['KON15', 'LMLKET+seed_1=PART15+seed_1'],
-            ['KON16', 'LIMALBOH+seed_1=PART16+seed_1'],
-            ['KON17', 'LIMALACO+seed_1=PART17+seed_1'],
-            ['KON22', 'C732PAN+seed_1=PART22+seed_1'],
-            ['KON23', 'KLIMONIC+seed_1=PART23+seed_1'],
-            ['KON24', 'C731CO2H+seed_1=PART24+seed_1'],
-            ['KON25', 'C822CO2H+seed_1=PART25+seed_1'],
-            ['KON26', 'LIMALOOH+seed_1=PART26+seed_1'],
-            ['KON27', 'LIMCOOH+seed_1=PART27+seed_1'],
-            ['KON28', 'C825OH+seed_1=PART28+seed_1'],
-            ['KON29', 'LIMAOOH+seed_1=PART29+seed_1'],
-            ['KON30', 'C826OOH+seed_1=PART30+seed_1'],
-            ['KON31', 'C825CO+seed_1=PART31+seed_1'],
-            ['KON32', 'LIMALOH+seed_1=PART32+seed_1'],
-            ['KON33', 'C728OOH+seed_1=PART33+seed_1'],
-            ['KON34', 'LIMALBOOH+seed_1=PART34+seed_1'],
-            ['KON35', 'LIMALAOOH+seed_1=PART35+seed_1'],
-            ['KON36', 'C924OOH+seed_1=PART36+seed_1'],
-            ['KON37', 'C818OOH+seed_1=PART37+seed_1'],
-            ['KON38', 'LMKAOOH+seed_1=PART38+seed_1'],
-            ['KON39', 'NORLIMOOH+seed_1=PART39+seed_1'],
-            ['KON40', 'LIMCOH+seed_1=PART40+seed_1'],
-            ['KON41', 'C924OH+seed_1=PART41+seed_1'],
-            ['KON42', 'LIMALAOH+seed_1=PART42+seed_1'],
-            ['KON43', 'C925OOH+seed_1=PART43+seed_1'],
-            ['KON44', 'LIMAOH+seed_1=PART44+seed_1'],
-            ['KON45', 'C826OH+seed_1=PART45+seed_1'],
-            ['KON46', 'C728OH+seed_1=PART46+seed_1'],
-            ['KON47', 'C823OOH+seed_1=PART47+seed_1'],
-            ['KON48', 'LIMBOOH+seed_1=PART48+seed_1'],
-            ['KON49', 'LMLKAOH+seed_1=PART49+seed_1'],
-            ['KON50', 'C922OOH+seed_1=PART50+seed_1'],
-            ['KON51', 'C813OOH+seed_1=PART51+seed_1'],
-            ['KON52', 'C516OOH+seed_1=PART52+seed_1'],
-            ['KON53', 'C621OOH+seed_1=PART53+seed_1'],
-            ['KON54', 'C813NO3+seed_1=PART54+seed_1'],
-            ['KON55', 'C921OOH+seed_1=PART55+seed_1'],
-            ['KON56', 'C812OOH+seed_1=PART56+seed_1'],
-            ['KON57', 'C813OH+seed_1=PART57+seed_1'],
-            ['KON58', 'NC72OOH+seed_1=PART58+seed_1'],
-            ['KON59', 'NC61CO3H+seed_1=PART59+seed_1'],
-            ['KON60', 'NC102OOH+seed_1=PART60+seed_1'],
-            ['KON61', 'C719OOH+seed_1=PART61+seed_1'],
-            ['KON62', 'C98OOH+seed_1=PART62+seed_1'],
-            ['KON63', 'NC6PAN1+seed_1=PART63+seed_1'],
-            ['KON64', 'HOPINONIC+seed_1=PART64+seed_1'],
-            ['KON65', 'C812OH+seed_1=PART65+seed_1'],
-            ['KON66', 'H3C25CCO2H+seed_1=PART66+seed_1'],
-            ['KON67', 'C722OOH+seed_1=PART67+seed_1'],
-            ['KON68', 'NC71OOH+seed_1=PART68+seed_1'],
-            ['KON69', 'NC101OOH+seed_1=PART69+seed_1'],
-            ['KON70', 'C719NO3+seed_1=PART70+seed_1'],
-            ['KON71', 'C920CO3H+seed_1=PART71+seed_1'],
-            ['KON72', 'PINIC+seed_1=PART72+seed_1'],
-            ['KON73', 'C106OOH+seed_1=PART73+seed_1'],
-            ['KON74', 'C108OOH+seed_1=PART74+seed_1'],
-            ['KON75', 'H3C25CCO3H+seed_1=PART75+seed_1'],
-            ['KON76', 'C98NO3+seed_1=PART76+seed_1'],
-            ['KON77', 'C614OOH+seed_1=PART77+seed_1'],
-            ['KON78', 'C920OOH+seed_1=PART78+seed_1'],
-            ['KON79', 'H3C25C6OOH+seed_1=PART79+seed_1'],
-            ['KON80', 'C811OOH+seed_1=PART80+seed_1'],
-            ['KON81', 'C44OOH+seed_1=PART81+seed_1'],
-            ['KON82', 'C719OH+seed_1=PART82+seed_1'],
-            ['KON83', 'H3C25C6PAN+seed_1=PART83+seed_1'],
-            ['KON84', 'C97OOH+seed_1=PART84+seed_1'],
-            ['KON85', 'NORPINIC+seed_1=PART85+seed_1'],
-            ['KON86', 'H1C23C4OOH+seed_1=PART86+seed_1'],
-            ['KON87', 'C920PAN+seed_1=PART87+seed_1'],
-            ['KON88', 'C98OH+seed_1=PART88+seed_1'],
-            ['KON89', 'C811CO3H+seed_1=PART89+seed_1'],
-            ['KON90', 'HC23C4CO3H+seed_1=PART90+seed_1'],
-            ['KON91', 'C106NO3+seed_1=PART91+seed_1'],
-            ['KON92', 'C108NO3+seed_1=PART92+seed_1'],
-            ['KON93', 'C811PAN+seed_1=PART93+seed_1'],
-            ['KON94', 'C716OOH+seed_1=PART94+seed_1'],
-            ['KON95', 'C717OOH+seed_1=PART95+seed_1'],
-            ['KON96', 'NAPINAOOH+seed_1=PART96+seed_1'],
-            ['KON97', 'NAPINBOOH+seed_1=PART97+seed_1'],
-            ['KON98', 'C721OOH+seed_1=PART98+seed_1'],
-            ['KON99', 'C109OOH+seed_1=PART99+seed_1'],
-            ['KON100', 'C614NO3+seed_1=PART100+seed_1'],
-            ['KON101', 'H1C23C4PAN+seed_1=PART101+seed_1'],
-            ['KON102', 'C721CO3H+seed_1=PART102+seed_1'],
-            ['KON103', 'C235C6CO3H+seed_1=PART103+seed_1'],
-            ['KON104', 'APINCOOH+seed_1=PART104+seed_1'],
-            ['KON105', 'C811NO3+seed_1=PART105+seed_1'],
-            ['KON106', 'APINAOOH+seed_1=PART106+seed_1'],
-            ['KON107', 'C7PAN3+seed_1=PART107+seed_1'],
-            ['KON108', 'C107OOH+seed_1=PART108+seed_1'],
-            ['KON109', 'PINALOOH+seed_1=PART109+seed_1'],
-            ['KON110', 'C106OH+seed_1=PART110+seed_1'],
-            ['KON111', 'C108OH+seed_1=PART111+seed_1'],
-            ['KON112', 'C811OH+seed_1=PART112+seed_1'],
-            ['KON113', 'C614OH+seed_1=PART113+seed_1'],
-            ['KON114', 'H3C25C6OH+seed_1=PART114+seed_1'],
-            ['KON115', 'C721PAN+seed_1=PART115+seed_1'],
-            ['KON116', 'C810OOH+seed_1=PART116+seed_1'],
-            ['KON117', 'CO235C6OOH+seed_1=PART117+seed_1'],
-            ['KON118', 'APINBOOH+seed_1=PART118+seed_1'],
-            ['KON119', 'H3C2C4CO2H+seed_1=PART119+seed_1'],
-            ['KON120', 'C717NO3+seed_1=PART120+seed_1'],
-            ['KON121', 'NC71CO+seed_1=PART121+seed_1'],
-            ['KON122', 'C97OH+seed_1=PART122+seed_1'],
-            ['KON123', 'PINONIC+seed_1=PART123+seed_1'],
-            ['KON124', 'APINCNO3+seed_1=PART124+seed_1'],
-            ['KON125', 'C86OOH+seed_1=PART125+seed_1'],
-            ['KON126', 'PINALNO3+seed_1=PART126+seed_1'],
-            ['KON127', 'C109OH+seed_1=PART127+seed_1'],
-            ['KON128', 'C810NO3+seed_1=PART128+seed_1'],
-            ['KON129', 'APINANO3+seed_1=PART129+seed_1'],
-            ['KON130', 'C720OOH+seed_1=PART130+seed_1'],
-            ['KON131', 'H3C2C4CO3H+seed_1=PART131+seed_1'],
-            ['KON132', 'C89CO2H+seed_1=PART132+seed_1'],
-            ['KON133', 'C716OH+seed_1=PART133+seed_1'],
-            ['KON134', 'C717OH+seed_1=PART134+seed_1'],
-            ['KON135', 'APINBNO3+seed_1=PART135+seed_1'],
-            ['KON136', 'C514OOH+seed_1=PART136+seed_1'],
-            ['KON137', 'PERPINONIC+seed_1=PART137+seed_1'],
-            ['KON138', 'C10PAN2+seed_1=PART138+seed_1'],
-            ['KON139', 'C614CO+seed_1=PART139+seed_1'],
-            ['KON140', 'APINCOH+seed_1=PART140+seed_1'],
-            ['KON141', 'H3C2C4PAN+seed_1=PART141+seed_1'],
-            ['KON142', 'C107OH+seed_1=PART142+seed_1'],
-            ['KON143', 'PINALOH+seed_1=PART143+seed_1'],
-            ['KON144', 'APINBOH+seed_1=PART144+seed_1'],
-            ['KON145', 'C721CHO+seed_1=PART145+seed_1'],
-            ['KON146', 'C89CO3H+seed_1=PART146+seed_1'],
-            ['KON147', 'C96OOH+seed_1=PART147+seed_1'],
-            ['KON148', 'CO2H3CO3H+seed_1=PART148+seed_1'],
-            ['KON149', 'H3C25C5CHO+seed_1=PART149+seed_1'],
-            ['KON150', 'NC101CO+seed_1=PART150+seed_1'],
-            ['KON151', 'C810OH+seed_1=PART151+seed_1'],
-            ['KON152', 'H1C23C4CHO+seed_1=PART152+seed_1'],
-            ['KON153', 'C85CO3H+seed_1=PART153+seed_1'],
-            ['KON154', 'C514NO3+seed_1=PART154+seed_1'],
-            ['KON155', 'C109CO+seed_1=PART155+seed_1'],
-            ['KON156', 'C9PAN2+seed_1=PART156+seed_1'],
-            ['KON157', 'CO13C3CO2H+seed_1=PART157+seed_1'],
-            ['KON158', 'CHOC3COOOH+seed_1=PART158+seed_1'],
-            ['KON159', 'C720NO3+seed_1=PART159+seed_1'],
-            ['KON160', 'C511OOH+seed_1=PART160+seed_1'],
-            ['KON161', 'C4PAN6+seed_1=PART161+seed_1'],
-            ['KON162', 'H1CO23CHO+seed_1=PART162+seed_1'],
-            ['KON163', 'C89PAN+seed_1=PART163+seed_1'],
-            ['KON164', 'C89OOH+seed_1=PART164+seed_1'],
-            ['KON165', 'C5PAN9+seed_1=PART165+seed_1'],
-            ['KON166', 'C96NO3+seed_1=PART166+seed_1'],
-            ['KON167', 'CO235C6CHO+seed_1=PART167+seed_1'],
-            ['KON168', 'CHOC3COPAN+seed_1=PART168+seed_1'],
-            ['KON169', 'CO23C4CO3H+seed_1=PART169+seed_1'],
-            ['KON170', 'C720OH+seed_1=PART170+seed_1'],
-            ['KON171', 'C85OOH+seed_1=PART171+seed_1'],
-            ['KON172', 'APINBCO+seed_1=PART172+seed_1'],
-            ['KON173', 'C312COCO3H+seed_1=PART173+seed_1'],
-            ['KON174', 'C514OH+seed_1=PART174+seed_1'],
-            ['KON175', 'C96OH+seed_1=PART175+seed_1'],
-            ['KON176', 'C312COPAN+seed_1=PART176+seed_1'],
-            ['KON177', 'CO235C5CHO+seed_1=PART177+seed_1'],
-            ['KON178', 'C89NO3+seed_1=PART178+seed_1'],
-            ['KON179', 'PINAL+seed_1=PART179+seed_1'],
-            ['KON180', 'HCC7CO+seed_1=PART180+seed_1'],
-            ['KON181', 'C89OH+seed_1=PART181+seed_1'],
-            ['KON182', 'CO13C4CHO+seed_1=PART182+seed_1'],
-            ['KON183', 'NORPINAL+seed_1=PART183+seed_1'],
-            ['KON184', 'CO2H3CHO+seed_1=PART184+seed_1'],
-            ['KON185', 'C4CODIAL+seed_1=PART185+seed_1'],
-            ['KON186', 'CO23C4CHO+seed_1=PART186+seed_1'],
-            ['KON200', 'BPINANO3+seed_1=PART200+seed_1'],
-            ['KON201', 'BPINAOH+seed_1=PART201+seed_1'],
-            ['KON202', 'BPINAOOH+seed_1=PART202+seed_1'],
-            ['KON203', 'BPINBNO3+seed_1=PART203+seed_1'],
-            ['KON204', 'BPINBOOH+seed_1=PART204+seed_1'],
-            ['KON205', 'BPINCNO3+seed_1=PART205+seed_1'],
-            ['KON206', 'BPINCOH+seed_1=PART206+seed_1'],
-            ['KON207', 'BPINCOOH+seed_1=PART207+seed_1'],
-            ['KON209', 'C512CO2H+seed_1=PART209+seed_1'],
-            ['KON210', 'C512CO3H+seed_1=PART210+seed_1'],
-            ['KON211', 'C512NO3+seed_1=PART211+seed_1'],
-            ['KON212', 'C512OH+seed_1=PART212+seed_1'],
-            ['KON213', 'C512OOH+seed_1=PART213+seed_1'],
-            ['KON214', 'C512PAN+seed_1=PART214+seed_1'],
-            ['KON215', 'C513CO+seed_1=PART215+seed_1'],
-            ['KON216', 'C513OH+seed_1=PART216+seed_1'],
-            ['KON217', 'C513OOH+seed_1=PART217+seed_1'],
-            ['KON218', 'C515CHO+seed_1=PART218+seed_1'],
-            ['KON219', 'C515CO+seed_1=PART219+seed_1'],
-            ['KON220', 'C515CO3H+seed_1=PART220+seed_1'],
-            ['KON221', 'C515OOH+seed_1=PART221+seed_1'],
-            ['KON222', 'C515PAN+seed_1=PART222+seed_1'],
-            ['KON223', 'C55OOH+seed_1=PART223+seed_1'],
-            ['KON224', 'C5PAN11+seed_1=PART224+seed_1'],
-            ['KON225', 'C615CO+seed_1=PART225+seed_1'],
-            ['KON226', 'C615CO2H+seed_1=PART226+seed_1'],
-            ['KON227', 'C615CO3H+seed_1=PART227+seed_1'],
-            ['KON228', 'C615OH+seed_1=PART228+seed_1'],
-            ['KON229', 'C615OOH+seed_1=PART229+seed_1'],
-            ['KON230', 'C615PAN+seed_1=PART230+seed_1'],
-            ['KON231', 'C616OH+seed_1=PART231+seed_1'],
-            ['KON232', 'C616OOH+seed_1=PART232+seed_1'],
-            ['KON233', 'C617CHO+seed_1=PART233+seed_1'],
-            ['KON234', 'C617CO2H+seed_1=PART234+seed_1'],
-            ['KON235', 'C617CO3H+seed_1=PART235+seed_1'],
-            ['KON236', 'C617OH+seed_1=PART236+seed_1'],
-            ['KON237', 'C617OOH+seed_1=PART237+seed_1'],
-            ['KON238', 'C617PAN+seed_1=PART238+seed_1'],
-            ['KON239', 'C618CO2H+seed_1=PART239+seed_1'],
-            ['KON240', 'C618CO3H+seed_1=PART240+seed_1'],
-            ['KON241', 'C618OOH+seed_1=PART241+seed_1'],
-            ['KON242', 'C618PAN+seed_1=PART242+seed_1'],
-            ['KON243', 'C619CO+seed_1=PART243+seed_1'],
-            ['KON244', 'C619OH+seed_1=PART244+seed_1'],
-            ['KON245', 'C619OOH+seed_1=PART245+seed_1'],
-            ['KON246', 'C620OH+seed_1=PART246+seed_1'],
-            ['KON247', 'C620OOH+seed_1=PART247+seed_1'],
-            ['KON248', 'C67CHO+seed_1=PART248+seed_1'],
-            ['KON249', 'C67CO3H+seed_1=PART249+seed_1'],
-            ['KON250', 'C6PAN9+seed_1=PART250+seed_1'],
-            ['KON251', 'C718CO2H+seed_1=PART251+seed_1'],
-            ['KON252', 'C718CO3H+seed_1=PART252+seed_1'],
-            ['KON253', 'C718NO3+seed_1=PART253+seed_1'],
-            ['KON254', 'C718OH+seed_1=PART254+seed_1'],
-            ['KON255', 'C718OOH+seed_1=PART255+seed_1'],
-            ['KON256', 'C718PAN+seed_1=PART256+seed_1'],
-            ['KON257', 'C87CO+seed_1=PART257+seed_1'],
-            ['KON258', 'C87CO2H+seed_1=PART258+seed_1'],
-            ['KON259', 'C87CO3H+seed_1=PART259+seed_1'],
-            ['KON260', 'C87OH+seed_1=PART260+seed_1'],
-            ['KON261', 'C87OOH+seed_1=PART261+seed_1'],
-            ['KON262', 'C87PAN+seed_1=PART262+seed_1'],
-            ['KON263', 'C88CHO+seed_1=PART263+seed_1'],
-            ['KON264', 'C88CO+seed_1=PART264+seed_1'],
-            ['KON265', 'C88CO2H+seed_1=PART265+seed_1'],
-            ['KON266', 'C88CO3H+seed_1=PART266+seed_1'],
-            ['KON267', 'C88OH+seed_1=PART267+seed_1'],
-            ['KON268', 'C88OOH+seed_1=PART268+seed_1'],
-            ['KON269', 'C88PAN+seed_1=PART269+seed_1'],
-            ['KON270', 'C8BC+seed_1=PART270+seed_1'],
-            ['KON271', 'C8BCCO+seed_1=PART271+seed_1'],
-            ['KON272', 'C8BCNO3+seed_1=PART272+seed_1'],
-            ['KON273', 'C8BCOH+seed_1=PART273+seed_1'],
-            ['KON274', 'C8BCOOH+seed_1=PART274+seed_1'],
-            ['KON275', 'C914CO+seed_1=PART275+seed_1'],
-            ['KON276', 'C914OH+seed_1=PART276+seed_1'],
-            ['KON277', 'C914OOH+seed_1=PART277+seed_1'],
-            ['KON278', 'C915NO3+seed_1=PART278+seed_1'],
-            ['KON279', 'C915OH+seed_1=PART279+seed_1'],
-            ['KON280', 'C915OOH+seed_1=PART280+seed_1'],
-            ['KON281', 'C916NO3+seed_1=PART281+seed_1'],
-            ['KON282', 'C916OH+seed_1=PART282+seed_1'],
-            ['KON283', 'C916OOH+seed_1=PART283+seed_1'],
-            ['KON284', 'C917NO3+seed_1=PART284+seed_1'],
-            ['KON285', 'C917OH+seed_1=PART285+seed_1'],
-            ['KON286', 'C917OOH+seed_1=PART286+seed_1'],
-            ['KON287', 'C918CHO+seed_1=PART287+seed_1'],
-            ['KON288', 'C918CO3H+seed_1=PART288+seed_1'],
-            ['KON289', 'C918NO3+seed_1=PART289+seed_1'],
-            ['KON290', 'C918OH+seed_1=PART290+seed_1'],
-            ['KON291', 'C918OOH+seed_1=PART291+seed_1'],
-            ['KON292', 'C918PAN+seed_1=PART292+seed_1'],
-            ['KON293', 'C919NO3+seed_1=PART293+seed_1'],
-            ['KON294', 'C919OH+seed_1=PART294+seed_1'],
-            ['KON295', 'C919OOH+seed_1=PART295+seed_1'],
-            ['KON296', 'C9DC+seed_1=PART296+seed_1'],
-            ['KON297', 'C9DCCO+seed_1=PART297+seed_1'],
-            ['KON298', 'C9DCNO3+seed_1=PART298+seed_1'],
-            ['KON299', 'C9DCOH+seed_1=PART299+seed_1'],
-            ['KON300', 'C9DCOOH+seed_1=PART300+seed_1'],
-            ['KON301', 'CO123C5CHO+seed_1=PART301+seed_1'],
-            ['KON302', 'CO12C4CHO+seed_1=PART302+seed_1'],
-            ['KON303', 'CO1M22CHO+seed_1=PART303+seed_1'],
-            ['KON304', 'CO1M22CO2H+seed_1=PART304+seed_1'],
-            ['KON305', 'CO1M22CO3H+seed_1=PART305+seed_1'],
-            ['KON306', 'CO1M22PAN+seed_1=PART306+seed_1'],
-            ['KON307', 'H2M2C3CO3H+seed_1=PART307+seed_1'],
-            ['KON308', 'MIBKHO4CHO+seed_1=PART308+seed_1'],
-            ['KON309', 'NBPINAOOH+seed_1=PART309+seed_1'],
-            ['KON310', 'NBPINBOOH+seed_1=PART310+seed_1'],
-            ['KON311', 'NC91CHO+seed_1=PART311+seed_1'],
-            ['KON312', 'NC91CO3H+seed_1=PART312+seed_1'],
-            ['KON313', 'NC91PAN+seed_1=PART313+seed_1'],
-            ['KON314', 'NOPINANO3+seed_1=PART314+seed_1'],
-            ['KON315', 'NOPINAOH+seed_1=PART315+seed_1'],
-            ['KON316', 'NOPINAOOH+seed_1=PART316+seed_1'],
-            ['KON317', 'NOPINBCO+seed_1=PART317+seed_1'],
-            ['KON318', 'NOPINBNO3+seed_1=PART318+seed_1'],
-            ['KON319', 'NOPINBOH+seed_1=PART319+seed_1'],
-            ['KON320', 'NOPINBOOH+seed_1=PART320+seed_1'],
-            ['KON321', 'NOPINCNO3+seed_1=PART321+seed_1'],
-            ['KON322', 'NOPINCOH+seed_1=PART322+seed_1'],
-            ['KON323', 'NOPINCOOH+seed_1=PART323+seed_1'],
-            ['KON324', 'NOPINDCO+seed_1=PART324+seed_1'],
-            ['KON325', 'NOPINDOH+seed_1=PART325+seed_1'],
-            ['KON326', 'NOPINDOOH+seed_1=PART326+seed_1'],
-            ['KON327', 'NOPINONE+seed_1=PART327+seed_1'],
-            ['kon350', 'M3F+seed_1=PART350+seed_1'],
-            ['KON351', 'ISOPDOH+seed_1=PART351+seed_1'],
-            ['KON352', 'ISOPAOH+seed_1=PART352+seed_1'],
-            ['KON353', 'MMALANHY+seed_1=PART353+seed_1'],
-            ['KON354', 'MC3ODBCO2H+seed_1=PART354+seed_1'],
-            ['KON355', 'C532CO+seed_1=PART355+seed_1'],
-            ['KON356', 'C624CO+seed_1=PART356+seed_1'],
-            ['KON357', 'C518CHO+seed_1=PART357+seed_1'],
-            ['KON358', 'IEB1CHO+seed_1=PART358+seed_1'],
-            ['KON359', 'HO1CO34C5+seed_1=PART359+seed_1'],
-            ['KON360', 'HMVKBCHO+seed_1=PART360+seed_1'],
-            ['KON361', 'HC4CCO2H+seed_1=PART361+seed_1'],
-            ['KON362', 'HC4ACO2H+seed_1=PART362+seed_1'],
-            ['KON363', 'CO2C4CO2H+seed_1=PART363+seed_1'],
-            ['KON364', 'C5HPALD2+seed_1=PART364+seed_1'],
-            ['KON365', 'C624OH+seed_1=PART365+seed_1'],
-            ['KON366', 'C622OH+seed_1=PART366+seed_1'],
-            ['KON367', 'ISOPDOOH+seed_1=PART367+seed_1'],
-            ['KON368', 'ISOPCOOH+seed_1=PART368+seed_1'],
-            ['KON369', 'IEPOXC+seed_1=PART369+seed_1'],
-            ['KON370', 'IEPOXB+seed_1=PART370+seed_1'],
-            ['KON371', 'HO13CO4C5+seed_1=PART371+seed_1'],
-            ['KON372', 'C517OH+seed_1=PART372+seed_1'],
-            ['KON373', 'C531CO+seed_1=PART373+seed_1'],
-            ['KON374', 'CO2C4GLYOX+seed_1=PART374+seed_1'],
-            ['KON375', 'C511CHO+seed_1=PART375+seed_1'],
-            ['KON376', 'C624CHO+seed_1=PART376+seed_1'],
-            ['KON377', 'C622CHO+seed_1=PART377+seed_1'],
-            ['KON378', 'C5PACALD2+seed_1=PART378+seed_1'],
-            ['KON379', 'C5PACALD1+seed_1=PART379+seed_1'],
-            ['KON380', 'C23O3CCHO+seed_1=PART380+seed_1'],
-            ['KON381', 'C627OH+seed_1=PART381+seed_1'],
-            ['KON382', 'C519CHO+seed_1=PART382+seed_1'],
-            ['KON383', 'C518CO2H+seed_1=PART383+seed_1'],
-            ['KON384', 'C517CHO+seed_1=PART384+seed_1'],
-            ['KON385', 'PXYFUOH+seed_1=PART385+seed_1'],
-            ['KON386', 'HMVKBCO2H+seed_1=PART386+seed_1'],
-            ['KON387', 'HC4CCO3H+seed_1=PART387+seed_1'],
-            ['KON388', 'HC4ACO3H+seed_1=PART388+seed_1'],
-            ['KON389', 'CO2C4CO3H+seed_1=PART389+seed_1'],
-            ['KON390', 'C520OH+seed_1=PART390+seed_1'],
-            ['KON391', 'C4M2AL2OH+seed_1=PART391+seed_1'],
-            ['KON392', 'C624OOH+seed_1=PART392+seed_1'],
-            ['KON393', 'C622OOH+seed_1=PART393+seed_1'],
-            ['KON394', 'C58OH+seed_1=PART394+seed_1'],
-            ['KON395', 'C57OH+seed_1=PART395+seed_1'],
-            ['KON396', 'C519OOH+seed_1=PART396+seed_1'],
-            ['KON397', 'C517OOH+seed_1=PART397+seed_1'],
-            ['KON398', 'LIMKET+seed_1=PART398+seed_1'],
-            ['KON399', 'C816CO+seed_1=PART399+seed_1'],
-            ['KON400', 'C729CHO+seed_1=PART400+seed_1'],
-            ['KON401', 'CO25C6CHO+seed_1=PART401+seed_1'],
-            ['KON402', 'C727CO+seed_1=PART402+seed_1'],
-            ['KON403', 'C626CHO+seed_1=PART403+seed_1'],
-            ['KON404', 'C822OH+seed_1=PART404+seed_1'],
-            ['KON405', 'C731OH+seed_1=PART405+seed_1'],
-            ['KON406', 'C729OOH+seed_1=PART406+seed_1'],
-            ['KON407', 'C624CO2H+seed_1=PART407+seed_1'],
-            ['KON408', 'C622CO2H+seed_1=PART408+seed_1'],
-            ['KON409', 'MMALNHY2OH+seed_1=PART409+seed_1'],
-            ['KON410', 'C531OOH+seed_1=PART410+seed_1'],
-            ['KON411', 'C23O3CCO2H+seed_1=PART411+seed_1'],
-            ['KON412', 'C629OH+seed_1=PART412+seed_1'],
-            ['KON413', 'C628OH+seed_1=PART413+seed_1'],
-            ['KON414', 'C627OOH+seed_1=PART414+seed_1'],
-            ['KON415', 'C626OOH+seed_1=PART415+seed_1'],
-            ['KON416', 'C519CO2H+seed_1=PART416+seed_1'],
-            ['KON417', 'C518CO3H+seed_1=PART417+seed_1'],
-            ['KON418', 'C517CO2H+seed_1=PART418+seed_1'],
-            ['KON419', 'ISOPDNO3+seed_1=PART419+seed_1'],
-            ['KON420', 'ISOPCNO3+seed_1=PART420+seed_1'],
-            ['KON421', 'PXYFUOOH+seed_1=PART421+seed_1'],
-            ['KON422', 'IECCO3H+seed_1=PART422+seed_1'],
-            ['KON423', 'IEC2OOH+seed_1=PART423+seed_1'],
-            ['KON424', 'HMVKBCO3H+seed_1=PART424+seed_1'],
-            ['KON425', 'C520OOH+seed_1=PART425+seed_1'],
-            ['KON426', 'C4MALOHOOH+seed_1=PART426+seed_1'],
-            ['KON427', 'C625OH+seed_1=PART427+seed_1'],
-            ['KON428', 'C623OH+seed_1=PART428+seed_1'],
-            ['KON429', 'C59OOH+seed_1=PART429+seed_1'],
-            ['KON430', 'C58OOH+seed_1=PART430+seed_1'],
-            ['KON431', 'C58AOOH+seed_1=PART431+seed_1'],
-            ['KON432', 'C57OOH+seed_1=PART432+seed_1'],
-            ['KON433', 'C57AOOH+seed_1=PART433+seed_1'],
-            ['KON434', 'NORLIMAL+seed_1=PART434+seed_1'],
-            ['KON435', 'C824CO+seed_1=PART435+seed_1'],
-            ['KON436', 'C823CO+seed_1=PART436+seed_1'],
-            ['KON437', 'C817CO+seed_1=PART437+seed_1'],
-            ['KON438', 'C729CO2H+seed_1=PART438+seed_1'],
-            ['KON439', 'C923OH+seed_1=PART439+seed_1'],
-            ['KON440', 'C823OH+seed_1=PART440+seed_1'],
-            ['KON441', 'C822OOH+seed_1=PART441+seed_1'],
-            ['KON442', 'C817OH+seed_1=PART442+seed_1'],
-            ['KON443', 'C816OOH+seed_1=PART443+seed_1'],
-            ['KON444', 'C511CO3H+seed_1=PART444+seed_1'],
-            ['KON445', 'C733OH+seed_1=PART445+seed_1'],
-            ['KON446', 'C732OH+seed_1=PART446+seed_1'],
-            ['KON447', 'C731OOH+seed_1=PART447+seed_1'],
-            ['KON448', 'C727OOH+seed_1=PART448+seed_1'],
-            ['KON449', 'C624CO3H+seed_1=PART449+seed_1'],
-            ['KON450', 'C622CO3H+seed_1=PART450+seed_1'],
-            ['KON451', 'C624NO3+seed_1=PART451+seed_1'],
-            ['KON452', 'C622NO3+seed_1=PART452+seed_1'],
-            ['KON453', 'MMALNHYOOH+seed_1=PART453+seed_1'],
-            ['KON454', 'C23O3CCO3H+seed_1=PART454+seed_1'],
-            ['KON455', 'C629OOH+seed_1=PART455+seed_1'],
-            ['KON456', 'C628OOH+seed_1=PART456+seed_1'],
-            ['KON457', 'C519CO3H+seed_1=PART457+seed_1'],
-            ['KON458', 'C517CO3H+seed_1=PART458+seed_1'],
-            ['KON459', 'C730OH+seed_1=PART459+seed_1'],
-            ['KON460', 'CONM2CO2H+seed_1=PART460+seed_1'],
-            ['KON461', 'C517NO3+seed_1=PART461+seed_1'],
-            ['KON462', 'C533OOH+seed_1=PART462+seed_1'],
-            ['KON463', 'C625OOH+seed_1=PART463+seed_1'],
-            ['KON464', 'C623OOH+seed_1=PART464+seed_1'],
-            ['KON465', 'HPC52OOH+seed_1=PART465+seed_1'],
-            ['KON466', 'C527OOH+seed_1=PART466+seed_1'],
-            ['KON467', 'LIMBCO+seed_1=PART467+seed_1'],
-            ['KON468', 'LMKBCO+seed_1=PART468+seed_1'],
-            ['KON469', 'C924CO+seed_1=PART469+seed_1'],
-            ['KON470', 'C818CO+seed_1=PART470+seed_1'],
-            ['KON471', 'C729CO3H+seed_1=PART471+seed_1'],
-            ['KON472', 'LMKAOH+seed_1=PART472+seed_1'],
-            ['KON473', 'C923OOH+seed_1=PART473+seed_1'],
-            ['KON474', 'C729NO3+seed_1=PART474+seed_1'],
-            ['KON475', 'CO25C6CO3H+seed_1=PART475+seed_1'],
-            ['KON476', 'C821OOH+seed_1=PART476+seed_1'],
-            ['KON477', 'C735OOH+seed_1=PART477+seed_1'],
-            ['KON478', 'C734CO+seed_1=PART478+seed_1'],
-            ['KON479', 'C626CO3H+seed_1=PART479+seed_1'],
-            ['KON480', 'C824OOH+seed_1=PART480+seed_1'],
-            ['KON481', 'C818OH+seed_1=PART481+seed_1'],
-            ['KON482', 'C817OOH+seed_1=PART482+seed_1'],
-            ['KON483', 'MC3CODBPAN+seed_1=PART483+seed_1'],
-            ['KON484', 'C3MCODBPAN+seed_1=PART484+seed_1'],
-            ['KON485', 'C626NO3+seed_1=PART485+seed_1'],
-            ['KON486', 'C734OH+seed_1=PART486+seed_1'],
-            ['KON487', 'C733OOH+seed_1=PART487+seed_1'],
-            ['KON488', 'C732OOH+seed_1=PART488+seed_1'],
-            ['KON489', 'INCGLYOX+seed_1=PART489+seed_1'],
-            ['KON490', 'C5PAN2+seed_1=PART490+seed_1'],
-            ['KON491', 'C5PAN19+seed_1=PART491+seed_1'],
-            ['KON492', 'C5PAN17+seed_1=PART492+seed_1'],
-            ['KON493', 'C4M2ALOHNO3+seed_1=PART493+seed_1'],
-            ['KON494', 'C47CHO+seed_1=PART494+seed_1'],
-            ['KON495', 'C730OOH+seed_1=PART495+seed_1'],
-            ['KON496', 'INDHCHO+seed_1=PART496+seed_1'],
-            ['KON497', 'INCCO+seed_1=PART497+seed_1'],
-            ['KON498', 'C58NO3+seed_1=PART498+seed_1'],
-            ['KON499', 'C58ANO3+seed_1=PART499+seed_1'],
-            ['KON500', 'C57NO3+seed_1=PART500+seed_1'],
-            ['KON501', 'C535OOH+seed_1=PART501+seed_1'],
-            ['KON502', 'C534OOH+seed_1=PART502+seed_1'],
-            ['KON503', 'INDOH+seed_1=PART503+seed_1'],
-            ['KON504', 'INCOH+seed_1=PART504+seed_1'],
-            ['KON505', 'C537OOH+seed_1=PART505+seed_1'],
-            ['KON506', 'LIMALBCO+seed_1=PART506+seed_1'],
-            ['KON507', 'LMLKBCO+seed_1=PART507+seed_1'],
-            ['KON508', 'LMLKACO+seed_1=PART508+seed_1'],
-            ['KON509', 'LMLKBOH+seed_1=PART509+seed_1'],
-            ['KON510', 'C926OH+seed_1=PART510+seed_1'],
-            ['KON511', 'C822CO3H+seed_1=PART511+seed_1'],
-            ['KON512', 'C816CO3H+seed_1=PART512+seed_1'],
-            ['KON513', 'C822NO3+seed_1=PART513+seed_1'],
-            ['KON514', 'C731CO3H+seed_1=PART514+seed_1'],
-            ['KON515', 'C727CO3H+seed_1=PART515+seed_1'],
-            ['KON516', 'LMKBOOH+seed_1=PART516+seed_1'],
-            ['KON517', 'C731NO3+seed_1=PART517+seed_1'],
-            ['KON518', 'C825OOH+seed_1=PART518+seed_1'],
-            ['KON519', 'C819OOH+seed_1=PART519+seed_1'],
-            ['KON520', 'C518PAN+seed_1=PART520+seed_1'],
-            ['KON521', 'C734OOH+seed_1=PART521+seed_1'],
-            ['KON522', 'NPXYFUOOH+seed_1=PART522+seed_1'],
-            ['KON523', 'MMALNBCO2H+seed_1=PART523+seed_1'],
-            ['KON524', 'MMALNACO2H+seed_1=PART524+seed_1'],
-            ['KON525', 'IECPAN+seed_1=PART525+seed_1'],
-            ['KON526', 'HMVKBPAN+seed_1=PART526+seed_1'],
-            ['KON527', 'NC623OH+seed_1=PART527+seed_1'],
-            ['KON528', 'C623NO3+seed_1=PART528+seed_1'],
-            ['KON529', 'INDHPCHO+seed_1=PART529+seed_1'],
-            ['KON530', 'C58NO3CO2H+seed_1=PART530+seed_1'],
-            ['KON531', 'C57NO3CO2H+seed_1=PART531+seed_1'],
-            ['KON532', 'C527NO3+seed_1=PART532+seed_1'],
-            ['KON533', 'INDOOH+seed_1=PART533+seed_1'],
-            ['KON534', 'INCOOH+seed_1=PART534+seed_1'],
-            ['KON535', 'HPC52CO3H+seed_1=PART535+seed_1'],
-            ['KON536', 'C923CO3H+seed_1=PART536+seed_1'],
-            ['KON537', 'C923NO3+seed_1=PART537+seed_1'],
-            ['KON538', 'LMLKBOOH+seed_1=PART538+seed_1'],
-            ['KON539', 'LMLKAOOH+seed_1=PART539+seed_1'],
-            ['KON540', 'C926OOH+seed_1=PART540+seed_1'],
-            ['KON541', 'C823CO3H+seed_1=PART541+seed_1'],
-            ['KON542', 'C817CO3H+seed_1=PART542+seed_1'],
-            ['KON543', 'C823NO3+seed_1=PART543+seed_1'],
-            ['KON544', 'C817NO3+seed_1=PART544+seed_1'],
-            ['KON545', 'C820OOH+seed_1=PART545+seed_1'],
-            ['KON546', 'C732CO3H+seed_1=PART546+seed_1'],
-            ['KON547', 'C511PAN+seed_1=PART547+seed_1'],
-            ['KON548', 'C732NO3+seed_1=PART548+seed_1'],
-            ['KON549', 'C624PAN+seed_1=PART549+seed_1'],
-            ['KON550', 'C622PAN+seed_1=PART550+seed_1'],
-            ['KON551', 'C23O3CPAN+seed_1=PART551+seed_1'],
-            ['KON552', 'C519PAN+seed_1=PART552+seed_1'],
-            ['KON553', 'C517PAN+seed_1=PART553+seed_1'],
-            ['KON554', 'NC730OH+seed_1=PART554+seed_1'],
-            ['KON555', 'NC728OH+seed_1=PART555+seed_1'],
-            ['KON556', 'C730NO3+seed_1=PART556+seed_1'],
-            ['KON557', 'C728NO3+seed_1=PART557+seed_1'],
-            ['KON558', 'MMALNBCO3H+seed_1=PART558+seed_1'],
-            ['KON559', 'MMALNACO3H+seed_1=PART559+seed_1'],
-            ['KON560', 'C47CO3H+seed_1=PART560+seed_1'],
-            ['KON561', 'NC623OOH+seed_1=PART561+seed_1'],
-            ['KON562', 'INDHCO3H+seed_1=PART562+seed_1'],
-            ['KON563', 'C58NO3CO3H+seed_1=PART563+seed_1'],
-            ['KON564', 'C57NO3CO3H+seed_1=PART564+seed_1'],
-            ['KON565', 'C729PAN+seed_1=PART565+seed_1'],
-            ['KON566', 'LMKBNO3+seed_1=PART566+seed_1'],
-            ['KON567', 'C627PAN+seed_1=PART567+seed_1'],
-            ['KON568', 'C626PAN+seed_1=PART568+seed_1'],
-            ['KON569', 'NC826OH+seed_1=PART569+seed_1'],
-            ['KON570', 'C826NO3+seed_1=PART570+seed_1'],
-            ['KON571', 'NC730OOH+seed_1=PART571+seed_1'],
-            ['KON572', 'NC728OOH+seed_1=PART572+seed_1'],
-            ['KON573', 'CONM2PAN+seed_1=PART573+seed_1'],
-            ['KON574', 'CO2N3PAN+seed_1=PART574+seed_1'],
-            ['KON575', 'INCNCHO+seed_1=PART575+seed_1'],
-            ['KON576', 'INB1NBCHO+seed_1=PART576+seed_1'],
-            ['KON577', 'INB1NACHO+seed_1=PART577+seed_1'],
-            ['KON578', 'MACRNPAN+seed_1=PART578+seed_1'],
-            ['KON579', 'MACRNBPAN+seed_1=PART579+seed_1'],
-            ['KON580', 'INCNO3+seed_1=PART580+seed_1'],
-            ['KON581', 'INB1NO3+seed_1=PART581+seed_1'],
-            ['KON582', 'INDHPCO3H+seed_1=PART582+seed_1'],
-            ['KON583', 'C822PAN+seed_1=PART583+seed_1'],
-            ['KON584', 'C816PAN+seed_1=PART584+seed_1'],
-            ['KON585', 'NLIMOOH+seed_1=PART585+seed_1'],
-            ['KON586', 'C731PAN+seed_1=PART586+seed_1'],
-            ['KON587', 'C727PAN+seed_1=PART587+seed_1'],
-            ['KON588', 'NLMKAOOH+seed_1=PART588+seed_1'],
-            ['KON589', 'NC826OOH+seed_1=PART589+seed_1'],
-            ['KON590', 'INCNCO2H+seed_1=PART590+seed_1'],
-            ['KON591', 'INB1NBCO2H+seed_1=PART591+seed_1'],
-            ['KON592', 'INB1NACO2H+seed_1=PART592+seed_1'],
-            ['KON593', 'HPC52PAN+seed_1=PART593+seed_1'],
-            ['KON594', 'C823PAN+seed_1=PART594+seed_1'],
-            ['KON595', 'NLIMALOH+seed_1=PART595+seed_1'],
-            ['KON596', 'LIMALNO3+seed_1=PART596+seed_1'],
-            ['KON597', 'MMALNBPAN+seed_1=PART597+seed_1'],
-            ['KON598', 'MMALNAPAN+seed_1=PART598+seed_1'],
-            ['KON599', 'C47PAN+seed_1=PART599+seed_1'],
-            ['KON600', 'INDHPAN+seed_1=PART600+seed_1'],
-            ['KON601', 'INCNCO3H+seed_1=PART601+seed_1'],
-            ['KON602', 'INB1NBCO3H+seed_1=PART602+seed_1'],
-            ['KON603', 'INB1NACO3H+seed_1=PART603+seed_1'],
-            ['KON604', 'C58NO3PAN+seed_1=PART604+seed_1'],
-            ['KON605', 'C57NO3PAN+seed_1=PART605+seed_1'],
-            ['KON606', 'NLIMALOOH+seed_1=PART606+seed_1'],
-            ['KON607', 'INDHPPAN+seed_1=PART607+seed_1'],
-            ['KON608', 'INCNPAN+seed_1=PART608+seed_1'],
-            ['KON609', 'INB1NBPAN+seed_1=PART609+seed_1'],
-            ['KON610', 'INB1NAPAN+seed_1=PART610+seed_1'],
-            ['KON1', 'LIMONONIC+tsp=PART1'],
-            ['KON2A', 'LIMANO3+tsp=PART2A'],
-            ['KON2B', 'LIMBNO3+tsp=PART2B'],
-            ['KON3', 'LIMCNO3+tsp=PART3'],
-            ['KON4', 'C923PAN+tsp=PART4'],
-            ['KON5', 'C817PAN+tsp=PART5'],
-            ['KON6', 'LMKANO3+tsp=PART6'],
-            ['KON11', 'LIMONIC+tsp=PART11'],
-            ['KON13', 'KLIMONONIC+tsp=PART13'],
-            ['KON14', 'LIMAL+tsp=PART14'],
-            ['KON15', 'LMLKET+tsp=PART15'],
-            ['KON16', 'LIMALBOH+tsp=PART16'],
-            ['KON17', 'LIMALACO+tsp=PART17'],
-            ['KON22', 'C732PAN+tsp=PART22'],
-            ['KON23', 'KLIMONIC+tsp=PART23'],
-            ['KON24', 'C731CO2H+tsp=PART24'],
-            ['KON25', 'C822CO2H+tsp=PART25'],
-            ['KON26', 'LIMALOOH+tsp=PART26'],
-            ['KON27', 'LIMCOOH+tsp=PART27'],
-            ['KON28', 'C825OH+tsp=PART28'],
-            ['KON29', 'LIMAOOH+tsp=PART29'],
-            ['KON30', 'C826OOH+tsp=PART30'],
-            ['KON31', 'C825CO+tsp=PART31'],
-            ['KON32', 'LIMALOH+tsp=PART32'],
-            ['KON33', 'C728OOH+tsp=PART33'],
-            ['KON34', 'LIMALBOOH+tsp=PART34'],
-            ['KON35', 'LIMALAOOH+tsp=PART35'],
-            ['KON36', 'C924OOH+tsp=PART36'],
-            ['KON37', 'C818OOH+tsp=PART37'],
-            ['KON38', 'LMKAOOH+tsp=PART38'],
-            ['KON39', 'NORLIMOOH+tsp=PART39'],
-            ['KON40', 'LIMCOH+tsp=PART40'],
-            ['KON41', 'C924OH+tsp=PART41'],
-            ['KON42', 'LIMALAOH+tsp=PART42'],
-            ['KON43', 'C925OOH+tsp=PART43'],
-            ['KON44', 'LIMAOH+tsp=PART44'],
-            ['KON45', 'C826OH+tsp=PART45'],
-            ['KON46', 'C728OH+tsp=PART46'],
-            ['KON47', 'C823OOH+tsp=PART47'],
-            ['KON48', 'LIMBOOH+tsp=PART48'],
-            ['KON49', 'LMLKAOH+tsp=PART49'],
-            ['KON50', 'C922OOH+tsp=PART50'],
-            ['KON51', 'C813OOH+tsp=PART51'],
-            ['KON52', 'C516OOH+tsp=PART52'],
-            ['KON53', 'C621OOH+tsp=PART53'],
-            ['KON54', 'C813NO3+tsp=PART54'],
-            ['KON55', 'C921OOH+tsp=PART55'],
-            ['KON56', 'C812OOH+tsp=PART56'],
-            ['KON57', 'C813OH+tsp=PART57'],
-            ['KON58', 'NC72OOH+tsp=PART58'],
-            ['KON59', 'NC61CO3H+tsp=PART59'],
-            ['KON60', 'NC102OOH+tsp=PART60'],
-            ['KON61', 'C719OOH+tsp=PART61'],
-            ['KON62', 'C98OOH+tsp=PART62'],
-            ['KON63', 'NC6PAN1+tsp=PART63'],
-            ['KON64', 'HOPINONIC+tsp=PART64'],
-            ['KON65', 'C812OH+tsp=PART65'],
-            ['KON66', 'H3C25CCO2H+tsp=PART66'],
-            ['KON67', 'C722OOH+tsp=PART67'],
-            ['KON68', 'NC71OOH+tsp=PART68'],
-            ['KON69', 'NC101OOH+tsp=PART69'],
-            ['KON70', 'C719NO3+tsp=PART70'],
-            ['KON71', 'C920CO3H+tsp=PART71'],
-            ['KON72', 'PINIC+tsp=PART72'],
-            ['KON73', 'C106OOH+tsp=PART73'],
-            ['KON74', 'C108OOH+tsp=PART74'],
-            ['KON75', 'H3C25CCO3H+tsp=PART75'],
-            ['KON76', 'C98NO3+tsp=PART76'],
-            ['KON77', 'C614OOH+tsp=PART77'],
-            ['KON78', 'C920OOH+tsp=PART78'],
-            ['KON79', 'H3C25C6OOH+tsp=PART79'],
-            ['KON80', 'C811OOH+tsp=PART80'],
-            ['KON81', 'C44OOH+tsp=PART81'],
-            ['KON82', 'C719OH+tsp=PART82'],
-            ['KON83', 'H3C25C6PAN+tsp=PART83'],
-            ['KON84', 'C97OOH+tsp=PART84'],
-            ['KON85', 'NORPINIC+tsp=PART85'],
-            ['KON86', 'H1C23C4OOH+tsp=PART86'],
-            ['KON87', 'C920PAN+tsp=PART87'],
-            ['KON88', 'C98OH+tsp=PART88'],
-            ['KON89', 'C811CO3H+tsp=PART89'],
-            ['KON90', 'HC23C4CO3H+tsp=PART90'],
-            ['KON91', 'C106NO3+tsp=PART91'],
-            ['KON92', 'C108NO3+tsp=PART92'],
-            ['KON93', 'C811PAN+tsp=PART93'],
-            ['KON94', 'C716OOH+tsp=PART94'],
-            ['KON95', 'C717OOH+tsp=PART95'],
-            ['KON96', 'NAPINAOOH+tsp=PART96'],
-            ['KON97', 'NAPINBOOH+tsp=PART97'],
-            ['KON98', 'C721OOH+tsp=PART98'],
-            ['KON99', 'C109OOH+tsp=PART99'],
-            ['KON100', 'C614NO3+tsp=PART100'],
-            ['KON101', 'H1C23C4PAN+tsp=PART101'],
-            ['KON102', 'C721CO3H+tsp=PART102'],
-            ['KON103', 'C235C6CO3H+tsp=PART103'],
-            ['KON104', 'APINCOOH+tsp=PART104'],
-            ['KON105', 'C811NO3+tsp=PART105'],
-            ['KON106', 'APINAOOH+tsp=PART106'],
-            ['KON107', 'C7PAN3+tsp=PART107'],
-            ['KON108', 'C107OOH+tsp=PART108'],
-            ['KON109', 'PINALOOH+tsp=PART109'],
-            ['KON110', 'C106OH+tsp=PART110'],
-            ['KON111', 'C108OH+tsp=PART111'],
-            ['KON112', 'C811OH+tsp=PART112'],
-            ['KON113', 'C614OH+tsp=PART113'],
-            ['KON114', 'H3C25C6OH+tsp=PART114'],
-            ['KON115', 'C721PAN+tsp=PART115'],
-            ['KON116', 'C810OOH+tsp=PART116'],
-            ['KON117', 'CO235C6OOH+tsp=PART117'],
-            ['KON118', 'APINBOOH+tsp=PART118'],
-            ['KON119', 'H3C2C4CO2H+tsp=PART119'],
-            ['KON120', 'C717NO3+tsp=PART120'],
-            ['KON121', 'NC71CO+tsp=PART121'],
-            ['KON122', 'C97OH+tsp=PART122'],
-            ['KON123', 'PINONIC+tsp=PART123'],
-            ['KON124', 'APINCNO3+tsp=PART124'],
-            ['KON125', 'C86OOH+tsp=PART125'],
-            ['KON126', 'PINALNO3+tsp=PART126'],
-            ['KON127', 'C109OH+tsp=PART127'],
-            ['KON128', 'C810NO3+tsp=PART128'],
-            ['KON129', 'APINANO3+tsp=PART129'],
-            ['KON130', 'C720OOH+tsp=PART130'],
-            ['KON131', 'H3C2C4CO3H+tsp=PART131'],
-            ['KON132', 'C89CO2H+tsp=PART132'],
-            ['KON133', 'C716OH+tsp=PART133'],
-            ['KON134', 'C717OH+tsp=PART134'],
-            ['KON135', 'APINBNO3+tsp=PART135'],
-            ['KON136', 'C514OOH+tsp=PART136'],
-            ['KON137', 'PERPINONIC+tsp=PART137'],
-            ['KON138', 'C10PAN2+tsp=PART138'],
-            ['KON139', 'C614CO+tsp=PART139'],
-            ['KON140', 'APINCOH+tsp=PART140'],
-            ['KON141', 'H3C2C4PAN+tsp=PART141'],
-            ['KON142', 'C107OH+tsp=PART142'],
-            ['KON143', 'PINALOH+tsp=PART143'],
-            ['KON144', 'APINBOH+tsp=PART144'],
-            ['KON145', 'C721CHO+tsp=PART145'],
-            ['KON146', 'C89CO3H+tsp=PART146'],
-            ['KON147', 'C96OOH+tsp=PART147'],
-            ['KON148', 'CO2H3CO3H+tsp=PART148'],
-            ['KON149', 'H3C25C5CHO+tsp=PART149'],
-            ['KON150', 'NC101CO+tsp=PART150'],
-            ['KON151', 'C810OH+tsp=PART151'],
-            ['KON152', 'H1C23C4CHO+tsp=PART152'],
-            ['KON153', 'C85CO3H+tsp=PART153'],
-            ['KON154', 'C514NO3+tsp=PART154'],
-            ['KON155', 'C109CO+tsp=PART155'],
-            ['KON156', 'C9PAN2+tsp=PART156'],
-            ['KON157', 'CO13C3CO2H+tsp=PART157'],
-            ['KON158', 'CHOC3COOOH+tsp=PART158'],
-            ['KON159', 'C720NO3+tsp=PART159'],
-            ['KON160', 'C511OOH+tsp=PART160'],
-            ['KON161', 'C4PAN6+tsp=PART161'],
-            ['KON162', 'H1CO23CHO+tsp=PART162'],
-            ['KON163', 'C89PAN+tsp=PART163'],
-            ['KON164', 'C89OOH+tsp=PART164'],
-            ['KON165', 'C5PAN9+tsp=PART165'],
-            ['KON166', 'C96NO3+tsp=PART166'],
-            ['KON167', 'CO235C6CHO+tsp=PART167'],
-            ['KON168', 'CHOC3COPAN+tsp=PART168'],
-            ['KON169', 'CO23C4CO3H+tsp=PART169'],
-            ['KON170', 'C720OH+tsp=PART170'],
-            ['KON171', 'C85OOH+tsp=PART171'],
-            ['KON172', 'APINBCO+tsp=PART172'],
-            ['KON173', 'C312COCO3H+tsp=PART173'],
-            ['KON174', 'C514OH+tsp=PART174'],
-            ['KON175', 'C96OH+tsp=PART175'],
-            ['KON176', 'C312COPAN+tsp=PART176'],
-            ['KON177', 'CO235C5CHO+tsp=PART177'],
-            ['KON178', 'C89NO3+tsp=PART178'],
-            ['KON179', 'PINAL+tsp=PART179'],
-            ['KON180', 'HCC7CO+tsp=PART180'],
-            ['KON181', 'C89OH+tsp=PART181'],
-            ['KON182', 'CO13C4CHO+tsp=PART182'],
-            ['KON183', 'NORPINAL+tsp=PART183'],
-            ['KON184', 'CO2H3CHO+tsp=PART184'],
-            ['KON185', 'C4CODIAL+tsp=PART185'],
-            ['KON186', 'CO23C4CHO+tsp=PART186'],
-            ['KON200', 'BPINANO3+tsp=PART200'],
-            ['KON201', 'BPINAOH+tsp=PART201'],
-            ['KON202', 'BPINAOOH+tsp=PART202'],
-            ['KON203', 'BPINBNO3+tsp=PART203'],
-            ['KON204', 'BPINBOOH+tsp=PART204'],
-            ['KON205', 'BPINCNO3+tsp=PART205'],
-            ['KON206', 'BPINCOH+tsp=PART206'],
-            ['KON207', 'BPINCOOH+tsp=PART207'],
-            ['KON209', 'C512CO2H+tsp=PART209'],
-            ['KON210', 'C512CO3H+tsp=PART210'],
-            ['KON211', 'C512NO3+tsp=PART211'],
-            ['KON212', 'C512OH+tsp=PART212'],
-            ['KON213', 'C512OOH+tsp=PART213'],
-            ['KON214', 'C512PAN+tsp=PART214'],
-            ['KON215', 'C513CO+tsp=PART215'],
-            ['KON216', 'C513OH+tsp=PART216'],
-            ['KON217', 'C513OOH+tsp=PART217'],
-            ['KON218', 'C515CHO+tsp=PART218'],
-            ['KON219', 'C515CO+tsp=PART219'],
-            ['KON220', 'C515CO3H+tsp=PART220'],
-            ['KON221', 'C515OOH+tsp=PART221'],
-            ['KON222', 'C515PAN+tsp=PART222'],
-            ['KON223', 'C55OOH+tsp=PART223'],
-            ['KON224', 'C5PAN11+tsp=PART224'],
-            ['KON225', 'C615CO+tsp=PART225'],
-            ['KON226', 'C615CO2H+tsp=PART226'],
-            ['KON227', 'C615CO3H+tsp=PART227'],
-            ['KON228', 'C615OH+tsp=PART228'],
-            ['KON229', 'C615OOH+tsp=PART229'],
-            ['KON230', 'C615PAN+tsp=PART230'],
-            ['KON231', 'C616OH+tsp=PART231'],
-            ['KON232', 'C616OOH+tsp=PART232'],
-            ['KON233', 'C617CHO+tsp=PART233'],
-            ['KON234', 'C617CO2H+tsp=PART234'],
-            ['KON235', 'C617CO3H+tsp=PART235'],
-            ['KON236', 'C617OH+tsp=PART236'],
-            ['KON237', 'C617OOH+tsp=PART237'],
-            ['KON238', 'C617PAN+tsp=PART238'],
-            ['KON239', 'C618CO2H+tsp=PART239'],
-            ['KON240', 'C618CO3H+tsp=PART240'],
-            ['KON241', 'C618OOH+tsp=PART241'],
-            ['KON242', 'C618PAN+tsp=PART242'],
-            ['KON243', 'C619CO+tsp=PART243'],
-            ['KON244', 'C619OH+tsp=PART244'],
-            ['KON245', 'C619OOH+tsp=PART245'],
-            ['KON246', 'C620OH+tsp=PART246'],
-            ['KON247', 'C620OOH+tsp=PART247'],
-            ['KON248', 'C67CHO+tsp=PART248'],
-            ['KON249', 'C67CO3H+tsp=PART249'],
-            ['KON250', 'C6PAN9+tsp=PART250'],
-            ['KON251', 'C718CO2H+tsp=PART251'],
-            ['KON252', 'C718CO3H+tsp=PART252'],
-            ['KON253', 'C718NO3+tsp=PART253'],
-            ['KON254', 'C718OH+tsp=PART254'],
-            ['KON255', 'C718OOH+tsp=PART255'],
-            ['KON256', 'C718PAN+tsp=PART256'],
-            ['KON257', 'C87CO+tsp=PART257'],
-            ['KON258', 'C87CO2H+tsp=PART258'],
-            ['KON259', 'C87CO3H+tsp=PART259'],
-            ['KON260', 'C87OH+tsp=PART260'],
-            ['KON261', 'C87OOH+tsp=PART261'],
-            ['KON262', 'C87PAN+tsp=PART262'],
-            ['KON263', 'C88CHO+tsp=PART263'],
-            ['KON264', 'C88CO+tsp=PART264'],
-            ['KON265', 'C88CO2H+tsp=PART265'],
-            ['KON266', 'C88CO3H+tsp=PART266'],
-            ['KON267', 'C88OH+tsp=PART267'],
-            ['KON268', 'C88OOH+tsp=PART268'],
-            ['KON269', 'C88PAN+tsp=PART269'],
-            ['KON270', 'C8BC+tsp=PART270'],
-            ['KON271', 'C8BCCO+tsp=PART271'],
-            ['KON272', 'C8BCNO3+tsp=PART272'],
-            ['KON273', 'C8BCOH+tsp=PART273'],
-            ['KON274', 'C8BCOOH+tsp=PART274'],
-            ['KON275', 'C914CO+tsp=PART275'],
-            ['KON276', 'C914OH+tsp=PART276'],
-            ['KON277', 'C914OOH+tsp=PART277'],
-            ['KON278', 'C915NO3+tsp=PART278'],
-            ['KON279', 'C915OH+tsp=PART279'],
-            ['KON280', 'C915OOH+tsp=PART280'],
-            ['KON281', 'C916NO3+tsp=PART281'],
-            ['KON282', 'C916OH+tsp=PART282'],
-            ['KON283', 'C916OOH+tsp=PART283'],
-            ['KON284', 'C917NO3+tsp=PART284'],
-            ['KON285', 'C917OH+tsp=PART285'],
-            ['KON286', 'C917OOH+tsp=PART286'],
-            ['KON287', 'C918CHO+tsp=PART287'],
-            ['KON288', 'C918CO3H+tsp=PART288'],
-            ['KON289', 'C918NO3+tsp=PART289'],
-            ['KON290', 'C918OH+tsp=PART290'],
-            ['KON291', 'C918OOH+tsp=PART291'],
-            ['KON292', 'C918PAN+tsp=PART292'],
-            ['KON293', 'C919NO3+tsp=PART293'],
-            ['KON294', 'C919OH+tsp=PART294'],
-            ['KON295', 'C919OOH+tsp=PART295'],
-            ['KON296', 'C9DC+tsp=PART296'],
-            ['KON297', 'C9DCCO+tsp=PART297'],
-            ['KON298', 'C9DCNO3+tsp=PART298'],
-            ['KON299', 'C9DCOH+tsp=PART299'],
-            ['KON300', 'C9DCOOH+tsp=PART300'],
-            ['KON301', 'CO123C5CHO+tsp=PART301'],
-            ['KON302', 'CO12C4CHO+tsp=PART302'],
-            ['KON303', 'CO1M22CHO+tsp=PART303'],
-            ['KON304', 'CO1M22CO2H+tsp=PART304'],
-            ['KON305', 'CO1M22CO3H+tsp=PART305'],
-            ['KON306', 'CO1M22PAN+tsp=PART306'],
-            ['KON307', 'H2M2C3CO3H+tsp=PART307'],
-            ['KON308', 'MIBKHO4CHO+tsp=PART308'],
-            ['KON309', 'NBPINAOOH+tsp=PART309'],
-            ['KON310', 'NBPINBOOH+tsp=PART310'],
-            ['KON311', 'NC91CHO+tsp=PART311'],
-            ['KON312', 'NC91CO3H+tsp=PART312'],
-            ['KON313', 'NC91PAN+tsp=PART313'],
-            ['KON314', 'NOPINANO3+tsp=PART314'],
-            ['KON315', 'NOPINAOH+tsp=PART315'],
-            ['KON316', 'NOPINAOOH+tsp=PART316'],
-            ['KON317', 'NOPINBCO+tsp=PART317'],
-            ['KON318', 'NOPINBNO3+tsp=PART318'],
-            ['KON319', 'NOPINBOH+tsp=PART319'],
-            ['KON320', 'NOPINBOOH+tsp=PART320'],
-            ['KON321', 'NOPINCNO3+tsp=PART321'],
-            ['KON322', 'NOPINCOH+tsp=PART322'],
-            ['KON323', 'NOPINCOOH+tsp=PART323'],
-            ['KON324', 'NOPINDCO+tsp=PART324'],
-            ['KON325', 'NOPINDOH+tsp=PART325'],
-            ['KON326', 'NOPINDOOH+tsp=PART326'],
-            ['KON327', 'NOPINONE+tsp=PART327'],
-            ['KON350', 'M3F+tsp=PART350'],
-            ['KON351', 'ISOPDOH+tsp=PART351'],
-            ['KON352', 'ISOPAOH+tsp=PART352'],
-            ['KON353', 'MMALANHY+tsp=PART353'],
-            ['KON354', 'MC3ODBCO2H+tsp=PART354'],
-            ['KON355', 'C532CO+tsp=PART355'],
-            ['KON356', 'C624CO+tsp=PART356'],
-            ['KON357', 'C518CHO+tsp=PART357'],
-            ['KON358', 'IEB1CHO+tsp=PART358'],
-            ['KON359', 'HO1CO34C5+tsp=PART359'],
-            ['KON360', 'HMVKBCHO+tsp=PART360'],
-            ['KON361', 'HC4CCO2H+tsp=PART361'],
-            ['KON362', 'HC4ACO2H+tsp=PART362'],
-            ['KON363', 'CO2C4CO2H+tsp=PART363'],
-            ['KON364', 'C5HPALD2+tsp=PART364'],
-            ['KON365', 'C624OH+tsp=PART365'],
-            ['KON366', 'C622OH+tsp=PART366'],
-            ['KON367', 'ISOPDOOH+tsp=PART367'],
-            ['KON368', 'ISOPCOOH+tsp=PART368'],
-            ['KON369', 'IEPOXC+tsp=PART369'],
-            ['KON370', 'IEPOXB+tsp=PART370'],
-            ['KON371', 'HO13CO4C5+tsp=PART371'],
-            ['KON372', 'C517OH+tsp=PART372'],
-            ['KON373', 'C531CO+tsp=PART373'],
-            ['KON374', 'CO2C4GLYOX+tsp=PART374'],
-            ['KON375', 'C511CHO+tsp=PART375'],
-            ['KON376', 'C624CHO+tsp=PART376'],
-            ['KON377', 'C622CHO+tsp=PART377'],
-            ['KON378', 'C5PACALD2+tsp=PART378'],
-            ['KON379', 'C5PACALD1+tsp=PART379'],
-            ['KON380', 'C23O3CCHO+tsp=PART380'],
-            ['KON381', 'C627OH+tsp=PART381'],
-            ['KON382', 'C519CHO+tsp=PART382'],
-            ['KON383', 'C518CO2H+tsp=PART383'],
-            ['KON384', 'C517CHO+tsp=PART384'],
-            ['KON385', 'PXYFUOH+tsp=PART385'],
-            ['KON386', 'HMVKBCO2H+tsp=PART386'],
-            ['KON387', 'HC4CCO3H+tsp=PART387'],
-            ['KON388', 'HC4ACO3H+tsp=PART388'],
-            ['KON389', 'CO2C4CO3H+tsp=PART389'],
-            ['KON390', 'C520OH+tsp=PART390'],
-            ['KON391', 'C4M2AL2OH+tsp=PART391'],
-            ['KON392', 'C624OOH+tsp=PART392'],
-            ['KON393', 'C622OOH+tsp=PART393'],
-            ['KON394', 'C58OH+tsp=PART394'],
-            ['KON395', 'C57OH+tsp=PART395'],
-            ['KON396', 'C519OOH+tsp=PART396'],
-            ['KON397', 'C517OOH+tsp=PART397'],
-            ['KON398', 'LIMKET+tsp=PART398'],
-            ['KON399', 'C816CO+tsp=PART399'],
-            ['KON400', 'C729CHO+tsp=PART400'],
-            ['KON401', 'CO25C6CHO+tsp=PART401'],
-            ['KON402', 'C727CO+tsp=PART402'],
-            ['KON403', 'C626CHO+tsp=PART403'],
-            ['KON404', 'C822OH+tsp=PART404'],
-            ['KON405', 'C731OH+tsp=PART405'],
-            ['KON406', 'C729OOH+tsp=PART406'],
-            ['KON407', 'C624CO2H+tsp=PART407'],
-            ['KON408', 'C622CO2H+tsp=PART408'],
-            ['KON409', 'MMALNHY2OH+tsp=PART409'],
-            ['KON410', 'C531OOH+tsp=PART410'],
-            ['KON411', 'C23O3CCO2H+tsp=PART411'],
-            ['KON412', 'C629OH+tsp=PART412'],
-            ['KON413', 'C628OH+tsp=PART413'],
-            ['KON414', 'C627OOH+tsp=PART414'],
-            ['KON415', 'C626OOH+tsp=PART415'],
-            ['KON416', 'C519CO2H+tsp=PART416'],
-            ['KON417', 'C518CO3H+tsp=PART417'],
-            ['KON418', 'C517CO2H+tsp=PART418'],
-            ['KON419', 'ISOPDNO3+tsp=PART419'],
-            ['KON420', 'ISOPCNO3+tsp=PART420'],
-            ['KON421', 'PXYFUOOH+tsp=PART421'],
-            ['KON422', 'IECCO3H+tsp=PART422'],
-            ['KON423', 'IEC2OOH+tsp=PART423'],
-            ['KON424', 'HMVKBCO3H+tsp=PART424'],
-            ['KON425', 'C520OOH+tsp=PART425'],
-            ['KON426', 'C4MALOHOOH+tsp=PART426'],
-            ['KON427', 'C625OH+tsp=PART427'],
-            ['KON428', 'C623OH+tsp=PART428'],
-            ['KON429', 'C59OOH+tsp=PART429'],
-            ['KON430', 'C58OOH+tsp=PART430'],
-            ['KON431', 'C58AOOH+tsp=PART431'],
-            ['KON432', 'C57OOH+tsp=PART432'],
-            ['KON433', 'C57AOOH+tsp=PART433'],
-            ['KON434', 'NORLIMAL+tsp=PART434'],
-            ['KON435', 'C824CO+tsp=PART435'],
-            ['KON436', 'C823CO+tsp=PART436'],
-            ['KON437', 'C817CO+tsp=PART437'],
-            ['KON438', 'C729CO2H+tsp=PART438'],
-            ['KON439', 'C923OH+tsp=PART439'],
-            ['KON440', 'C823OH+tsp=PART440'],
-            ['KON441', 'C822OOH+tsp=PART441'],
-            ['KON442', 'C817OH+tsp=PART442'],
-            ['KON443', 'C816OOH+tsp=PART443'],
-            ['KON444', 'C511CO3H+tsp=PART444'],
-            ['KON445', 'C733OH+tsp=PART445'],
-            ['KON446', 'C732OH+tsp=PART446'],
-            ['KON447', 'C731OOH+tsp=PART447'],
-            ['KON448', 'C727OOH+tsp=PART448'],
-            ['KON449', 'C624CO3H+tsp=PART449'],
-            ['KON450', 'C622CO3H+tsp=PART450'],
-            ['KON451', 'C624NO3+tsp=PART451'],
-            ['KON452', 'C622NO3+tsp=PART452'],
-            ['KON453', 'MMALNHYOOH+tsp=PART453'],
-            ['KON454', 'C23O3CCO3H+tsp=PART454'],
-            ['KON455', 'C629OOH+tsp=PART455'],
-            ['KON456', 'C628OOH+tsp=PART456'],
-            ['KON457', 'C519CO3H+tsp=PART457'],
-            ['KON458', 'C517CO3H+tsp=PART458'],
-            ['KON459', 'C730OH+tsp=PART459'],
-            ['KON460', 'CONM2CO2H+tsp=PART460'],
-            ['KON461', 'C517NO3+tsp=PART461'],
-            ['KON462', 'C533OOH+tsp=PART462'],
-            ['KON463', 'C625OOH+tsp=PART463'],
-            ['KON464', 'C623OOH+tsp=PART464'],
-            ['KON465', 'HPC52OOH+tsp=PART465'],
-            ['KON466', 'C527OOH+tsp=PART466'],
-            ['KON467', 'LIMBCO+tsp=PART467'],
-            ['KON468', 'LMKBCO+tsp=PART468'],
-            ['KON469', 'C924CO+tsp=PART469'],
-            ['KON470', 'C818CO+tsp=PART470'],
-            ['KON471', 'C729CO3H+tsp=PART471'],
-            ['KON472', 'LMKAOH+tsp=PART472'],
-            ['KON473', 'C923OOH+tsp=PART473'],
-            ['KON474', 'C729NO3+tsp=PART474'],
-            ['KON475', 'CO25C6CO3H+tsp=PART475'],
-            ['KON476', 'C821OOH+tsp=PART476'],
-            ['KON477', 'C735OOH+tsp=PART477'],
-            ['KON478', 'C734CO+tsp=PART478'],
-            ['KON479', 'C626CO3H+tsp=PART479'],
-            ['KON480', 'C824OOH+tsp=PART480'],
-            ['KON481', 'C818OH+tsp=PART481'],
-            ['KON482', 'C817OOH+tsp=PART482'],
-            ['KON483', 'MC3CODBPAN+tsp=PART483'],
-            ['KON484', 'C3MCODBPAN+tsp=PART484'],
-            ['KON485', 'C626NO3+tsp=PART485'],
-            ['KON486', 'C734OH+tsp=PART486'],
-            ['KON487', 'C733OOH+tsp=PART487'],
-            ['KON488', 'C732OOH+tsp=PART488'],
-            ['KON489', 'INCGLYOX+tsp=PART489'],
-            ['KON490', 'C5PAN2+tsp=PART490'],
-            ['KON491', 'C5PAN19+tsp=PART491'],
-            ['KON492', 'C5PAN17+tsp=PART492'],
-            ['KON493', 'C4M2ALOHNO3+tsp=PART493'],
-            ['KON494', 'C47CHO+tsp=PART494'],
-            ['KON495', 'C730OOH+tsp=PART495'],
-            ['KON496', 'INDHCHO+tsp=PART496'],
-            ['KON497', 'INCCO+tsp=PART497'],
-            ['KON498', 'C58NO3+tsp=PART498'],
-            ['KON499', 'C58ANO3+tsp=PART499'],
-            ['KON500', 'C57NO3+tsp=PART500'],
-            ['KON501', 'C535OOH+tsp=PART501'],
-            ['KON502', 'C534OOH+tsp=PART502'],
-            ['KON503', 'INDOH+tsp=PART503'],
-            ['KON504', 'INCOH+tsp=PART504'],
-            ['KON505', 'C537OOH+tsp=PART505'],
-            ['KON506', 'LIMALBCO+tsp=PART506'],
-            ['KON507', 'LMLKBCO+tsp=PART507'],
-            ['KON508', 'LMLKACO+tsp=PART508'],
-            ['KON509', 'LMLKBOH+tsp=PART509'],
-            ['KON510', 'C926OH+tsp=PART510'],
-            ['KON511', 'C822CO3H+tsp=PART511'],
-            ['KON512', 'C816CO3H+tsp=PART512'],
-            ['KON513', 'C822NO3+tsp=PART513'],
-            ['KON514', 'C731CO3H+tsp=PART514'],
-            ['KON515', 'C727CO3H+tsp=PART515'],
-            ['KON516', 'LMKBOOH+tsp=PART516'],
-            ['KON517', 'C731NO3+tsp=PART517'],
-            ['KON518', 'C825OOH+tsp=PART518'],
-            ['KON519', 'C819OOH+tsp=PART519'],
-            ['KON520', 'C518PAN+tsp=PART520'],
-            ['KON521', 'C734OOH+tsp=PART521'],
-            ['KON522', 'NPXYFUOOH+tsp=PART522'],
-            ['KON523', 'MMALNBCO2H+tsp=PART523'],
-            ['KON524', 'MMALNACO2H+tsp=PART524'],
-            ['KON525', 'IECPAN+tsp=PART525'],
-            ['KON526', 'HMVKBPAN+tsp=PART526'],
-            ['KON527', 'NC623OH+tsp=PART527'],
-            ['KON528', 'C623NO3+tsp=PART528'],
-            ['KON529', 'INDHPCHO+tsp=PART529'],
-            ['KON530', 'C58NO3CO2H+tsp=PART530'],
-            ['KON531', 'C57NO3CO2H+tsp=PART531'],
-            ['KON532', 'C527NO3+tsp=PART532'],
-            ['KON533', 'INDOOH+tsp=PART533'],
-            ['KON534', 'INCOOH+tsp=PART534'],
-            ['KON535', 'HPC52CO3H+tsp=PART535'],
-            ['KON536', 'C923CO3H+tsp=PART536'],
-            ['KON537', 'C923NO3+tsp=PART537'],
-            ['KON538', 'LMLKBOOH+tsp=PART538'],
-            ['KON539', 'LMLKAOOH+tsp=PART539'],
-            ['KON540', 'C926OOH+tsp=PART540'],
-            ['KON541', 'C823CO3H+tsp=PART541'],
-            ['KON542', 'C817CO3H+tsp=PART542'],
-            ['KON543', 'C823NO3+tsp=PART543'],
-            ['KON544', 'C817NO3+tsp=PART544'],
-            ['KON545', 'C820OOH+tsp=PART545'],
-            ['KON546', 'C732CO3H+tsp=PART546'],
-            ['KON547', 'C511PAN+tsp=PART547'],
-            ['KON548', 'C732NO3+tsp=PART548'],
-            ['KON549', 'C624PAN+tsp=PART549'],
-            ['KON550', 'C622PAN+tsp=PART550'],
-            ['KON551', 'C23O3CPAN+tsp=PART551'],
-            ['KON552', 'C519PAN+tsp=PART552'],
-            ['KON553', 'C517PAN+tsp=PART553'],
-            ['KON554', 'NC730OH+tsp=PART554'],
-            ['KON555', 'NC728OH+tsp=PART555'],
-            ['KON556', 'C730NO3+tsp=PART556'],
-            ['KON557', 'C728NO3+tsp=PART557'],
-            ['KON558', 'MMALNBCO3H+tsp=PART558'],
-            ['KON559', 'MMALNACO3H+tsp=PART559'],
-            ['KON560', 'C47CO3H+tsp=PART560'],
-            ['KON561', 'NC623OOH+tsp=PART561'],
-            ['KON562', 'INDHCO3H+tsp=PART562'],
-            ['KON563', 'C58NO3CO3H+tsp=PART563'],
-            ['KON564', 'C57NO3CO3H+tsp=PART564'],
-            ['KON565', 'C729PAN+tsp=PART565'],
-            ['KON566', 'LMKBNO3+tsp=PART566'],
-            ['KON567', 'C627PAN+tsp=PART567'],
-            ['KON568', 'C626PAN+tsp=PART568'],
-            ['KON569', 'NC826OH+tsp=PART569'],
-            ['KON570', 'C826NO3+tsp=PART570'],
-            ['KON571', 'NC730OOH+tsp=PART571'],
-            ['KON572', 'NC728OOH+tsp=PART572'],
-            ['KON573', 'CONM2PAN+tsp=PART573'],
-            ['KON574', 'CO2N3PAN+tsp=PART574'],
-            ['KON575', 'INCNCHO+tsp=PART575'],
-            ['KON576', 'INB1NBCHO+tsp=PART576'],
-            ['KON577', 'INB1NACHO+tsp=PART577'],
-            ['KON578', 'MACRNPAN+tsp=PART578'],
-            ['KON579', 'MACRNBPAN+tsp=PART579'],
-            ['KON580', 'INCNO3+tsp=PART580'],
-            ['KON581', 'INB1NO3+tsp=PART581'],
-            ['KON582', 'INDHPCO3H+tsp=PART582'],
-            ['KON583', 'C822PAN+tsp=PART583'],
-            ['KON584', 'C816PAN+tsp=PART584'],
-            ['KON585', 'NLIMOOH+tsp=PART585'],
-            ['KON586', 'C731PAN+tsp=PART586'],
-            ['KON587', 'C727PAN+tsp=PART587'],
-            ['KON588', 'NLMKAOOH+tsp=PART588'],
-            ['KON589', 'NC826OOH+tsp=PART589'],
-            ['KON590', 'INCNCO2H+tsp=PART590'],
-            ['KON591', 'INB1NBCO2H+tsp=PART591'],
-            ['KON592', 'INB1NACO2H+tsp=PART592'],
-            ['KON593', 'HPC52PAN+tsp=PART593'],
-            ['KON594', 'C823PAN+tsp=PART594'],
-            ['KON595', 'NLIMALOH+tsp=PART595'],
-            ['KON596', 'LIMALNO3+tsp=PART596'],
-            ['KON597', 'MMALNBPAN+tsp=PART597'],
-            ['KON598', 'MMALNAPAN+tsp=PART598'],
-            ['KON599', 'C47PAN+tsp=PART599'],
-            ['KON600', 'INDHPAN+tsp=PART600'],
-            ['KON601', 'INCNCO3H+tsp=PART601'],
-            ['KON602', 'INB1NBCO3H+tsp=PART602'],
-            ['KON603', 'INB1NACO3H+tsp=PART603'],
-            ['KON604', 'C58NO3PAN+tsp=PART604'],
-            ['KON605', 'C57NO3PAN+tsp=PART605'],
-            ['KON606', 'NLIMALOOH+tsp=PART606'],
-            ['KON607', 'INDHPPAN+tsp=PART607'],
-            ['KON608', 'INCNPAN+tsp=PART608'],
-            ['KON609', 'INB1NBPAN+tsp=PART609'],
-            ['KON610', 'INB1NAPAN+tsp=PART610'],
+            ['KON1', 'LIMONONIC+SEED_1=PART1+SEED_1'],
+            ['KON2A', 'LIMANO3+SEED_1=PART2A+SEED_1'],
+            ['KON2B', 'LIMBNO3+SEED_1=PART2B+SEED_1'],
+            ['KON3', 'LIMCNO3+SEED_1=PART3+SEED_1'],
+            ['KON4', 'C923PAN+SEED_1=PART4+SEED_1'],
+            ['KON5', 'C817PAN+SEED_1=PART5+SEED_1'],
+            ['KON6', 'LMKANO3+SEED_1=PART6+SEED_1'],
+            ['KON11', 'LIMONIC+SEED_1=PART11+SEED_1'],
+            ['KON13', 'KLIMONONIC+SEED_1=PART13+SEED_1'],
+            ['KON14', 'LIMAL+SEED_1=PART14+SEED_1'],
+            ['KON15', 'LMLKET+SEED_1=PART15+SEED_1'],
+            ['KON16', 'LIMALBOH+SEED_1=PART16+SEED_1'],
+            ['KON17', 'LIMALACO+SEED_1=PART17+SEED_1'],
+            ['KON22', 'C732PAN+SEED_1=PART22+SEED_1'],
+            ['KON23', 'KLIMONIC+SEED_1=PART23+SEED_1'],
+            ['KON24', 'C731CO2H+SEED_1=PART24+SEED_1'],
+            ['KON25', 'C822CO2H+SEED_1=PART25+SEED_1'],
+            ['KON26', 'LIMALOOH+SEED_1=PART26+SEED_1'],
+            ['KON27', 'LIMCOOH+SEED_1=PART27+SEED_1'],
+            ['KON28', 'C825OH+SEED_1=PART28+SEED_1'],
+            ['KON29', 'LIMAOOH+SEED_1=PART29+SEED_1'],
+            ['KON30', 'C826OOH+SEED_1=PART30+SEED_1'],
+            ['KON31', 'C825CO+SEED_1=PART31+SEED_1'],
+            ['KON32', 'LIMALOH+SEED_1=PART32+SEED_1'],
+            ['KON33', 'C728OOH+SEED_1=PART33+SEED_1'],
+            ['KON34', 'LIMALBOOH+SEED_1=PART34+SEED_1'],
+            ['KON35', 'LIMALAOOH+SEED_1=PART35+SEED_1'],
+            ['KON36', 'C924OOH+SEED_1=PART36+SEED_1'],
+            ['KON37', 'C818OOH+SEED_1=PART37+SEED_1'],
+            ['KON38', 'LMKAOOH+SEED_1=PART38+SEED_1'],
+            ['KON39', 'NORLIMOOH+SEED_1=PART39+SEED_1'],
+            ['KON40', 'LIMCOH+SEED_1=PART40+SEED_1'],
+            ['KON41', 'C924OH+SEED_1=PART41+SEED_1'],
+            ['KON42', 'LIMALAOH+SEED_1=PART42+SEED_1'],
+            ['KON43', 'C925OOH+SEED_1=PART43+SEED_1'],
+            ['KON44', 'LIMAOH+SEED_1=PART44+SEED_1'],
+            ['KON45', 'C826OH+SEED_1=PART45+SEED_1'],
+            ['KON46', 'C728OH+SEED_1=PART46+SEED_1'],
+            ['KON47', 'C823OOH+SEED_1=PART47+SEED_1'],
+            ['KON48', 'LIMBOOH+SEED_1=PART48+SEED_1'],
+            ['KON49', 'LMLKAOH+SEED_1=PART49+SEED_1'],
+            ['KON50', 'C922OOH+SEED_1=PART50+SEED_1'],
+            ['KON51', 'C813OOH+SEED_1=PART51+SEED_1'],
+            ['KON52', 'C516OOH+SEED_1=PART52+SEED_1'],
+            ['KON53', 'C621OOH+SEED_1=PART53+SEED_1'],
+            ['KON54', 'C813NO3+SEED_1=PART54+SEED_1'],
+            ['KON55', 'C921OOH+SEED_1=PART55+SEED_1'],
+            ['KON56', 'C812OOH+SEED_1=PART56+SEED_1'],
+            ['KON57', 'C813OH+SEED_1=PART57+SEED_1'],
+            ['KON58', 'NC72OOH+SEED_1=PART58+SEED_1'],
+            ['KON59', 'NC61CO3H+SEED_1=PART59+SEED_1'],
+            ['KON60', 'NC102OOH+SEED_1=PART60+SEED_1'],
+            ['KON61', 'C719OOH+SEED_1=PART61+SEED_1'],
+            ['KON62', 'C98OOH+SEED_1=PART62+SEED_1'],
+            ['KON63', 'NC6PAN1+SEED_1=PART63+SEED_1'],
+            ['KON64', 'HOPINONIC+SEED_1=PART64+SEED_1'],
+            ['KON65', 'C812OH+SEED_1=PART65+SEED_1'],
+            ['KON66', 'H3C25CCO2H+SEED_1=PART66+SEED_1'],
+            ['KON67', 'C722OOH+SEED_1=PART67+SEED_1'],
+            ['KON68', 'NC71OOH+SEED_1=PART68+SEED_1'],
+            ['KON69', 'NC101OOH+SEED_1=PART69+SEED_1'],
+            ['KON70', 'C719NO3+SEED_1=PART70+SEED_1'],
+            ['KON71', 'C920CO3H+SEED_1=PART71+SEED_1'],
+            ['KON72', 'PINIC+SEED_1=PART72+SEED_1'],
+            ['KON73', 'C106OOH+SEED_1=PART73+SEED_1'],
+            ['KON74', 'C108OOH+SEED_1=PART74+SEED_1'],
+            ['KON75', 'H3C25CCO3H+SEED_1=PART75+SEED_1'],
+            ['KON76', 'C98NO3+SEED_1=PART76+SEED_1'],
+            ['KON77', 'C614OOH+SEED_1=PART77+SEED_1'],
+            ['KON78', 'C920OOH+SEED_1=PART78+SEED_1'],
+            ['KON79', 'H3C25C6OOH+SEED_1=PART79+SEED_1'],
+            ['KON80', 'C811OOH+SEED_1=PART80+SEED_1'],
+            ['KON81', 'C44OOH+SEED_1=PART81+SEED_1'],
+            ['KON82', 'C719OH+SEED_1=PART82+SEED_1'],
+            ['KON83', 'H3C25C6PAN+SEED_1=PART83+SEED_1'],
+            ['KON84', 'C97OOH+SEED_1=PART84+SEED_1'],
+            ['KON85', 'NORPINIC+SEED_1=PART85+SEED_1'],
+            ['KON86', 'H1C23C4OOH+SEED_1=PART86+SEED_1'],
+            ['KON87', 'C920PAN+SEED_1=PART87+SEED_1'],
+            ['KON88', 'C98OH+SEED_1=PART88+SEED_1'],
+            ['KON89', 'C811CO3H+SEED_1=PART89+SEED_1'],
+            ['KON90', 'HC23C4CO3H+SEED_1=PART90+SEED_1'],
+            ['KON91', 'C106NO3+SEED_1=PART91+SEED_1'],
+            ['KON92', 'C108NO3+SEED_1=PART92+SEED_1'],
+            ['KON93', 'C811PAN+SEED_1=PART93+SEED_1'],
+            ['KON94', 'C716OOH+SEED_1=PART94+SEED_1'],
+            ['KON95', 'C717OOH+SEED_1=PART95+SEED_1'],
+            ['KON96', 'NAPINAOOH+SEED_1=PART96+SEED_1'],
+            ['KON97', 'NAPINBOOH+SEED_1=PART97+SEED_1'],
+            ['KON98', 'C721OOH+SEED_1=PART98+SEED_1'],
+            ['KON99', 'C109OOH+SEED_1=PART99+SEED_1'],
+            ['KON100', 'C614NO3+SEED_1=PART100+SEED_1'],
+            ['KON101', 'H1C23C4PAN+SEED_1=PART101+SEED_1'],
+            ['KON102', 'C721CO3H+SEED_1=PART102+SEED_1'],
+            ['KON103', 'C235C6CO3H+SEED_1=PART103+SEED_1'],
+            ['KON104', 'APINCOOH+SEED_1=PART104+SEED_1'],
+            ['KON105', 'C811NO3+SEED_1=PART105+SEED_1'],
+            ['KON106', 'APINAOOH+SEED_1=PART106+SEED_1'],
+            ['KON107', 'C7PAN3+SEED_1=PART107+SEED_1'],
+            ['KON108', 'C107OOH+SEED_1=PART108+SEED_1'],
+            ['KON109', 'PINALOOH+SEED_1=PART109+SEED_1'],
+            ['KON110', 'C106OH+SEED_1=PART110+SEED_1'],
+            ['KON111', 'C108OH+SEED_1=PART111+SEED_1'],
+            ['KON112', 'C811OH+SEED_1=PART112+SEED_1'],
+            ['KON113', 'C614OH+SEED_1=PART113+SEED_1'],
+            ['KON114', 'H3C25C6OH+SEED_1=PART114+SEED_1'],
+            ['KON115', 'C721PAN+SEED_1=PART115+SEED_1'],
+            ['KON116', 'C810OOH+SEED_1=PART116+SEED_1'],
+            ['KON117', 'CO235C6OOH+SEED_1=PART117+SEED_1'],
+            ['KON118', 'APINBOOH+SEED_1=PART118+SEED_1'],
+            ['KON119', 'H3C2C4CO2H+SEED_1=PART119+SEED_1'],
+            ['KON120', 'C717NO3+SEED_1=PART120+SEED_1'],
+            ['KON121', 'NC71CO+SEED_1=PART121+SEED_1'],
+            ['KON122', 'C97OH+SEED_1=PART122+SEED_1'],
+            ['KON123', 'PINONIC+SEED_1=PART123+SEED_1'],
+            ['KON124', 'APINCNO3+SEED_1=PART124+SEED_1'],
+            ['KON125', 'C86OOH+SEED_1=PART125+SEED_1'],
+            ['KON126', 'PINALNO3+SEED_1=PART126+SEED_1'],
+            ['KON127', 'C109OH+SEED_1=PART127+SEED_1'],
+            ['KON128', 'C810NO3+SEED_1=PART128+SEED_1'],
+            ['KON129', 'APINANO3+SEED_1=PART129+SEED_1'],
+            ['KON130', 'C720OOH+SEED_1=PART130+SEED_1'],
+            ['KON131', 'H3C2C4CO3H+SEED_1=PART131+SEED_1'],
+            ['KON132', 'C89CO2H+SEED_1=PART132+SEED_1'],
+            ['KON133', 'C716OH+SEED_1=PART133+SEED_1'],
+            ['KON134', 'C717OH+SEED_1=PART134+SEED_1'],
+            ['KON135', 'APINBNO3+SEED_1=PART135+SEED_1'],
+            ['KON136', 'C514OOH+SEED_1=PART136+SEED_1'],
+            ['KON137', 'PERPINONIC+SEED_1=PART137+SEED_1'],
+            ['KON138', 'C10PAN2+SEED_1=PART138+SEED_1'],
+            ['KON139', 'C614CO+SEED_1=PART139+SEED_1'],
+            ['KON140', 'APINCOH+SEED_1=PART140+SEED_1'],
+            ['KON141', 'H3C2C4PAN+SEED_1=PART141+SEED_1'],
+            ['KON142', 'C107OH+SEED_1=PART142+SEED_1'],
+            ['KON143', 'PINALOH+SEED_1=PART143+SEED_1'],
+            ['KON144', 'APINBOH+SEED_1=PART144+SEED_1'],
+            ['KON145', 'C721CHO+SEED_1=PART145+SEED_1'],
+            ['KON146', 'C89CO3H+SEED_1=PART146+SEED_1'],
+            ['KON147', 'C96OOH+SEED_1=PART147+SEED_1'],
+            ['KON148', 'CO2H3CO3H+SEED_1=PART148+SEED_1'],
+            ['KON149', 'H3C25C5CHO+SEED_1=PART149+SEED_1'],
+            ['KON150', 'NC101CO+SEED_1=PART150+SEED_1'],
+            ['KON151', 'C810OH+SEED_1=PART151+SEED_1'],
+            ['KON152', 'H1C23C4CHO+SEED_1=PART152+SEED_1'],
+            ['KON153', 'C85CO3H+SEED_1=PART153+SEED_1'],
+            ['KON154', 'C514NO3+SEED_1=PART154+SEED_1'],
+            ['KON155', 'C109CO+SEED_1=PART155+SEED_1'],
+            ['KON156', 'C9PAN2+SEED_1=PART156+SEED_1'],
+            ['KON157', 'CO13C3CO2H+SEED_1=PART157+SEED_1'],
+            ['KON158', 'CHOC3COOOH+SEED_1=PART158+SEED_1'],
+            ['KON159', 'C720NO3+SEED_1=PART159+SEED_1'],
+            ['KON160', 'C511OOH+SEED_1=PART160+SEED_1'],
+            ['KON161', 'C4PAN6+SEED_1=PART161+SEED_1'],
+            ['KON162', 'H1CO23CHO+SEED_1=PART162+SEED_1'],
+            ['KON163', 'C89PAN+SEED_1=PART163+SEED_1'],
+            ['KON164', 'C89OOH+SEED_1=PART164+SEED_1'],
+            ['KON165', 'C5PAN9+SEED_1=PART165+SEED_1'],
+            ['KON166', 'C96NO3+SEED_1=PART166+SEED_1'],
+            ['KON167', 'CO235C6CHO+SEED_1=PART167+SEED_1'],
+            ['KON168', 'CHOC3COPAN+SEED_1=PART168+SEED_1'],
+            ['KON169', 'CO23C4CO3H+SEED_1=PART169+SEED_1'],
+            ['KON170', 'C720OH+SEED_1=PART170+SEED_1'],
+            ['KON171', 'C85OOH+SEED_1=PART171+SEED_1'],
+            ['KON172', 'APINBCO+SEED_1=PART172+SEED_1'],
+            ['KON173', 'C312COCO3H+SEED_1=PART173+SEED_1'],
+            ['KON174', 'C514OH+SEED_1=PART174+SEED_1'],
+            ['KON175', 'C96OH+SEED_1=PART175+SEED_1'],
+            ['KON176', 'C312COPAN+SEED_1=PART176+SEED_1'],
+            ['KON177', 'CO235C5CHO+SEED_1=PART177+SEED_1'],
+            ['KON178', 'C89NO3+SEED_1=PART178+SEED_1'],
+            ['KON179', 'PINAL+SEED_1=PART179+SEED_1'],
+            ['KON180', 'HCC7CO+SEED_1=PART180+SEED_1'],
+            ['KON181', 'C89OH+SEED_1=PART181+SEED_1'],
+            ['KON182', 'CO13C4CHO+SEED_1=PART182+SEED_1'],
+            ['KON183', 'NORPINAL+SEED_1=PART183+SEED_1'],
+            ['KON184', 'CO2H3CHO+SEED_1=PART184+SEED_1'],
+            ['KON185', 'C4CODIAL+SEED_1=PART185+SEED_1'],
+            ['KON186', 'CO23C4CHO+SEED_1=PART186+SEED_1'],
+            ['KON200', 'BPINANO3+SEED_1=PART200+SEED_1'],
+            ['KON201', 'BPINAOH+SEED_1=PART201+SEED_1'],
+            ['KON202', 'BPINAOOH+SEED_1=PART202+SEED_1'],
+            ['KON203', 'BPINBNO3+SEED_1=PART203+SEED_1'],
+            ['KON204', 'BPINBOOH+SEED_1=PART204+SEED_1'],
+            ['KON205', 'BPINCNO3+SEED_1=PART205+SEED_1'],
+            ['KON206', 'BPINCOH+SEED_1=PART206+SEED_1'],
+            ['KON207', 'BPINCOOH+SEED_1=PART207+SEED_1'],
+            ['KON209', 'C512CO2H+SEED_1=PART209+SEED_1'],
+            ['KON210', 'C512CO3H+SEED_1=PART210+SEED_1'],
+            ['KON211', 'C512NO3+SEED_1=PART211+SEED_1'],
+            ['KON212', 'C512OH+SEED_1=PART212+SEED_1'],
+            ['KON213', 'C512OOH+SEED_1=PART213+SEED_1'],
+            ['KON214', 'C512PAN+SEED_1=PART214+SEED_1'],
+            ['KON215', 'C513CO+SEED_1=PART215+SEED_1'],
+            ['KON216', 'C513OH+SEED_1=PART216+SEED_1'],
+            ['KON217', 'C513OOH+SEED_1=PART217+SEED_1'],
+            ['KON218', 'C515CHO+SEED_1=PART218+SEED_1'],
+            ['KON219', 'C515CO+SEED_1=PART219+SEED_1'],
+            ['KON220', 'C515CO3H+SEED_1=PART220+SEED_1'],
+            ['KON221', 'C515OOH+SEED_1=PART221+SEED_1'],
+            ['KON222', 'C515PAN+SEED_1=PART222+SEED_1'],
+            ['KON223', 'C55OOH+SEED_1=PART223+SEED_1'],
+            ['KON224', 'C5PAN11+SEED_1=PART224+SEED_1'],
+            ['KON225', 'C615CO+SEED_1=PART225+SEED_1'],
+            ['KON226', 'C615CO2H+SEED_1=PART226+SEED_1'],
+            ['KON227', 'C615CO3H+SEED_1=PART227+SEED_1'],
+            ['KON228', 'C615OH+SEED_1=PART228+SEED_1'],
+            ['KON229', 'C615OOH+SEED_1=PART229+SEED_1'],
+            ['KON230', 'C615PAN+SEED_1=PART230+SEED_1'],
+            ['KON231', 'C616OH+SEED_1=PART231+SEED_1'],
+            ['KON232', 'C616OOH+SEED_1=PART232+SEED_1'],
+            ['KON233', 'C617CHO+SEED_1=PART233+SEED_1'],
+            ['KON234', 'C617CO2H+SEED_1=PART234+SEED_1'],
+            ['KON235', 'C617CO3H+SEED_1=PART235+SEED_1'],
+            ['KON236', 'C617OH+SEED_1=PART236+SEED_1'],
+            ['KON237', 'C617OOH+SEED_1=PART237+SEED_1'],
+            ['KON238', 'C617PAN+SEED_1=PART238+SEED_1'],
+            ['KON239', 'C618CO2H+SEED_1=PART239+SEED_1'],
+            ['KON240', 'C618CO3H+SEED_1=PART240+SEED_1'],
+            ['KON241', 'C618OOH+SEED_1=PART241+SEED_1'],
+            ['KON242', 'C618PAN+SEED_1=PART242+SEED_1'],
+            ['KON243', 'C619CO+SEED_1=PART243+SEED_1'],
+            ['KON244', 'C619OH+SEED_1=PART244+SEED_1'],
+            ['KON245', 'C619OOH+SEED_1=PART245+SEED_1'],
+            ['KON246', 'C620OH+SEED_1=PART246+SEED_1'],
+            ['KON247', 'C620OOH+SEED_1=PART247+SEED_1'],
+            ['KON248', 'C67CHO+SEED_1=PART248+SEED_1'],
+            ['KON249', 'C67CO3H+SEED_1=PART249+SEED_1'],
+            ['KON250', 'C6PAN9+SEED_1=PART250+SEED_1'],
+            ['KON251', 'C718CO2H+SEED_1=PART251+SEED_1'],
+            ['KON252', 'C718CO3H+SEED_1=PART252+SEED_1'],
+            ['KON253', 'C718NO3+SEED_1=PART253+SEED_1'],
+            ['KON254', 'C718OH+SEED_1=PART254+SEED_1'],
+            ['KON255', 'C718OOH+SEED_1=PART255+SEED_1'],
+            ['KON256', 'C718PAN+SEED_1=PART256+SEED_1'],
+            ['KON257', 'C87CO+SEED_1=PART257+SEED_1'],
+            ['KON258', 'C87CO2H+SEED_1=PART258+SEED_1'],
+            ['KON259', 'C87CO3H+SEED_1=PART259+SEED_1'],
+            ['KON260', 'C87OH+SEED_1=PART260+SEED_1'],
+            ['KON261', 'C87OOH+SEED_1=PART261+SEED_1'],
+            ['KON262', 'C87PAN+SEED_1=PART262+SEED_1'],
+            ['KON263', 'C88CHO+SEED_1=PART263+SEED_1'],
+            ['KON264', 'C88CO+SEED_1=PART264+SEED_1'],
+            ['KON265', 'C88CO2H+SEED_1=PART265+SEED_1'],
+            ['KON266', 'C88CO3H+SEED_1=PART266+SEED_1'],
+            ['KON267', 'C88OH+SEED_1=PART267+SEED_1'],
+            ['KON268', 'C88OOH+SEED_1=PART268+SEED_1'],
+            ['KON269', 'C88PAN+SEED_1=PART269+SEED_1'],
+            ['KON270', 'C8BC+SEED_1=PART270+SEED_1'],
+            ['KON271', 'C8BCCO+SEED_1=PART271+SEED_1'],
+            ['KON272', 'C8BCNO3+SEED_1=PART272+SEED_1'],
+            ['KON273', 'C8BCOH+SEED_1=PART273+SEED_1'],
+            ['KON274', 'C8BCOOH+SEED_1=PART274+SEED_1'],
+            ['KON275', 'C914CO+SEED_1=PART275+SEED_1'],
+            ['KON276', 'C914OH+SEED_1=PART276+SEED_1'],
+            ['KON277', 'C914OOH+SEED_1=PART277+SEED_1'],
+            ['KON278', 'C915NO3+SEED_1=PART278+SEED_1'],
+            ['KON279', 'C915OH+SEED_1=PART279+SEED_1'],
+            ['KON280', 'C915OOH+SEED_1=PART280+SEED_1'],
+            ['KON281', 'C916NO3+SEED_1=PART281+SEED_1'],
+            ['KON282', 'C916OH+SEED_1=PART282+SEED_1'],
+            ['KON283', 'C916OOH+SEED_1=PART283+SEED_1'],
+            ['KON284', 'C917NO3+SEED_1=PART284+SEED_1'],
+            ['KON285', 'C917OH+SEED_1=PART285+SEED_1'],
+            ['KON286', 'C917OOH+SEED_1=PART286+SEED_1'],
+            ['KON287', 'C918CHO+SEED_1=PART287+SEED_1'],
+            ['KON288', 'C918CO3H+SEED_1=PART288+SEED_1'],
+            ['KON289', 'C918NO3+SEED_1=PART289+SEED_1'],
+            ['KON290', 'C918OH+SEED_1=PART290+SEED_1'],
+            ['KON291', 'C918OOH+SEED_1=PART291+SEED_1'],
+            ['KON292', 'C918PAN+SEED_1=PART292+SEED_1'],
+            ['KON293', 'C919NO3+SEED_1=PART293+SEED_1'],
+            ['KON294', 'C919OH+SEED_1=PART294+SEED_1'],
+            ['KON295', 'C919OOH+SEED_1=PART295+SEED_1'],
+            ['KON296', 'C9DC+SEED_1=PART296+SEED_1'],
+            ['KON297', 'C9DCCO+SEED_1=PART297+SEED_1'],
+            ['KON298', 'C9DCNO3+SEED_1=PART298+SEED_1'],
+            ['KON299', 'C9DCOH+SEED_1=PART299+SEED_1'],
+            ['KON300', 'C9DCOOH+SEED_1=PART300+SEED_1'],
+            ['KON301', 'CO123C5CHO+SEED_1=PART301+SEED_1'],
+            ['KON302', 'CO12C4CHO+SEED_1=PART302+SEED_1'],
+            ['KON303', 'CO1M22CHO+SEED_1=PART303+SEED_1'],
+            ['KON304', 'CO1M22CO2H+SEED_1=PART304+SEED_1'],
+            ['KON305', 'CO1M22CO3H+SEED_1=PART305+SEED_1'],
+            ['KON306', 'CO1M22PAN+SEED_1=PART306+SEED_1'],
+            ['KON307', 'H2M2C3CO3H+SEED_1=PART307+SEED_1'],
+            ['KON308', 'MIBKHO4CHO+SEED_1=PART308+SEED_1'],
+            ['KON309', 'NBPINAOOH+SEED_1=PART309+SEED_1'],
+            ['KON310', 'NBPINBOOH+SEED_1=PART310+SEED_1'],
+            ['KON311', 'NC91CHO+SEED_1=PART311+SEED_1'],
+            ['KON312', 'NC91CO3H+SEED_1=PART312+SEED_1'],
+            ['KON313', 'NC91PAN+SEED_1=PART313+SEED_1'],
+            ['KON314', 'NOPINANO3+SEED_1=PART314+SEED_1'],
+            ['KON315', 'NOPINAOH+SEED_1=PART315+SEED_1'],
+            ['KON316', 'NOPINAOOH+SEED_1=PART316+SEED_1'],
+            ['KON317', 'NOPINBCO+SEED_1=PART317+SEED_1'],
+            ['KON318', 'NOPINBNO3+SEED_1=PART318+SEED_1'],
+            ['KON319', 'NOPINBOH+SEED_1=PART319+SEED_1'],
+            ['KON320', 'NOPINBOOH+SEED_1=PART320+SEED_1'],
+            ['KON321', 'NOPINCNO3+SEED_1=PART321+SEED_1'],
+            ['KON322', 'NOPINCOH+SEED_1=PART322+SEED_1'],
+            ['KON323', 'NOPINCOOH+SEED_1=PART323+SEED_1'],
+            ['KON324', 'NOPINDCO+SEED_1=PART324+SEED_1'],
+            ['KON325', 'NOPINDOH+SEED_1=PART325+SEED_1'],
+            ['KON326', 'NOPINDOOH+SEED_1=PART326+SEED_1'],
+            ['KON327', 'NOPINONE+SEED_1=PART327+SEED_1'],
+            ['kon350', 'M3F+SEED_1=PART350+SEED_1'],
+            ['KON351', 'ISOPDOH+SEED_1=PART351+SEED_1'],
+            ['KON352', 'ISOPAOH+SEED_1=PART352+SEED_1'],
+            ['KON353', 'MMALANHY+SEED_1=PART353+SEED_1'],
+            ['KON354', 'MC3ODBCO2H+SEED_1=PART354+SEED_1'],
+            ['KON355', 'C532CO+SEED_1=PART355+SEED_1'],
+            ['KON356', 'C624CO+SEED_1=PART356+SEED_1'],
+            ['KON357', 'C518CHO+SEED_1=PART357+SEED_1'],
+            ['KON358', 'IEB1CHO+SEED_1=PART358+SEED_1'],
+            ['KON359', 'HO1CO34C5+SEED_1=PART359+SEED_1'],
+            ['KON360', 'HMVKBCHO+SEED_1=PART360+SEED_1'],
+            ['KON361', 'HC4CCO2H+SEED_1=PART361+SEED_1'],
+            ['KON362', 'HC4ACO2H+SEED_1=PART362+SEED_1'],
+            ['KON363', 'CO2C4CO2H+SEED_1=PART363+SEED_1'],
+            ['KON364', 'C5HPALD2+SEED_1=PART364+SEED_1'],
+            ['KON365', 'C624OH+SEED_1=PART365+SEED_1'],
+            ['KON366', 'C622OH+SEED_1=PART366+SEED_1'],
+            ['KON367', 'ISOPDOOH+SEED_1=PART367+SEED_1'],
+            ['KON368', 'ISOPCOOH+SEED_1=PART368+SEED_1'],
+            ['KON369', 'IEPOXC+SEED_1=PART369+SEED_1'],
+            ['KON370', 'IEPOXB+SEED_1=PART370+SEED_1'],
+            ['KON371', 'HO13CO4C5+SEED_1=PART371+SEED_1'],
+            ['KON372', 'C517OH+SEED_1=PART372+SEED_1'],
+            ['KON373', 'C531CO+SEED_1=PART373+SEED_1'],
+            ['KON374', 'CO2C4GLYOX+SEED_1=PART374+SEED_1'],
+            ['KON375', 'C511CHO+SEED_1=PART375+SEED_1'],
+            ['KON376', 'C624CHO+SEED_1=PART376+SEED_1'],
+            ['KON377', 'C622CHO+SEED_1=PART377+SEED_1'],
+            ['KON378', 'C5PACALD2+SEED_1=PART378+SEED_1'],
+            ['KON379', 'C5PACALD1+SEED_1=PART379+SEED_1'],
+            ['KON380', 'C23O3CCHO+SEED_1=PART380+SEED_1'],
+            ['KON381', 'C627OH+SEED_1=PART381+SEED_1'],
+            ['KON382', 'C519CHO+SEED_1=PART382+SEED_1'],
+            ['KON383', 'C518CO2H+SEED_1=PART383+SEED_1'],
+            ['KON384', 'C517CHO+SEED_1=PART384+SEED_1'],
+            ['KON385', 'PXYFUOH+SEED_1=PART385+SEED_1'],
+            ['KON386', 'HMVKBCO2H+SEED_1=PART386+SEED_1'],
+            ['KON387', 'HC4CCO3H+SEED_1=PART387+SEED_1'],
+            ['KON388', 'HC4ACO3H+SEED_1=PART388+SEED_1'],
+            ['KON389', 'CO2C4CO3H+SEED_1=PART389+SEED_1'],
+            ['KON390', 'C520OH+SEED_1=PART390+SEED_1'],
+            ['KON391', 'C4M2AL2OH+SEED_1=PART391+SEED_1'],
+            ['KON392', 'C624OOH+SEED_1=PART392+SEED_1'],
+            ['KON393', 'C622OOH+SEED_1=PART393+SEED_1'],
+            ['KON394', 'C58OH+SEED_1=PART394+SEED_1'],
+            ['KON395', 'C57OH+SEED_1=PART395+SEED_1'],
+            ['KON396', 'C519OOH+SEED_1=PART396+SEED_1'],
+            ['KON397', 'C517OOH+SEED_1=PART397+SEED_1'],
+            ['KON398', 'LIMKET+SEED_1=PART398+SEED_1'],
+            ['KON399', 'C816CO+SEED_1=PART399+SEED_1'],
+            ['KON400', 'C729CHO+SEED_1=PART400+SEED_1'],
+            ['KON401', 'CO25C6CHO+SEED_1=PART401+SEED_1'],
+            ['KON402', 'C727CO+SEED_1=PART402+SEED_1'],
+            ['KON403', 'C626CHO+SEED_1=PART403+SEED_1'],
+            ['KON404', 'C822OH+SEED_1=PART404+SEED_1'],
+            ['KON405', 'C731OH+SEED_1=PART405+SEED_1'],
+            ['KON406', 'C729OOH+SEED_1=PART406+SEED_1'],
+            ['KON407', 'C624CO2H+SEED_1=PART407+SEED_1'],
+            ['KON408', 'C622CO2H+SEED_1=PART408+SEED_1'],
+            ['KON409', 'MMALNHY2OH+SEED_1=PART409+SEED_1'],
+            ['KON410', 'C531OOH+SEED_1=PART410+SEED_1'],
+            ['KON411', 'C23O3CCO2H+SEED_1=PART411+SEED_1'],
+            ['KON412', 'C629OH+SEED_1=PART412+SEED_1'],
+            ['KON413', 'C628OH+SEED_1=PART413+SEED_1'],
+            ['KON414', 'C627OOH+SEED_1=PART414+SEED_1'],
+            ['KON415', 'C626OOH+SEED_1=PART415+SEED_1'],
+            ['KON416', 'C519CO2H+SEED_1=PART416+SEED_1'],
+            ['KON417', 'C518CO3H+SEED_1=PART417+SEED_1'],
+            ['KON418', 'C517CO2H+SEED_1=PART418+SEED_1'],
+            ['KON419', 'ISOPDNO3+SEED_1=PART419+SEED_1'],
+            ['KON420', 'ISOPCNO3+SEED_1=PART420+SEED_1'],
+            ['KON421', 'PXYFUOOH+SEED_1=PART421+SEED_1'],
+            ['KON422', 'IECCO3H+SEED_1=PART422+SEED_1'],
+            ['KON423', 'IEC2OOH+SEED_1=PART423+SEED_1'],
+            ['KON424', 'HMVKBCO3H+SEED_1=PART424+SEED_1'],
+            ['KON425', 'C520OOH+SEED_1=PART425+SEED_1'],
+            ['KON426', 'C4MALOHOOH+SEED_1=PART426+SEED_1'],
+            ['KON427', 'C625OH+SEED_1=PART427+SEED_1'],
+            ['KON428', 'C623OH+SEED_1=PART428+SEED_1'],
+            ['KON429', 'C59OOH+SEED_1=PART429+SEED_1'],
+            ['KON430', 'C58OOH+SEED_1=PART430+SEED_1'],
+            ['KON431', 'C58AOOH+SEED_1=PART431+SEED_1'],
+            ['KON432', 'C57OOH+SEED_1=PART432+SEED_1'],
+            ['KON433', 'C57AOOH+SEED_1=PART433+SEED_1'],
+            ['KON434', 'NORLIMAL+SEED_1=PART434+SEED_1'],
+            ['KON435', 'C824CO+SEED_1=PART435+SEED_1'],
+            ['KON436', 'C823CO+SEED_1=PART436+SEED_1'],
+            ['KON437', 'C817CO+SEED_1=PART437+SEED_1'],
+            ['KON438', 'C729CO2H+SEED_1=PART438+SEED_1'],
+            ['KON439', 'C923OH+SEED_1=PART439+SEED_1'],
+            ['KON440', 'C823OH+SEED_1=PART440+SEED_1'],
+            ['KON441', 'C822OOH+SEED_1=PART441+SEED_1'],
+            ['KON442', 'C817OH+SEED_1=PART442+SEED_1'],
+            ['KON443', 'C816OOH+SEED_1=PART443+SEED_1'],
+            ['KON444', 'C511CO3H+SEED_1=PART444+SEED_1'],
+            ['KON445', 'C733OH+SEED_1=PART445+SEED_1'],
+            ['KON446', 'C732OH+SEED_1=PART446+SEED_1'],
+            ['KON447', 'C731OOH+SEED_1=PART447+SEED_1'],
+            ['KON448', 'C727OOH+SEED_1=PART448+SEED_1'],
+            ['KON449', 'C624CO3H+SEED_1=PART449+SEED_1'],
+            ['KON450', 'C622CO3H+SEED_1=PART450+SEED_1'],
+            ['KON451', 'C624NO3+SEED_1=PART451+SEED_1'],
+            ['KON452', 'C622NO3+SEED_1=PART452+SEED_1'],
+            ['KON453', 'MMALNHYOOH+SEED_1=PART453+SEED_1'],
+            ['KON454', 'C23O3CCO3H+SEED_1=PART454+SEED_1'],
+            ['KON455', 'C629OOH+SEED_1=PART455+SEED_1'],
+            ['KON456', 'C628OOH+SEED_1=PART456+SEED_1'],
+            ['KON457', 'C519CO3H+SEED_1=PART457+SEED_1'],
+            ['KON458', 'C517CO3H+SEED_1=PART458+SEED_1'],
+            ['KON459', 'C730OH+SEED_1=PART459+SEED_1'],
+            ['KON460', 'CONM2CO2H+SEED_1=PART460+SEED_1'],
+            ['KON461', 'C517NO3+SEED_1=PART461+SEED_1'],
+            ['KON462', 'C533OOH+SEED_1=PART462+SEED_1'],
+            ['KON463', 'C625OOH+SEED_1=PART463+SEED_1'],
+            ['KON464', 'C623OOH+SEED_1=PART464+SEED_1'],
+            ['KON465', 'HPC52OOH+SEED_1=PART465+SEED_1'],
+            ['KON466', 'C527OOH+SEED_1=PART466+SEED_1'],
+            ['KON467', 'LIMBCO+SEED_1=PART467+SEED_1'],
+            ['KON468', 'LMKBCO+SEED_1=PART468+SEED_1'],
+            ['KON469', 'C924CO+SEED_1=PART469+SEED_1'],
+            ['KON470', 'C818CO+SEED_1=PART470+SEED_1'],
+            ['KON471', 'C729CO3H+SEED_1=PART471+SEED_1'],
+            ['KON472', 'LMKAOH+SEED_1=PART472+SEED_1'],
+            ['KON473', 'C923OOH+SEED_1=PART473+SEED_1'],
+            ['KON474', 'C729NO3+SEED_1=PART474+SEED_1'],
+            ['KON475', 'CO25C6CO3H+SEED_1=PART475+SEED_1'],
+            ['KON476', 'C821OOH+SEED_1=PART476+SEED_1'],
+            ['KON477', 'C735OOH+SEED_1=PART477+SEED_1'],
+            ['KON478', 'C734CO+SEED_1=PART478+SEED_1'],
+            ['KON479', 'C626CO3H+SEED_1=PART479+SEED_1'],
+            ['KON480', 'C824OOH+SEED_1=PART480+SEED_1'],
+            ['KON481', 'C818OH+SEED_1=PART481+SEED_1'],
+            ['KON482', 'C817OOH+SEED_1=PART482+SEED_1'],
+            ['KON483', 'MC3CODBPAN+SEED_1=PART483+SEED_1'],
+            ['KON484', 'C3MCODBPAN+SEED_1=PART484+SEED_1'],
+            ['KON485', 'C626NO3+SEED_1=PART485+SEED_1'],
+            ['KON486', 'C734OH+SEED_1=PART486+SEED_1'],
+            ['KON487', 'C733OOH+SEED_1=PART487+SEED_1'],
+            ['KON488', 'C732OOH+SEED_1=PART488+SEED_1'],
+            ['KON489', 'INCGLYOX+SEED_1=PART489+SEED_1'],
+            ['KON490', 'C5PAN2+SEED_1=PART490+SEED_1'],
+            ['KON491', 'C5PAN19+SEED_1=PART491+SEED_1'],
+            ['KON492', 'C5PAN17+SEED_1=PART492+SEED_1'],
+            ['KON493', 'C4M2ALOHNO3+SEED_1=PART493+SEED_1'],
+            ['KON494', 'C47CHO+SEED_1=PART494+SEED_1'],
+            ['KON495', 'C730OOH+SEED_1=PART495+SEED_1'],
+            ['KON496', 'INDHCHO+SEED_1=PART496+SEED_1'],
+            ['KON497', 'INCCO+SEED_1=PART497+SEED_1'],
+            ['KON498', 'C58NO3+SEED_1=PART498+SEED_1'],
+            ['KON499', 'C58ANO3+SEED_1=PART499+SEED_1'],
+            ['KON500', 'C57NO3+SEED_1=PART500+SEED_1'],
+            ['KON501', 'C535OOH+SEED_1=PART501+SEED_1'],
+            ['KON502', 'C534OOH+SEED_1=PART502+SEED_1'],
+            ['KON503', 'INDOH+SEED_1=PART503+SEED_1'],
+            ['KON504', 'INCOH+SEED_1=PART504+SEED_1'],
+            ['KON505', 'C537OOH+SEED_1=PART505+SEED_1'],
+            ['KON506', 'LIMALBCO+SEED_1=PART506+SEED_1'],
+            ['KON507', 'LMLKBCO+SEED_1=PART507+SEED_1'],
+            ['KON508', 'LMLKACO+SEED_1=PART508+SEED_1'],
+            ['KON509', 'LMLKBOH+SEED_1=PART509+SEED_1'],
+            ['KON510', 'C926OH+SEED_1=PART510+SEED_1'],
+            ['KON511', 'C822CO3H+SEED_1=PART511+SEED_1'],
+            ['KON512', 'C816CO3H+SEED_1=PART512+SEED_1'],
+            ['KON513', 'C822NO3+SEED_1=PART513+SEED_1'],
+            ['KON514', 'C731CO3H+SEED_1=PART514+SEED_1'],
+            ['KON515', 'C727CO3H+SEED_1=PART515+SEED_1'],
+            ['KON516', 'LMKBOOH+SEED_1=PART516+SEED_1'],
+            ['KON517', 'C731NO3+SEED_1=PART517+SEED_1'],
+            ['KON518', 'C825OOH+SEED_1=PART518+SEED_1'],
+            ['KON519', 'C819OOH+SEED_1=PART519+SEED_1'],
+            ['KON520', 'C518PAN+SEED_1=PART520+SEED_1'],
+            ['KON521', 'C734OOH+SEED_1=PART521+SEED_1'],
+            ['KON522', 'NPXYFUOOH+SEED_1=PART522+SEED_1'],
+            ['KON523', 'MMALNBCO2H+SEED_1=PART523+SEED_1'],
+            ['KON524', 'MMALNACO2H+SEED_1=PART524+SEED_1'],
+            ['KON525', 'IECPAN+SEED_1=PART525+SEED_1'],
+            ['KON526', 'HMVKBPAN+SEED_1=PART526+SEED_1'],
+            ['KON527', 'NC623OH+SEED_1=PART527+SEED_1'],
+            ['KON528', 'C623NO3+SEED_1=PART528+SEED_1'],
+            ['KON529', 'INDHPCHO+SEED_1=PART529+SEED_1'],
+            ['KON530', 'C58NO3CO2H+SEED_1=PART530+SEED_1'],
+            ['KON531', 'C57NO3CO2H+SEED_1=PART531+SEED_1'],
+            ['KON532', 'C527NO3+SEED_1=PART532+SEED_1'],
+            ['KON533', 'INDOOH+SEED_1=PART533+SEED_1'],
+            ['KON534', 'INCOOH+SEED_1=PART534+SEED_1'],
+            ['KON535', 'HPC52CO3H+SEED_1=PART535+SEED_1'],
+            ['KON536', 'C923CO3H+SEED_1=PART536+SEED_1'],
+            ['KON537', 'C923NO3+SEED_1=PART537+SEED_1'],
+            ['KON538', 'LMLKBOOH+SEED_1=PART538+SEED_1'],
+            ['KON539', 'LMLKAOOH+SEED_1=PART539+SEED_1'],
+            ['KON540', 'C926OOH+SEED_1=PART540+SEED_1'],
+            ['KON541', 'C823CO3H+SEED_1=PART541+SEED_1'],
+            ['KON542', 'C817CO3H+SEED_1=PART542+SEED_1'],
+            ['KON543', 'C823NO3+SEED_1=PART543+SEED_1'],
+            ['KON544', 'C817NO3+SEED_1=PART544+SEED_1'],
+            ['KON545', 'C820OOH+SEED_1=PART545+SEED_1'],
+            ['KON546', 'C732CO3H+SEED_1=PART546+SEED_1'],
+            ['KON547', 'C511PAN+SEED_1=PART547+SEED_1'],
+            ['KON548', 'C732NO3+SEED_1=PART548+SEED_1'],
+            ['KON549', 'C624PAN+SEED_1=PART549+SEED_1'],
+            ['KON550', 'C622PAN+SEED_1=PART550+SEED_1'],
+            ['KON551', 'C23O3CPAN+SEED_1=PART551+SEED_1'],
+            ['KON552', 'C519PAN+SEED_1=PART552+SEED_1'],
+            ['KON553', 'C517PAN+SEED_1=PART553+SEED_1'],
+            ['KON554', 'NC730OH+SEED_1=PART554+SEED_1'],
+            ['KON555', 'NC728OH+SEED_1=PART555+SEED_1'],
+            ['KON556', 'C730NO3+SEED_1=PART556+SEED_1'],
+            ['KON557', 'C728NO3+SEED_1=PART557+SEED_1'],
+            ['KON558', 'MMALNBCO3H+SEED_1=PART558+SEED_1'],
+            ['KON559', 'MMALNACO3H+SEED_1=PART559+SEED_1'],
+            ['KON560', 'C47CO3H+SEED_1=PART560+SEED_1'],
+            ['KON561', 'NC623OOH+SEED_1=PART561+SEED_1'],
+            ['KON562', 'INDHCO3H+SEED_1=PART562+SEED_1'],
+            ['KON563', 'C58NO3CO3H+SEED_1=PART563+SEED_1'],
+            ['KON564', 'C57NO3CO3H+SEED_1=PART564+SEED_1'],
+            ['KON565', 'C729PAN+SEED_1=PART565+SEED_1'],
+            ['KON566', 'LMKBNO3+SEED_1=PART566+SEED_1'],
+            ['KON567', 'C627PAN+SEED_1=PART567+SEED_1'],
+            ['KON568', 'C626PAN+SEED_1=PART568+SEED_1'],
+            ['KON569', 'NC826OH+SEED_1=PART569+SEED_1'],
+            ['KON570', 'C826NO3+SEED_1=PART570+SEED_1'],
+            ['KON571', 'NC730OOH+SEED_1=PART571+SEED_1'],
+            ['KON572', 'NC728OOH+SEED_1=PART572+SEED_1'],
+            ['KON573', 'CONM2PAN+SEED_1=PART573+SEED_1'],
+            ['KON574', 'CO2N3PAN+SEED_1=PART574+SEED_1'],
+            ['KON575', 'INCNCHO+SEED_1=PART575+SEED_1'],
+            ['KON576', 'INB1NBCHO+SEED_1=PART576+SEED_1'],
+            ['KON577', 'INB1NACHO+SEED_1=PART577+SEED_1'],
+            ['KON578', 'MACRNPAN+SEED_1=PART578+SEED_1'],
+            ['KON579', 'MACRNBPAN+SEED_1=PART579+SEED_1'],
+            ['KON580', 'INCNO3+SEED_1=PART580+SEED_1'],
+            ['KON581', 'INB1NO3+SEED_1=PART581+SEED_1'],
+            ['KON582', 'INDHPCO3H+SEED_1=PART582+SEED_1'],
+            ['KON583', 'C822PAN+SEED_1=PART583+SEED_1'],
+            ['KON584', 'C816PAN+SEED_1=PART584+SEED_1'],
+            ['KON585', 'NLIMOOH+SEED_1=PART585+SEED_1'],
+            ['KON586', 'C731PAN+SEED_1=PART586+SEED_1'],
+            ['KON587', 'C727PAN+SEED_1=PART587+SEED_1'],
+            ['KON588', 'NLMKAOOH+SEED_1=PART588+SEED_1'],
+            ['KON589', 'NC826OOH+SEED_1=PART589+SEED_1'],
+            ['KON590', 'INCNCO2H+SEED_1=PART590+SEED_1'],
+            ['KON591', 'INB1NBCO2H+SEED_1=PART591+SEED_1'],
+            ['KON592', 'INB1NACO2H+SEED_1=PART592+SEED_1'],
+            ['KON593', 'HPC52PAN+SEED_1=PART593+SEED_1'],
+            ['KON594', 'C823PAN+SEED_1=PART594+SEED_1'],
+            ['KON595', 'NLIMALOH+SEED_1=PART595+SEED_1'],
+            ['KON596', 'LIMALNO3+SEED_1=PART596+SEED_1'],
+            ['KON597', 'MMALNBPAN+SEED_1=PART597+SEED_1'],
+            ['KON598', 'MMALNAPAN+SEED_1=PART598+SEED_1'],
+            ['KON599', 'C47PAN+SEED_1=PART599+SEED_1'],
+            ['KON600', 'INDHPAN+SEED_1=PART600+SEED_1'],
+            ['KON601', 'INCNCO3H+SEED_1=PART601+SEED_1'],
+            ['KON602', 'INB1NBCO3H+SEED_1=PART602+SEED_1'],
+            ['KON603', 'INB1NACO3H+SEED_1=PART603+SEED_1'],
+            ['KON604', 'C58NO3PAN+SEED_1=PART604+SEED_1'],
+            ['KON605', 'C57NO3PAN+SEED_1=PART605+SEED_1'],
+            ['KON606', 'NLIMALOOH+SEED_1=PART606+SEED_1'],
+            ['KON607', 'INDHPPAN+SEED_1=PART607+SEED_1'],
+            ['KON608', 'INCNPAN+SEED_1=PART608+SEED_1'],
+            ['KON609', 'INB1NBPAN+SEED_1=PART609+SEED_1'],
+            ['KON610', 'INB1NAPAN+SEED_1=PART610+SEED_1'],
+            ['KON1', 'LIMONONIC+TSP=PART1'],
+            ['KON2A', 'LIMANO3+TSP=PART2A'],
+            ['KON2B', 'LIMBNO3+TSP=PART2B'],
+            ['KON3', 'LIMCNO3+TSP=PART3'],
+            ['KON4', 'C923PAN+TSP=PART4'],
+            ['KON5', 'C817PAN+TSP=PART5'],
+            ['KON6', 'LMKANO3+TSP=PART6'],
+            ['KON11', 'LIMONIC+TSP=PART11'],
+            ['KON13', 'KLIMONONIC+TSP=PART13'],
+            ['KON14', 'LIMAL+TSP=PART14'],
+            ['KON15', 'LMLKET+TSP=PART15'],
+            ['KON16', 'LIMALBOH+TSP=PART16'],
+            ['KON17', 'LIMALACO+TSP=PART17'],
+            ['KON22', 'C732PAN+TSP=PART22'],
+            ['KON23', 'KLIMONIC+TSP=PART23'],
+            ['KON24', 'C731CO2H+TSP=PART24'],
+            ['KON25', 'C822CO2H+TSP=PART25'],
+            ['KON26', 'LIMALOOH+TSP=PART26'],
+            ['KON27', 'LIMCOOH+TSP=PART27'],
+            ['KON28', 'C825OH+TSP=PART28'],
+            ['KON29', 'LIMAOOH+TSP=PART29'],
+            ['KON30', 'C826OOH+TSP=PART30'],
+            ['KON31', 'C825CO+TSP=PART31'],
+            ['KON32', 'LIMALOH+TSP=PART32'],
+            ['KON33', 'C728OOH+TSP=PART33'],
+            ['KON34', 'LIMALBOOH+TSP=PART34'],
+            ['KON35', 'LIMALAOOH+TSP=PART35'],
+            ['KON36', 'C924OOH+TSP=PART36'],
+            ['KON37', 'C818OOH+TSP=PART37'],
+            ['KON38', 'LMKAOOH+TSP=PART38'],
+            ['KON39', 'NORLIMOOH+TSP=PART39'],
+            ['KON40', 'LIMCOH+TSP=PART40'],
+            ['KON41', 'C924OH+TSP=PART41'],
+            ['KON42', 'LIMALAOH+TSP=PART42'],
+            ['KON43', 'C925OOH+TSP=PART43'],
+            ['KON44', 'LIMAOH+TSP=PART44'],
+            ['KON45', 'C826OH+TSP=PART45'],
+            ['KON46', 'C728OH+TSP=PART46'],
+            ['KON47', 'C823OOH+TSP=PART47'],
+            ['KON48', 'LIMBOOH+TSP=PART48'],
+            ['KON49', 'LMLKAOH+TSP=PART49'],
+            ['KON50', 'C922OOH+TSP=PART50'],
+            ['KON51', 'C813OOH+TSP=PART51'],
+            ['KON52', 'C516OOH+TSP=PART52'],
+            ['KON53', 'C621OOH+TSP=PART53'],
+            ['KON54', 'C813NO3+TSP=PART54'],
+            ['KON55', 'C921OOH+TSP=PART55'],
+            ['KON56', 'C812OOH+TSP=PART56'],
+            ['KON57', 'C813OH+TSP=PART57'],
+            ['KON58', 'NC72OOH+TSP=PART58'],
+            ['KON59', 'NC61CO3H+TSP=PART59'],
+            ['KON60', 'NC102OOH+TSP=PART60'],
+            ['KON61', 'C719OOH+TSP=PART61'],
+            ['KON62', 'C98OOH+TSP=PART62'],
+            ['KON63', 'NC6PAN1+TSP=PART63'],
+            ['KON64', 'HOPINONIC+TSP=PART64'],
+            ['KON65', 'C812OH+TSP=PART65'],
+            ['KON66', 'H3C25CCO2H+TSP=PART66'],
+            ['KON67', 'C722OOH+TSP=PART67'],
+            ['KON68', 'NC71OOH+TSP=PART68'],
+            ['KON69', 'NC101OOH+TSP=PART69'],
+            ['KON70', 'C719NO3+TSP=PART70'],
+            ['KON71', 'C920CO3H+TSP=PART71'],
+            ['KON72', 'PINIC+TSP=PART72'],
+            ['KON73', 'C106OOH+TSP=PART73'],
+            ['KON74', 'C108OOH+TSP=PART74'],
+            ['KON75', 'H3C25CCO3H+TSP=PART75'],
+            ['KON76', 'C98NO3+TSP=PART76'],
+            ['KON77', 'C614OOH+TSP=PART77'],
+            ['KON78', 'C920OOH+TSP=PART78'],
+            ['KON79', 'H3C25C6OOH+TSP=PART79'],
+            ['KON80', 'C811OOH+TSP=PART80'],
+            ['KON81', 'C44OOH+TSP=PART81'],
+            ['KON82', 'C719OH+TSP=PART82'],
+            ['KON83', 'H3C25C6PAN+TSP=PART83'],
+            ['KON84', 'C97OOH+TSP=PART84'],
+            ['KON85', 'NORPINIC+TSP=PART85'],
+            ['KON86', 'H1C23C4OOH+TSP=PART86'],
+            ['KON87', 'C920PAN+TSP=PART87'],
+            ['KON88', 'C98OH+TSP=PART88'],
+            ['KON89', 'C811CO3H+TSP=PART89'],
+            ['KON90', 'HC23C4CO3H+TSP=PART90'],
+            ['KON91', 'C106NO3+TSP=PART91'],
+            ['KON92', 'C108NO3+TSP=PART92'],
+            ['KON93', 'C811PAN+TSP=PART93'],
+            ['KON94', 'C716OOH+TSP=PART94'],
+            ['KON95', 'C717OOH+TSP=PART95'],
+            ['KON96', 'NAPINAOOH+TSP=PART96'],
+            ['KON97', 'NAPINBOOH+TSP=PART97'],
+            ['KON98', 'C721OOH+TSP=PART98'],
+            ['KON99', 'C109OOH+TSP=PART99'],
+            ['KON100', 'C614NO3+TSP=PART100'],
+            ['KON101', 'H1C23C4PAN+TSP=PART101'],
+            ['KON102', 'C721CO3H+TSP=PART102'],
+            ['KON103', 'C235C6CO3H+TSP=PART103'],
+            ['KON104', 'APINCOOH+TSP=PART104'],
+            ['KON105', 'C811NO3+TSP=PART105'],
+            ['KON106', 'APINAOOH+TSP=PART106'],
+            ['KON107', 'C7PAN3+TSP=PART107'],
+            ['KON108', 'C107OOH+TSP=PART108'],
+            ['KON109', 'PINALOOH+TSP=PART109'],
+            ['KON110', 'C106OH+TSP=PART110'],
+            ['KON111', 'C108OH+TSP=PART111'],
+            ['KON112', 'C811OH+TSP=PART112'],
+            ['KON113', 'C614OH+TSP=PART113'],
+            ['KON114', 'H3C25C6OH+TSP=PART114'],
+            ['KON115', 'C721PAN+TSP=PART115'],
+            ['KON116', 'C810OOH+TSP=PART116'],
+            ['KON117', 'CO235C6OOH+TSP=PART117'],
+            ['KON118', 'APINBOOH+TSP=PART118'],
+            ['KON119', 'H3C2C4CO2H+TSP=PART119'],
+            ['KON120', 'C717NO3+TSP=PART120'],
+            ['KON121', 'NC71CO+TSP=PART121'],
+            ['KON122', 'C97OH+TSP=PART122'],
+            ['KON123', 'PINONIC+TSP=PART123'],
+            ['KON124', 'APINCNO3+TSP=PART124'],
+            ['KON125', 'C86OOH+TSP=PART125'],
+            ['KON126', 'PINALNO3+TSP=PART126'],
+            ['KON127', 'C109OH+TSP=PART127'],
+            ['KON128', 'C810NO3+TSP=PART128'],
+            ['KON129', 'APINANO3+TSP=PART129'],
+            ['KON130', 'C720OOH+TSP=PART130'],
+            ['KON131', 'H3C2C4CO3H+TSP=PART131'],
+            ['KON132', 'C89CO2H+TSP=PART132'],
+            ['KON133', 'C716OH+TSP=PART133'],
+            ['KON134', 'C717OH+TSP=PART134'],
+            ['KON135', 'APINBNO3+TSP=PART135'],
+            ['KON136', 'C514OOH+TSP=PART136'],
+            ['KON137', 'PERPINONIC+TSP=PART137'],
+            ['KON138', 'C10PAN2+TSP=PART138'],
+            ['KON139', 'C614CO+TSP=PART139'],
+            ['KON140', 'APINCOH+TSP=PART140'],
+            ['KON141', 'H3C2C4PAN+TSP=PART141'],
+            ['KON142', 'C107OH+TSP=PART142'],
+            ['KON143', 'PINALOH+TSP=PART143'],
+            ['KON144', 'APINBOH+TSP=PART144'],
+            ['KON145', 'C721CHO+TSP=PART145'],
+            ['KON146', 'C89CO3H+TSP=PART146'],
+            ['KON147', 'C96OOH+TSP=PART147'],
+            ['KON148', 'CO2H3CO3H+TSP=PART148'],
+            ['KON149', 'H3C25C5CHO+TSP=PART149'],
+            ['KON150', 'NC101CO+TSP=PART150'],
+            ['KON151', 'C810OH+TSP=PART151'],
+            ['KON152', 'H1C23C4CHO+TSP=PART152'],
+            ['KON153', 'C85CO3H+TSP=PART153'],
+            ['KON154', 'C514NO3+TSP=PART154'],
+            ['KON155', 'C109CO+TSP=PART155'],
+            ['KON156', 'C9PAN2+TSP=PART156'],
+            ['KON157', 'CO13C3CO2H+TSP=PART157'],
+            ['KON158', 'CHOC3COOOH+TSP=PART158'],
+            ['KON159', 'C720NO3+TSP=PART159'],
+            ['KON160', 'C511OOH+TSP=PART160'],
+            ['KON161', 'C4PAN6+TSP=PART161'],
+            ['KON162', 'H1CO23CHO+TSP=PART162'],
+            ['KON163', 'C89PAN+TSP=PART163'],
+            ['KON164', 'C89OOH+TSP=PART164'],
+            ['KON165', 'C5PAN9+TSP=PART165'],
+            ['KON166', 'C96NO3+TSP=PART166'],
+            ['KON167', 'CO235C6CHO+TSP=PART167'],
+            ['KON168', 'CHOC3COPAN+TSP=PART168'],
+            ['KON169', 'CO23C4CO3H+TSP=PART169'],
+            ['KON170', 'C720OH+TSP=PART170'],
+            ['KON171', 'C85OOH+TSP=PART171'],
+            ['KON172', 'APINBCO+TSP=PART172'],
+            ['KON173', 'C312COCO3H+TSP=PART173'],
+            ['KON174', 'C514OH+TSP=PART174'],
+            ['KON175', 'C96OH+TSP=PART175'],
+            ['KON176', 'C312COPAN+TSP=PART176'],
+            ['KON177', 'CO235C5CHO+TSP=PART177'],
+            ['KON178', 'C89NO3+TSP=PART178'],
+            ['KON179', 'PINAL+TSP=PART179'],
+            ['KON180', 'HCC7CO+TSP=PART180'],
+            ['KON181', 'C89OH+TSP=PART181'],
+            ['KON182', 'CO13C4CHO+TSP=PART182'],
+            ['KON183', 'NORPINAL+TSP=PART183'],
+            ['KON184', 'CO2H3CHO+TSP=PART184'],
+            ['KON185', 'C4CODIAL+TSP=PART185'],
+            ['KON186', 'CO23C4CHO+TSP=PART186'],
+            ['KON200', 'BPINANO3+TSP=PART200'],
+            ['KON201', 'BPINAOH+TSP=PART201'],
+            ['KON202', 'BPINAOOH+TSP=PART202'],
+            ['KON203', 'BPINBNO3+TSP=PART203'],
+            ['KON204', 'BPINBOOH+TSP=PART204'],
+            ['KON205', 'BPINCNO3+TSP=PART205'],
+            ['KON206', 'BPINCOH+TSP=PART206'],
+            ['KON207', 'BPINCOOH+TSP=PART207'],
+            ['KON209', 'C512CO2H+TSP=PART209'],
+            ['KON210', 'C512CO3H+TSP=PART210'],
+            ['KON211', 'C512NO3+TSP=PART211'],
+            ['KON212', 'C512OH+TSP=PART212'],
+            ['KON213', 'C512OOH+TSP=PART213'],
+            ['KON214', 'C512PAN+TSP=PART214'],
+            ['KON215', 'C513CO+TSP=PART215'],
+            ['KON216', 'C513OH+TSP=PART216'],
+            ['KON217', 'C513OOH+TSP=PART217'],
+            ['KON218', 'C515CHO+TSP=PART218'],
+            ['KON219', 'C515CO+TSP=PART219'],
+            ['KON220', 'C515CO3H+TSP=PART220'],
+            ['KON221', 'C515OOH+TSP=PART221'],
+            ['KON222', 'C515PAN+TSP=PART222'],
+            ['KON223', 'C55OOH+TSP=PART223'],
+            ['KON224', 'C5PAN11+TSP=PART224'],
+            ['KON225', 'C615CO+TSP=PART225'],
+            ['KON226', 'C615CO2H+TSP=PART226'],
+            ['KON227', 'C615CO3H+TSP=PART227'],
+            ['KON228', 'C615OH+TSP=PART228'],
+            ['KON229', 'C615OOH+TSP=PART229'],
+            ['KON230', 'C615PAN+TSP=PART230'],
+            ['KON231', 'C616OH+TSP=PART231'],
+            ['KON232', 'C616OOH+TSP=PART232'],
+            ['KON233', 'C617CHO+TSP=PART233'],
+            ['KON234', 'C617CO2H+TSP=PART234'],
+            ['KON235', 'C617CO3H+TSP=PART235'],
+            ['KON236', 'C617OH+TSP=PART236'],
+            ['KON237', 'C617OOH+TSP=PART237'],
+            ['KON238', 'C617PAN+TSP=PART238'],
+            ['KON239', 'C618CO2H+TSP=PART239'],
+            ['KON240', 'C618CO3H+TSP=PART240'],
+            ['KON241', 'C618OOH+TSP=PART241'],
+            ['KON242', 'C618PAN+TSP=PART242'],
+            ['KON243', 'C619CO+TSP=PART243'],
+            ['KON244', 'C619OH+TSP=PART244'],
+            ['KON245', 'C619OOH+TSP=PART245'],
+            ['KON246', 'C620OH+TSP=PART246'],
+            ['KON247', 'C620OOH+TSP=PART247'],
+            ['KON248', 'C67CHO+TSP=PART248'],
+            ['KON249', 'C67CO3H+TSP=PART249'],
+            ['KON250', 'C6PAN9+TSP=PART250'],
+            ['KON251', 'C718CO2H+TSP=PART251'],
+            ['KON252', 'C718CO3H+TSP=PART252'],
+            ['KON253', 'C718NO3+TSP=PART253'],
+            ['KON254', 'C718OH+TSP=PART254'],
+            ['KON255', 'C718OOH+TSP=PART255'],
+            ['KON256', 'C718PAN+TSP=PART256'],
+            ['KON257', 'C87CO+TSP=PART257'],
+            ['KON258', 'C87CO2H+TSP=PART258'],
+            ['KON259', 'C87CO3H+TSP=PART259'],
+            ['KON260', 'C87OH+TSP=PART260'],
+            ['KON261', 'C87OOH+TSP=PART261'],
+            ['KON262', 'C87PAN+TSP=PART262'],
+            ['KON263', 'C88CHO+TSP=PART263'],
+            ['KON264', 'C88CO+TSP=PART264'],
+            ['KON265', 'C88CO2H+TSP=PART265'],
+            ['KON266', 'C88CO3H+TSP=PART266'],
+            ['KON267', 'C88OH+TSP=PART267'],
+            ['KON268', 'C88OOH+TSP=PART268'],
+            ['KON269', 'C88PAN+TSP=PART269'],
+            ['KON270', 'C8BC+TSP=PART270'],
+            ['KON271', 'C8BCCO+TSP=PART271'],
+            ['KON272', 'C8BCNO3+TSP=PART272'],
+            ['KON273', 'C8BCOH+TSP=PART273'],
+            ['KON274', 'C8BCOOH+TSP=PART274'],
+            ['KON275', 'C914CO+TSP=PART275'],
+            ['KON276', 'C914OH+TSP=PART276'],
+            ['KON277', 'C914OOH+TSP=PART277'],
+            ['KON278', 'C915NO3+TSP=PART278'],
+            ['KON279', 'C915OH+TSP=PART279'],
+            ['KON280', 'C915OOH+TSP=PART280'],
+            ['KON281', 'C916NO3+TSP=PART281'],
+            ['KON282', 'C916OH+TSP=PART282'],
+            ['KON283', 'C916OOH+TSP=PART283'],
+            ['KON284', 'C917NO3+TSP=PART284'],
+            ['KON285', 'C917OH+TSP=PART285'],
+            ['KON286', 'C917OOH+TSP=PART286'],
+            ['KON287', 'C918CHO+TSP=PART287'],
+            ['KON288', 'C918CO3H+TSP=PART288'],
+            ['KON289', 'C918NO3+TSP=PART289'],
+            ['KON290', 'C918OH+TSP=PART290'],
+            ['KON291', 'C918OOH+TSP=PART291'],
+            ['KON292', 'C918PAN+TSP=PART292'],
+            ['KON293', 'C919NO3+TSP=PART293'],
+            ['KON294', 'C919OH+TSP=PART294'],
+            ['KON295', 'C919OOH+TSP=PART295'],
+            ['KON296', 'C9DC+TSP=PART296'],
+            ['KON297', 'C9DCCO+TSP=PART297'],
+            ['KON298', 'C9DCNO3+TSP=PART298'],
+            ['KON299', 'C9DCOH+TSP=PART299'],
+            ['KON300', 'C9DCOOH+TSP=PART300'],
+            ['KON301', 'CO123C5CHO+TSP=PART301'],
+            ['KON302', 'CO12C4CHO+TSP=PART302'],
+            ['KON303', 'CO1M22CHO+TSP=PART303'],
+            ['KON304', 'CO1M22CO2H+TSP=PART304'],
+            ['KON305', 'CO1M22CO3H+TSP=PART305'],
+            ['KON306', 'CO1M22PAN+TSP=PART306'],
+            ['KON307', 'H2M2C3CO3H+TSP=PART307'],
+            ['KON308', 'MIBKHO4CHO+TSP=PART308'],
+            ['KON309', 'NBPINAOOH+TSP=PART309'],
+            ['KON310', 'NBPINBOOH+TSP=PART310'],
+            ['KON311', 'NC91CHO+TSP=PART311'],
+            ['KON312', 'NC91CO3H+TSP=PART312'],
+            ['KON313', 'NC91PAN+TSP=PART313'],
+            ['KON314', 'NOPINANO3+TSP=PART314'],
+            ['KON315', 'NOPINAOH+TSP=PART315'],
+            ['KON316', 'NOPINAOOH+TSP=PART316'],
+            ['KON317', 'NOPINBCO+TSP=PART317'],
+            ['KON318', 'NOPINBNO3+TSP=PART318'],
+            ['KON319', 'NOPINBOH+TSP=PART319'],
+            ['KON320', 'NOPINBOOH+TSP=PART320'],
+            ['KON321', 'NOPINCNO3+TSP=PART321'],
+            ['KON322', 'NOPINCOH+TSP=PART322'],
+            ['KON323', 'NOPINCOOH+TSP=PART323'],
+            ['KON324', 'NOPINDCO+TSP=PART324'],
+            ['KON325', 'NOPINDOH+TSP=PART325'],
+            ['KON326', 'NOPINDOOH+TSP=PART326'],
+            ['KON327', 'NOPINONE+TSP=PART327'],
+            ['KON350', 'M3F+TSP=PART350'],
+            ['KON351', 'ISOPDOH+TSP=PART351'],
+            ['KON352', 'ISOPAOH+TSP=PART352'],
+            ['KON353', 'MMALANHY+TSP=PART353'],
+            ['KON354', 'MC3ODBCO2H+TSP=PART354'],
+            ['KON355', 'C532CO+TSP=PART355'],
+            ['KON356', 'C624CO+TSP=PART356'],
+            ['KON357', 'C518CHO+TSP=PART357'],
+            ['KON358', 'IEB1CHO+TSP=PART358'],
+            ['KON359', 'HO1CO34C5+TSP=PART359'],
+            ['KON360', 'HMVKBCHO+TSP=PART360'],
+            ['KON361', 'HC4CCO2H+TSP=PART361'],
+            ['KON362', 'HC4ACO2H+TSP=PART362'],
+            ['KON363', 'CO2C4CO2H+TSP=PART363'],
+            ['KON364', 'C5HPALD2+TSP=PART364'],
+            ['KON365', 'C624OH+TSP=PART365'],
+            ['KON366', 'C622OH+TSP=PART366'],
+            ['KON367', 'ISOPDOOH+TSP=PART367'],
+            ['KON368', 'ISOPCOOH+TSP=PART368'],
+            ['KON369', 'IEPOXC+TSP=PART369'],
+            ['KON370', 'IEPOXB+TSP=PART370'],
+            ['KON371', 'HO13CO4C5+TSP=PART371'],
+            ['KON372', 'C517OH+TSP=PART372'],
+            ['KON373', 'C531CO+TSP=PART373'],
+            ['KON374', 'CO2C4GLYOX+TSP=PART374'],
+            ['KON375', 'C511CHO+TSP=PART375'],
+            ['KON376', 'C624CHO+TSP=PART376'],
+            ['KON377', 'C622CHO+TSP=PART377'],
+            ['KON378', 'C5PACALD2+TSP=PART378'],
+            ['KON379', 'C5PACALD1+TSP=PART379'],
+            ['KON380', 'C23O3CCHO+TSP=PART380'],
+            ['KON381', 'C627OH+TSP=PART381'],
+            ['KON382', 'C519CHO+TSP=PART382'],
+            ['KON383', 'C518CO2H+TSP=PART383'],
+            ['KON384', 'C517CHO+TSP=PART384'],
+            ['KON385', 'PXYFUOH+TSP=PART385'],
+            ['KON386', 'HMVKBCO2H+TSP=PART386'],
+            ['KON387', 'HC4CCO3H+TSP=PART387'],
+            ['KON388', 'HC4ACO3H+TSP=PART388'],
+            ['KON389', 'CO2C4CO3H+TSP=PART389'],
+            ['KON390', 'C520OH+TSP=PART390'],
+            ['KON391', 'C4M2AL2OH+TSP=PART391'],
+            ['KON392', 'C624OOH+TSP=PART392'],
+            ['KON393', 'C622OOH+TSP=PART393'],
+            ['KON394', 'C58OH+TSP=PART394'],
+            ['KON395', 'C57OH+TSP=PART395'],
+            ['KON396', 'C519OOH+TSP=PART396'],
+            ['KON397', 'C517OOH+TSP=PART397'],
+            ['KON398', 'LIMKET+TSP=PART398'],
+            ['KON399', 'C816CO+TSP=PART399'],
+            ['KON400', 'C729CHO+TSP=PART400'],
+            ['KON401', 'CO25C6CHO+TSP=PART401'],
+            ['KON402', 'C727CO+TSP=PART402'],
+            ['KON403', 'C626CHO+TSP=PART403'],
+            ['KON404', 'C822OH+TSP=PART404'],
+            ['KON405', 'C731OH+TSP=PART405'],
+            ['KON406', 'C729OOH+TSP=PART406'],
+            ['KON407', 'C624CO2H+TSP=PART407'],
+            ['KON408', 'C622CO2H+TSP=PART408'],
+            ['KON409', 'MMALNHY2OH+TSP=PART409'],
+            ['KON410', 'C531OOH+TSP=PART410'],
+            ['KON411', 'C23O3CCO2H+TSP=PART411'],
+            ['KON412', 'C629OH+TSP=PART412'],
+            ['KON413', 'C628OH+TSP=PART413'],
+            ['KON414', 'C627OOH+TSP=PART414'],
+            ['KON415', 'C626OOH+TSP=PART415'],
+            ['KON416', 'C519CO2H+TSP=PART416'],
+            ['KON417', 'C518CO3H+TSP=PART417'],
+            ['KON418', 'C517CO2H+TSP=PART418'],
+            ['KON419', 'ISOPDNO3+TSP=PART419'],
+            ['KON420', 'ISOPCNO3+TSP=PART420'],
+            ['KON421', 'PXYFUOOH+TSP=PART421'],
+            ['KON422', 'IECCO3H+TSP=PART422'],
+            ['KON423', 'IEC2OOH+TSP=PART423'],
+            ['KON424', 'HMVKBCO3H+TSP=PART424'],
+            ['KON425', 'C520OOH+TSP=PART425'],
+            ['KON426', 'C4MALOHOOH+TSP=PART426'],
+            ['KON427', 'C625OH+TSP=PART427'],
+            ['KON428', 'C623OH+TSP=PART428'],
+            ['KON429', 'C59OOH+TSP=PART429'],
+            ['KON430', 'C58OOH+TSP=PART430'],
+            ['KON431', 'C58AOOH+TSP=PART431'],
+            ['KON432', 'C57OOH+TSP=PART432'],
+            ['KON433', 'C57AOOH+TSP=PART433'],
+            ['KON434', 'NORLIMAL+TSP=PART434'],
+            ['KON435', 'C824CO+TSP=PART435'],
+            ['KON436', 'C823CO+TSP=PART436'],
+            ['KON437', 'C817CO+TSP=PART437'],
+            ['KON438', 'C729CO2H+TSP=PART438'],
+            ['KON439', 'C923OH+TSP=PART439'],
+            ['KON440', 'C823OH+TSP=PART440'],
+            ['KON441', 'C822OOH+TSP=PART441'],
+            ['KON442', 'C817OH+TSP=PART442'],
+            ['KON443', 'C816OOH+TSP=PART443'],
+            ['KON444', 'C511CO3H+TSP=PART444'],
+            ['KON445', 'C733OH+TSP=PART445'],
+            ['KON446', 'C732OH+TSP=PART446'],
+            ['KON447', 'C731OOH+TSP=PART447'],
+            ['KON448', 'C727OOH+TSP=PART448'],
+            ['KON449', 'C624CO3H+TSP=PART449'],
+            ['KON450', 'C622CO3H+TSP=PART450'],
+            ['KON451', 'C624NO3+TSP=PART451'],
+            ['KON452', 'C622NO3+TSP=PART452'],
+            ['KON453', 'MMALNHYOOH+TSP=PART453'],
+            ['KON454', 'C23O3CCO3H+TSP=PART454'],
+            ['KON455', 'C629OOH+TSP=PART455'],
+            ['KON456', 'C628OOH+TSP=PART456'],
+            ['KON457', 'C519CO3H+TSP=PART457'],
+            ['KON458', 'C517CO3H+TSP=PART458'],
+            ['KON459', 'C730OH+TSP=PART459'],
+            ['KON460', 'CONM2CO2H+TSP=PART460'],
+            ['KON461', 'C517NO3+TSP=PART461'],
+            ['KON462', 'C533OOH+TSP=PART462'],
+            ['KON463', 'C625OOH+TSP=PART463'],
+            ['KON464', 'C623OOH+TSP=PART464'],
+            ['KON465', 'HPC52OOH+TSP=PART465'],
+            ['KON466', 'C527OOH+TSP=PART466'],
+            ['KON467', 'LIMBCO+TSP=PART467'],
+            ['KON468', 'LMKBCO+TSP=PART468'],
+            ['KON469', 'C924CO+TSP=PART469'],
+            ['KON470', 'C818CO+TSP=PART470'],
+            ['KON471', 'C729CO3H+TSP=PART471'],
+            ['KON472', 'LMKAOH+TSP=PART472'],
+            ['KON473', 'C923OOH+TSP=PART473'],
+            ['KON474', 'C729NO3+TSP=PART474'],
+            ['KON475', 'CO25C6CO3H+TSP=PART475'],
+            ['KON476', 'C821OOH+TSP=PART476'],
+            ['KON477', 'C735OOH+TSP=PART477'],
+            ['KON478', 'C734CO+TSP=PART478'],
+            ['KON479', 'C626CO3H+TSP=PART479'],
+            ['KON480', 'C824OOH+TSP=PART480'],
+            ['KON481', 'C818OH+TSP=PART481'],
+            ['KON482', 'C817OOH+TSP=PART482'],
+            ['KON483', 'MC3CODBPAN+TSP=PART483'],
+            ['KON484', 'C3MCODBPAN+TSP=PART484'],
+            ['KON485', 'C626NO3+TSP=PART485'],
+            ['KON486', 'C734OH+TSP=PART486'],
+            ['KON487', 'C733OOH+TSP=PART487'],
+            ['KON488', 'C732OOH+TSP=PART488'],
+            ['KON489', 'INCGLYOX+TSP=PART489'],
+            ['KON490', 'C5PAN2+TSP=PART490'],
+            ['KON491', 'C5PAN19+TSP=PART491'],
+            ['KON492', 'C5PAN17+TSP=PART492'],
+            ['KON493', 'C4M2ALOHNO3+TSP=PART493'],
+            ['KON494', 'C47CHO+TSP=PART494'],
+            ['KON495', 'C730OOH+TSP=PART495'],
+            ['KON496', 'INDHCHO+TSP=PART496'],
+            ['KON497', 'INCCO+TSP=PART497'],
+            ['KON498', 'C58NO3+TSP=PART498'],
+            ['KON499', 'C58ANO3+TSP=PART499'],
+            ['KON500', 'C57NO3+TSP=PART500'],
+            ['KON501', 'C535OOH+TSP=PART501'],
+            ['KON502', 'C534OOH+TSP=PART502'],
+            ['KON503', 'INDOH+TSP=PART503'],
+            ['KON504', 'INCOH+TSP=PART504'],
+            ['KON505', 'C537OOH+TSP=PART505'],
+            ['KON506', 'LIMALBCO+TSP=PART506'],
+            ['KON507', 'LMLKBCO+TSP=PART507'],
+            ['KON508', 'LMLKACO+TSP=PART508'],
+            ['KON509', 'LMLKBOH+TSP=PART509'],
+            ['KON510', 'C926OH+TSP=PART510'],
+            ['KON511', 'C822CO3H+TSP=PART511'],
+            ['KON512', 'C816CO3H+TSP=PART512'],
+            ['KON513', 'C822NO3+TSP=PART513'],
+            ['KON514', 'C731CO3H+TSP=PART514'],
+            ['KON515', 'C727CO3H+TSP=PART515'],
+            ['KON516', 'LMKBOOH+TSP=PART516'],
+            ['KON517', 'C731NO3+TSP=PART517'],
+            ['KON518', 'C825OOH+TSP=PART518'],
+            ['KON519', 'C819OOH+TSP=PART519'],
+            ['KON520', 'C518PAN+TSP=PART520'],
+            ['KON521', 'C734OOH+TSP=PART521'],
+            ['KON522', 'NPXYFUOOH+TSP=PART522'],
+            ['KON523', 'MMALNBCO2H+TSP=PART523'],
+            ['KON524', 'MMALNACO2H+TSP=PART524'],
+            ['KON525', 'IECPAN+TSP=PART525'],
+            ['KON526', 'HMVKBPAN+TSP=PART526'],
+            ['KON527', 'NC623OH+TSP=PART527'],
+            ['KON528', 'C623NO3+TSP=PART528'],
+            ['KON529', 'INDHPCHO+TSP=PART529'],
+            ['KON530', 'C58NO3CO2H+TSP=PART530'],
+            ['KON531', 'C57NO3CO2H+TSP=PART531'],
+            ['KON532', 'C527NO3+TSP=PART532'],
+            ['KON533', 'INDOOH+TSP=PART533'],
+            ['KON534', 'INCOOH+TSP=PART534'],
+            ['KON535', 'HPC52CO3H+TSP=PART535'],
+            ['KON536', 'C923CO3H+TSP=PART536'],
+            ['KON537', 'C923NO3+TSP=PART537'],
+            ['KON538', 'LMLKBOOH+TSP=PART538'],
+            ['KON539', 'LMLKAOOH+TSP=PART539'],
+            ['KON540', 'C926OOH+TSP=PART540'],
+            ['KON541', 'C823CO3H+TSP=PART541'],
+            ['KON542', 'C817CO3H+TSP=PART542'],
+            ['KON543', 'C823NO3+TSP=PART543'],
+            ['KON544', 'C817NO3+TSP=PART544'],
+            ['KON545', 'C820OOH+TSP=PART545'],
+            ['KON546', 'C732CO3H+TSP=PART546'],
+            ['KON547', 'C511PAN+TSP=PART547'],
+            ['KON548', 'C732NO3+TSP=PART548'],
+            ['KON549', 'C624PAN+TSP=PART549'],
+            ['KON550', 'C622PAN+TSP=PART550'],
+            ['KON551', 'C23O3CPAN+TSP=PART551'],
+            ['KON552', 'C519PAN+TSP=PART552'],
+            ['KON553', 'C517PAN+TSP=PART553'],
+            ['KON554', 'NC730OH+TSP=PART554'],
+            ['KON555', 'NC728OH+TSP=PART555'],
+            ['KON556', 'C730NO3+TSP=PART556'],
+            ['KON557', 'C728NO3+TSP=PART557'],
+            ['KON558', 'MMALNBCO3H+TSP=PART558'],
+            ['KON559', 'MMALNACO3H+TSP=PART559'],
+            ['KON560', 'C47CO3H+TSP=PART560'],
+            ['KON561', 'NC623OOH+TSP=PART561'],
+            ['KON562', 'INDHCO3H+TSP=PART562'],
+            ['KON563', 'C58NO3CO3H+TSP=PART563'],
+            ['KON564', 'C57NO3CO3H+TSP=PART564'],
+            ['KON565', 'C729PAN+TSP=PART565'],
+            ['KON566', 'LMKBNO3+TSP=PART566'],
+            ['KON567', 'C627PAN+TSP=PART567'],
+            ['KON568', 'C626PAN+TSP=PART568'],
+            ['KON569', 'NC826OH+TSP=PART569'],
+            ['KON570', 'C826NO3+TSP=PART570'],
+            ['KON571', 'NC730OOH+TSP=PART571'],
+            ['KON572', 'NC728OOH+TSP=PART572'],
+            ['KON573', 'CONM2PAN+TSP=PART573'],
+            ['KON574', 'CO2N3PAN+TSP=PART574'],
+            ['KON575', 'INCNCHO+TSP=PART575'],
+            ['KON576', 'INB1NBCHO+TSP=PART576'],
+            ['KON577', 'INB1NACHO+TSP=PART577'],
+            ['KON578', 'MACRNPAN+TSP=PART578'],
+            ['KON579', 'MACRNBPAN+TSP=PART579'],
+            ['KON580', 'INCNO3+TSP=PART580'],
+            ['KON581', 'INB1NO3+TSP=PART581'],
+            ['KON582', 'INDHPCO3H+TSP=PART582'],
+            ['KON583', 'C822PAN+TSP=PART583'],
+            ['KON584', 'C816PAN+TSP=PART584'],
+            ['KON585', 'NLIMOOH+TSP=PART585'],
+            ['KON586', 'C731PAN+TSP=PART586'],
+            ['KON587', 'C727PAN+TSP=PART587'],
+            ['KON588', 'NLMKAOOH+TSP=PART588'],
+            ['KON589', 'NC826OOH+TSP=PART589'],
+            ['KON590', 'INCNCO2H+TSP=PART590'],
+            ['KON591', 'INB1NBCO2H+TSP=PART591'],
+            ['KON592', 'INB1NACO2H+TSP=PART592'],
+            ['KON593', 'HPC52PAN+TSP=PART593'],
+            ['KON594', 'C823PAN+TSP=PART594'],
+            ['KON595', 'NLIMALOH+TSP=PART595'],
+            ['KON596', 'LIMALNO3+TSP=PART596'],
+            ['KON597', 'MMALNBPAN+TSP=PART597'],
+            ['KON598', 'MMALNAPAN+TSP=PART598'],
+            ['KON599', 'C47PAN+TSP=PART599'],
+            ['KON600', 'INDHPAN+TSP=PART600'],
+            ['KON601', 'INCNCO3H+TSP=PART601'],
+            ['KON602', 'INB1NBCO3H+TSP=PART602'],
+            ['KON603', 'INB1NACO3H+TSP=PART603'],
+            ['KON604', 'C58NO3PAN+TSP=PART604'],
+            ['KON605', 'C57NO3PAN+TSP=PART605'],
+            ['KON606', 'NLIMALOOH+TSP=PART606'],
+            ['KON607', 'INDHPPAN+TSP=PART607'],
+            ['KON608', 'INCNPAN+TSP=PART608'],
+            ['KON609', 'INB1NBPAN+TSP=PART609'],
+            ['KON610', 'INB1NAPAN+TSP=PART610'],
             ['KOFF1', 'PART1=LIMONONIC'],
             ['KOFF2a', 'PART2A=LIMANO3'],
             ['KOFF2b', 'PART2B=LIMBNO3'],
@@ -4135,7 +4136,7 @@ def particle_reactions_in():
             ['0.0001', 'DIMER19=PART13+PART23'],
             ['0.0001', 'DIMER20=PART13+PART24'],
             ['0.0001', 'DIMER21=PART13+PART25'],
-            ['3.0E-18', 'O3+tsp='],
+            ['3.0E-18', 'O3+TSP='],
             ['J15*0.5', 'PART14=C923O2+HO2+CO'],
             ['J15*0.5', 'PART14=C923CO3+HO2'],
             ['1.2*1.78E9*numba_exp(-8550/temp)', 'PART4=C923CO3+NO2'],
@@ -4150,14 +4151,27 @@ def particle_reactions_in():
             ['1.40D-17*H2O', 'LIMBOO = LIMAL + H2O2'],
             ['2.00D-18*H2O', 'LIMBOO = LIMONONIC'],
             ['4e-16', 'LIMBOO + HCHO = LIMONONIC + HCHO'],
-            ['2E-14', 'LIMBOO + LIMAL = seed_1'],
-            ['2E-14', 'LIMBOO + LMLKET = seed_1'],
-            ['2e-14', 'LIMBOO + LIMALBOH = seed_1'],
-            ['2e-14', 'LIMBOO + C825CO = seed_1'],
-            ['2e-14', 'LIMBOO + HCOOH = seed_1'],
-            ['5.3E-13', 'LIMBOO + KLIMONONIC = seed_1'],
-            ['5.3E-13', 'LIMBOO + LIMONONIC = seed_1'],
-            ['5.3e-13', 'LIMBOO + LIMONIC = seed_1']]
+            ['2E-14', 'LIMBOO + LIMAL = SEED'],
+            ['2E-14', 'LIMBOO + LMLKET = SEED'],
+            ['2e-14', 'LIMBOO + LIMALBOH = SEED'],
+            ['2e-14', 'LIMBOO + C825CO = SEED'],
+            ['2e-14', 'LIMBOO + HCOOH = SEED'],
+            ['5.3E-13', 'LIMBOO + KLIMONONIC = SEED'],
+            ['5.3E-13', 'LIMBOO + LIMONONIC = SEED'],
+            ['5.3e-13', 'LIMBOO + LIMONIC = SEED'],
+            ['2e-14', 'LMKBOO + LIMAL = SEED'],
+            ['2e-14', 'LMKBOO + LMLKET = SEED'],
+            ['2e-14', 'LMKBOO + LIMALBOH = SEED'],
+            ['2e-14', 'LMKBOO + C825CO = SEED'],
+            ['2e-14', 'LMKBOO + HCOOH = SEED'],
+            ['5.3e-13', 'LMKBOO + KLIMONONIC = SEED'],
+            ['5.3e-13', 'LMKBOO + LIMONONIC = SEED'],
+            ['0.8E-14','HNO3 + SEED = HNO3S + SEED'],
+            ['0.8E-14','PART14 + SEED = PART14S + SEED'],
+            ['0.8E-14','PART15 + SEED = PART15S + SEED'],
+            ['0.8E-14','PART1 + SEED = PART1S + SEED'],
+            ['0.8E-14','PART17 + SEED = PART17S + SEED'],
+            ['0.8E-14','PART13 + SEED = PART13S + SEED']]
             
     full_dict={**on_dict,**off_dict}
     
@@ -4751,7 +4765,7 @@ def particle_calc_dict():
         part_calc_dict = dictionary of summations used in particle calculations
     '''
     part_calc_dict={     
-    'tsp' : compile('PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
+    'TSP' : compile('SEED + PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
     + PART13 + PART14 + PART15 + PART16 + PART17 + PART22 + PART23 + PART24 + PART25 \
     + PART26 + PART27 + PART28 + PART29 + PART30 + PART31 + PART32 + PART33 + PART34 \
     + PART35 + PART36 + PART37 + PART38 + PART39 + PART40 + PART41 + PART42 + PART43 \
@@ -4825,9 +4839,9 @@ def particle_calc_dict():
     + PART587 + PART588 + PART589 + PART590 + PART591 + PART592 + PART593 \
     + PART594 + PART595 + PART596 + PART597 + PART598 + PART599 + PART600 \
     + PART601 + PART602 + PART603 + PART604 + PART605 + PART606 + PART607 \
-    + PART608 + PART609 + PART610','<string>','eval'),
+    + PART608 + PART609 + PART610 + NA','<string>','eval'),
     #    
-    'tspx' : compile('(1e12/6.02E23)*((seed_1*120) + (tspnonorg*mwom) \
+    'TSPx' : compile('(1e12/6.02E23)*((SEED_1*120) + (TSPNONORG*mwom) + (SEED*360) \
     + (PART1*184.26) + (PART2A*215.25) + (PART2B*215.25) + (PART3*215.25) \
     + (PART4*245.23) + (PART5*247.2) + (PART6*217.22) + (PART11*186.21) \
     + (PART13*186.21) + (PART14*168.23) + (PART15*170.21) + (PART16*184.23) \
@@ -4969,7 +4983,7 @@ def particle_calc_dict():
     + (PART596*247.2451) + (PART597*254.1085) + (PART598*254.1085) + (PART599*254.1085) \
     + (PART600*256.1244) + (PART601*256.1244) + (PART602*256.1244) + (PART603*256.1244) \
     + (PART604*256.1244) + (PART605*256.1244) + (PART606*263.2445) + (PART607*272.1238) \
-    + (PART608*301.122) + (PART609*301.122) + (PART610*301.122))','<string>','eval'),
+    + (PART608*301.122) + (PART609*301.122) + (PART610*301.122) + (NA*62.1))','<string>','eval'),
     #
     'acidsum' : compile('LIMONONIC + LIMONIC + KLIMONONIC + KLIMONIC + C731CO2H + C822CO2H \
     + HOPINONIC + H3C25CCO2H + PINIC + NORPINIC + H3C2C4CO2H + PINONIC \
@@ -4980,294 +4994,294 @@ def particle_calc_dict():
     + MMALNBCO2H + MMALNACO2H + C58NO3CO2H + C57NO3CO2H + INCNCO2H \
     + INB1NBCO2H + INB1NACO2H','<string>','eval'),
     #
-    'mwomv' : compile('(1e12/6.02E23)*((tspnonorg/tspx*mwom**2) +\
-    (seed_1/tspx*120**2) + \
-    (PART1/tspx*184.26**2) + (PART2A/tspx*215.25**2) +\
-    (PART2B/tspx*215.25**2) + (PART3/tspx*215.25**2) +\
-    (PART4/tspx*245.23**2) + (PART5/tspx*247.2**2) +\
-    (PART6/tspx*217.22**2) + (PART11/tspx*186.21**2) +\
-    (PART13/tspx*186.21**2) + (PART14/tspx*168.23**2) +\
-    (PART15/tspx*170.21**2) + (PART16/tspx*184.23**2) +\
-    (PART17/tspx*182.22**2) + (PART22/tspx*249.17**2) +\
-    (PART23/tspx*188.18**2) + (PART24/tspx*172.18**2) +\
-    (PART25/tspx*170.21**2) + (PART26/tspx*218.28**2) +\
-    (PART27/tspx*186.28**2) + (PART28/tspx*174.22**2) +\
-    (PART29/tspx*186.28**2) + (PART30/tspx*190.22**2) +\
-    (PART31/tspx*172.2**2) + (PART32/tspx*202.28**2) +\
-    (PART33/tspx*178.21**2) + (PART34/tspx*200.26**2) +\
-    (PART35/tspx*200.26**2) + (PART36/tspx*188.25**2) +\
-    (PART37/tspx*190.22**2) + (PART38/tspx*188.25**2) +\
-    (PART39/tspx*204.25**2) + (PART40/tspx*170.28**2) +\
-    (PART41/tspx*172.25**2) + (PART42/tspx*184.26**2) +\
-    (PART43/tspx*220.25**2) + (PART44/tspx*170.28**2) +\
-    (PART45/tspx*174.22**2) + (PART46/tspx*162.21**2) +\
-    (PART47/tspx*174.22**2) + (PART48/tspx*186.28**2) +\
-    (PART49/tspx*186.23**2) + (PART50/tspx*220.22**2) +\
-    (PART51/tspx*206.19**2) + (PART52/tspx*164.11**2) +\
-    (PART53/tspx*178.14**2) + (PART54/tspx*235.19**2) +\
-    (PART55/tspx*204.22**2) + (PART56/tspx*190.19**2) +\
-    (PART57/tspx*190.19**2) + (PART58/tspx*233.13**2) +\
-    (PART59/tspx*249.13**2) + (PART60/tspx*261.23**2) +\
-    (PART61/tspx*176.17**2) + (PART62/tspx*204.22**2) +\
-    (PART63/tspx*294.13**2) + (PART64/tspx*200.23**2) +\
-    (PART65/tspx*174.19**2) + (PART66/tspx*174.15**2) +\
-    (PART67/tspx*176.17**2) + (PART68/tspx*219.15**2) +\
-    (PART69/tspx*245.23**2) + (PART70/tspx*205.17**2) +\
-    (PART71/tspx*216.23**2) + (PART72/tspx*186.21**2) +\
-    (PART73/tspx*216.23**2) + (PART74/tspx*216.23**2) +\
-    (PART75/tspx*190.15**2) + (PART76/tspx*233.22**2) +\
-    (PART77/tspx*162.14**2) + (PART78/tspx*188.22**2) +\
-    (PART79/tspx*162.14**2) + (PART80/tspx*174.19**2) +\
-    (PART81/tspx*134.09**2) + (PART82/tspx*160.17**2) +\
-    (PART83/tspx*235.15**2) + (PART84/tspx*188.22**2) +\
-    (PART85/tspx*172.18**2) + (PART86/tspx*134.09**2) +\
-    (PART87/tspx*261.23**2) + (PART88/tspx*188.22**2) +\
-    (PART89/tspx*202.20**2) + (PART90/tspx*162.10**2) +\
-    (PART91/tspx*245.23**2) + (PART92/tspx*245.23**2) +\
-    (PART93/tspx*247.20**2) + (PART94/tspx*174.15**2) +\
-    (PART95/tspx*174.15**2) + (PART96/tspx*231.25**2) +\
-    (PART97/tspx*231.25**2) + (PART98/tspx*160.17**2) +\
-    (PART99/tspx*200.23**2) + (PART100/tspx*191.14**2) +\
-    (PART101/tspx*207.10**2) + (PART102/tspx*188.18**2) +\
-    (PART103/tspx*188.14**2) + (PART104/tspx*186.25**2) +\
-    (PART105/tspx*203.19**2) + (PART106/tspx*186.25**2) +\
-    (PART107/tspx*233.13**2) + (PART108/tspx*200.23**2) +\
-    (PART109/tspx*200.23**2) + (PART110/tspx*200.23**2) +\
-    (PART111/tspx*200.23**2) + (PART112/tspx*158.20**2) +\
-    (PART113/tspx*146.14**2) + (PART114/tspx*146.14**2) +\
-    (PART115/tspx*160.12**2) + (PART116/tspx*174.19**2) +\
-    (PART117/tspx*160.12**2) + (PART118/tspx*186.25**2) +\
-    (PART119/tspx*132.12**2) + (PART120/tspx*203.15**2) +\
-    (PART121/tspx*201.13**2) + (PART122/tspx*172.22**2) +\
-    (PART123/tspx*184.23**2) + (PART124/tspx*215.25**2) +\
-    (PART125/tspx*174.19**2) + (PART126/tspx*229.23**2) +\
-    (PART127/tspx*184.23**2) + (PART128/tspx*203.19**2) +\
-    (PART129/tspx*215.25**2) + (PART130/tspx*144.17**2) +\
-    (PART131/tspx*148.11**2) + (PART132/tspx*170.21**2) +\
-    (PART133/tspx*158.15**2) + (PART134/tspx*215.25**2) +\
-    (PART135/tspx*215.25**2) + (PART136/tspx*132.11**2) +\
-    (PART137/tspx*200.23**2) + (PART138/tspx*245.23**2) +\
-    (PART139/tspx*144.13**2) + (PART140/tspx*170.25**2) +\
-    (PART141/tspx*193.11**2) + (PART142/tspx*184.23**2) +\
-    (PART143/tspx*184.23**2) + (PART144/tspx*170.25**2) +\
-    (PART145/tspx*156.18**2) + (PART146/tspx*186.21**2) +\
-    (PART147/tspx*172.22**2) + (PART148/tspx*134.09**2) +\
-    (PART149/tspx*213.23**2) + (PART150/tspx*213.23**2) +\
-    (PART151/tspx*158.20**2) + (PART152/tspx*130.10**2) +\
-    (PART153/tspx*186.21**2) + (PART154/tspx*161.11**2) +\
-    (PART155/tspx*182.22**2) + (PART156/tspx*231.20**2) +\
-    (PART157/tspx*116.07**2) + (PART158/tspx*146.10**2) +\
-    (PART159/tspx*173.17**2) + (PART160/tspx*132.11**2) +\
-    (PART161/tspx*179.09**2) + (PART162/tspx*116.07**2) +\
-    (PART163/tspx*231.20**2) + (PART164/tspx*158.20**2) +\
-    (PART165/tspx*191.10**2) + (PART166/tspx*201.22**2) +\
-    (PART167/tspx*156.14**2) + (PART168/tspx*191.10**2) +\
-    (PART169/tspx*146.10**2) + (PART170/tspx*128.17**2) +\
-    (PART171/tspx*158.20**2) + (PART172/tspx*168.23**2) +\
-    (PART173/tspx*132.07**2) + (PART174/tspx*116.12**2) +\
-    (PART175/tspx*156.22**2) + (PART176/tspx*177.07**2) +\
-    (PART177/tspx*142.11**2) + (PART178/tspx*187.19**2) +\
-    (PART179/tspx*168.23**2) + (PART180/tspx*126.15**2) +\
-    (PART181/tspx*142.20**2) + (PART182/tspx*114.10**2) +\
-    (PART183/tspx*154.21**2) + (PART184/tspx*102.09**2) +\
-    (PART185/tspx*100.07**2) + (PART186/tspx*114.10**2) +\
-    (PART200/tspx*215.2463**2) + (PART201/tspx*170.2487**2) +\
-    (PART202/tspx*186.2481**2) + (PART203/tspx*215.2463**2) +\
-    (PART204/tspx*186.2481**2) + (PART205/tspx*215.2463**2) +\
-    (PART206/tspx*170.2487**2) + (PART207/tspx*186.2481**2) +\
-    (PART209/tspx*144.1253**2) + (PART210/tspx*160.1247**2) +\
-    (PART211/tspx*161.1128**2) + (PART212/tspx*116.1152**2) +\
-    (PART213/tspx*132.1146**2) + (PART214/tspx*205.1223**2) +\
-    (PART215/tspx*130.0987**2) + (PART216/tspx*132.1146**2) +\
-    (PART217/tspx*148.114**2) + (PART218/tspx*142.1094**2) +\
-    (PART219/tspx*128.0829**2) + (PART220/tspx*174.1082**2) +\
-    (PART221/tspx*146.0981**2) + (PART222/tspx*219.1058**2) +\
-    (PART223/tspx*134.1305**2) + (PART224/tspx*179.1281**2) +\
-    (PART225/tspx*128.1259**2) + (PART226/tspx*158.1519**2) +\
-    (PART227/tspx*174.1513**2) + (PART228/tspx*130.1418**2) +\
-    (PART229/tspx*146.1412**2) + (PART230/tspx*219.1489**2) +\
-    (PART231/tspx*144.1253**2) + (PART232/tspx*160.1247**2) +\
-    (PART233/tspx*142.1525**2) + (PART234/tspx*158.1519**2) +\
-    (PART235/tspx*174.1513**2) + (PART236/tspx*130.1418**2) +\
-    (PART237/tspx*146.1412**2) + (PART238/tspx*219.1489**2) +\
-    (PART239/tspx*158.1519**2) + (PART240/tspx*174.1513**2) +\
-    (PART241/tspx*146.1412**2) + (PART242/tspx*219.1489**2) +\
-    (PART243/tspx*126.11**2) + (PART244/tspx*128.1259**2) +\
-    (PART245/tspx*144.1253**2) + (PART246/tspx*144.1253**2) +\
-    (PART247/tspx*160.1247**2) + (PART248/tspx*130.1418**2) +\
-    (PART249/tspx*162.1406**2) + (PART250/tspx*207.1382**2) +\
-    (PART251/tspx*172.1785**2) + (PART252/tspx*188.1779**2) +\
-    (PART253/tspx*189.1659**2) + (PART254/tspx*144.1684**2) +\
-    (PART255/tspx*160.1678**2) + (PART256/tspx*233.1754**2) +\
-    (PART257/tspx*170.1626**2) + (PART258/tspx*200.1886**2) +\
-    (PART259/tspx*216.188**2) + (PART260/tspx*172.1785**2) +\
-    (PART261/tspx*188.1779**2) + (PART262/tspx*261.1855**2) +\
-    (PART263/tspx*168.1898**2) + (PART264/tspx*154.1632**2)+\
-    (PART265/tspx*184.1892**2) + (PART266/tspx*200.1886**2) +\
-    (PART267/tspx*156.1791**2) + (PART268/tspx*172.1785**2) +\
-    (PART269/tspx*245.1861**2) + (PART270/tspx*110.1968**2) +\
-    (PART271/tspx*124.1803**2) + (PART272/tspx*171.1937**2) +\
-    (PART273/tspx*126.1962**2) + (PART274/tspx*142.1956**2) +\
-    (PART275/tspx*182.1733**2) + (PART276/tspx*184.1892**2) +\
-    (PART277/tspx*200.1886**2) + (PART278/tspx*215.2032**2) +\
-    (PART279/tspx*170.2057**2) + (PART280/tspx*186.2051**2) +\
-    (PART281/tspx*213.2026**2) + (PART282/tspx*186.2051**2) +\
-    (PART283/tspx*202.2045**2) + (PART284/tspx*215.2032**2) +\
-    (PART285/tspx*170.2057**2) + (PART286/tspx*186.2051**2) +\
-    (PART287/tspx*168.2328**2) + (PART288/tspx*200.2316**2) +\
-    (PART289/tspx*215.2032**2) + (PART290/tspx*170.2057**2) +\
-    (PART291/tspx*186.2051**2) + (PART292/tspx*245.2292**2) +\
-    (PART293/tspx*231.2026**2) + (PART294/tspx*186.2051**2) +\
-    (PART295/tspx*202.2045**2) + (PART296/tspx*152.1904**2) +\
-    (PART297/tspx*166.1739**2) + (PART298/tspx*213.1873**2) +\
-    (PART299/tspx*168.1898**2) + (PART300/tspx*184.1892**2) +\
-    (PART301/tspx*142.1094**2) + (PART302/tspx*114.0993**2) +\
-    (PART303/tspx*100.1158**2) + (PART304/tspx*116.1152**2) +\
-    (PART305/tspx*132.1146**2) + (PART306/tspx*177.1122**2) +\
-    (PART307/tspx*134.1305**2) + (PART308/tspx*130.1418**2) +\
-    (PART309/tspx*231.2457**2) + (PART310/tspx*231.2457**2) +\
-    (PART311/tspx*213.2304**2) + (PART312/tspx*245.2292**2) +\
-    (PART313/tspx*290.2268**2) + (PART314/tspx*199.2038**2) +\
-    (PART315/tspx*154.2063**2) + (PART316/tspx*170.2057**2) +\
-    (PART317/tspx*152.1904**2) + (PART318/tspx*199.2038**2) +\
-    (PART319/tspx*154.2063**2) + (PART320/tspx*170.2057**2) +\
-    (PART321/tspx*199.2038**2) + (PART322/tspx*154.2063**2) +\
-    (PART323/tspx*170.2057**2) + (PART324/tspx*152.1904**2) +\
-    (PART325/tspx*154.2063**2) + (PART326/tspx*170.2057**2) +\
-    (PART327/tspx*138.2069**2) + (PART350/tspx*82.1005**2) +\
-    (PART351/tspx*102.1317**2) + (PART352/tspx*102.1317**2) +\
-    (PART353/tspx*112.0835**2) + (PART354/tspx*114.0993**2) +\
-    (PART355/tspx*114.0993**2) + (PART356/tspx*114.1424**2) +\
-    (PART357/tspx*114.1424**2) + (PART358/tspx*116.1152**2) +\
-    (PART359/tspx*116.1152**2) + (PART360/tspx*116.1152**2) +\
-    (PART361/tspx*116.1152**2) + (PART362/tspx*116.1152**2) +\
-    (PART363/tspx*116.1152**2) + (PART364/tspx*116.1152**2) +\
-    (PART365/tspx*116.1583**2) + (PART366/tspx*116.1583**2) +\
-    (PART367/tspx*118.1311**2) + (PART368/tspx*118.1311**2) +\
-    (PART369/tspx*118.1311**2) + (PART370/tspx*118.1311**2) +\
-    (PART371/tspx*118.1311**2) + (PART372/tspx*118.1311**2) +\
-    (PART373/tspx*128.0829**2) + (PART374/tspx*128.1259**2) +\
-    (PART375/tspx*128.1259**2) + (PART376/tspx*128.169**2) +\
-    (PART377/tspx*128.169**2) + (PART378/tspx*130.0987**2) +\
-    (PART379/tspx*130.0987**2) + (PART380/tspx*130.0987**2) +\
-    (PART381/tspx*130.1418**2) + (PART382/tspx*130.1418**2) +\
-    (PART383/tspx*130.1418**2) + (PART384/tspx*130.1418**2) +\
-    (PART385/tspx*132.1146**2) + (PART386/tspx*132.1146**2) +\
-    (PART387/tspx*132.1146**2) + (PART388/tspx*132.1146**2) +\
-    (PART389/tspx*132.1146**2) + (PART390/tspx*132.1146**2) +\
-    (PART391/tspx*132.1146**2) + (PART392/tspx*132.1577**2) +\
-    (PART393/tspx*132.1577**2) + (PART394/tspx*134.1305**2) +\
-    (PART395/tspx*134.1305**2) + (PART396/tspx*134.1305**2) +\
-    (PART397/tspx*134.1305**2) + (PART398/tspx*138.2069**2) +\
-    (PART399/tspx*140.1797**2) + (PART400/tspx*140.1797**2) +\
-    (PART401/tspx*142.1525**2) + (PART402/tspx*142.1525**2) +\
-    (PART403/tspx*142.1525**2) + (PART404/tspx*142.1956**2) +\
-    (PART405/tspx*144.1684**2) + (PART406/tspx*144.1684**2) +\
-    (PART407/tspx*144.1684**2) + (PART408/tspx*144.1684**2) +\
-    (PART409/tspx*146.0981**2) + (PART410/tspx*146.0981**2) +\
-    (PART411/tspx*146.0981**2) + (PART412/tspx*146.1412**2) +\
-    (PART413/tspx*146.1412**2) + (PART414/tspx*146.1412**2) +\
-    (PART415/tspx*146.1412**2) + (PART416/tspx*146.1412**2) +\
-    (PART417/tspx*146.1412**2) + (PART418/tspx*146.1412**2) +\
-    (PART419/tspx*147.1293**2) + (PART420/tspx*147.1293**2) +\
-    (PART421/tspx*148.114**2) + (PART422/tspx*148.114**2) +\
-    (PART423/tspx*148.114**2) + (PART424/tspx*148.114**2) +\
-    (PART425/tspx*148.114**2) + (PART426/tspx*148.114**2) +\
-    (PART427/tspx*148.1571**2) + (PART428/tspx*148.1571**2) +\
-    (PART429/tspx*150.1299**2) + (PART430/tspx*150.1299**2) +\
-    (PART431/tspx*150.1299**2) + (PART432/tspx*150.1299**2) +\
-    (PART433/tspx*150.1299**2) + (PART434/tspx*154.2063**2) +\
-    (PART435/tspx*156.1791**2) + (PART436/tspx*156.1791**2) +\
-    (PART437/tspx*156.1791**2) + (PART438/tspx*156.1791**2) +\
-    (PART439/tspx*156.2221**2) + (PART440/tspx*158.195**2) +\
-    (PART441/tspx*158.195**2) + (PART442/tspx*158.195**2) +\
-    (PART443/tspx*158.195**2) + (PART444/tspx*160.1247**2) +\
-    (PART445/tspx*160.1678**2) + (PART446/tspx*160.1678**2) +\
-    (PART447/tspx*160.1678**2) + (PART448/tspx*160.1678**2) +\
-    (PART449/tspx*160.1678**2) + (PART450/tspx*160.1678**2) +\
-    (PART451/tspx*161.1558**2) + (PART452/tspx*161.1558**2) +\
-    (PART453/tspx*162.0975**2) + (PART454/tspx*162.0975**2) +\
-    (PART455/tspx*162.1406**2) + (PART456/tspx*162.1406**2) +\
-    (PART457/tspx*162.1406**2) + (PART458/tspx*162.1406**2) +\
-    (PART459/tspx*162.1837**2) + (PART460/tspx*163.0856**2) +\
-    (PART461/tspx*163.1287**2) + (PART462/tspx*164.1134**2) +\
-    (PART463/tspx*164.1565**2) + (PART464/tspx*164.1565**2) +\
-    (PART465/tspx*166.1293**2) + (PART466/tspx*166.1293**2) +\
-    (PART467/tspx*168.2328**2) + (PART468/tspx*170.2057**2) +\
-    (PART469/tspx*170.2057**2) + (PART470/tspx*172.1785**2) +\
-    (PART471/tspx*172.1785**2) + (PART472/tspx*172.2215**2) +\
-    (PART473/tspx*172.2215**2) + (PART474/tspx*173.1665**2) +\
-    (PART475/tspx*174.1513**2) + (PART476/tspx*174.1513**2) +\
-    (PART477/tspx*174.1513**2) + (PART478/tspx*174.1513**2) +\
-    (PART479/tspx*174.1513**2) + (PART480/tspx*174.1944**2) +\
-    (PART481/tspx*174.1944**2) + (PART482/tspx*174.1944**2) +\
-    (PART483/tspx*175.0963**2) + (PART484/tspx*175.0963**2) +\
-    (PART485/tspx*175.1394**2) + (PART486/tspx*176.1672**2) +\
-    (PART487/tspx*176.1672**2) + (PART488/tspx*176.1672**2) +\
-    (PART489/tspx*177.1122**2) + (PART490/tspx*177.1122**2) +\
-    (PART491/tspx*177.1122**2) + (PART492/tspx*177.1122**2) +\
-    (PART493/tspx*177.1122**2) + (PART494/tspx*177.1122**2) +\
-    (PART495/tspx*178.1831**2) + (PART496/tspx*179.1281**2) +\
-    (PART497/tspx*179.1281**2) + (PART498/tspx*179.1281**2) +\
-    (PART499/tspx*179.1281**2) + (PART500/tspx*179.1281**2) +\
-    (PART501/tspx*180.1128**2) + (PART502/tspx*180.1128**2) +\
-    (PART503/tspx*181.1439**2) + (PART504/tspx*181.1439**2) +\
-    (PART505/tspx*182.0426**2) + (PART506/tspx*182.2164**2) +\
-    (PART507/tspx*184.1892**2) + (PART508/tspx*184.1892**2) +\
-    (PART509/tspx*186.2051**2) + (PART510/tspx*186.2051**2) +\
-    (PART511/tspx*186.2051**2) + (PART512/tspx*186.2051**2) +\
-    (PART513/tspx*187.1931**2) + (PART514/tspx*188.1779**2) +\
-    (PART515/tspx*188.1779**2) + (PART516/tspx*188.2209**2) +\
-    (PART517/tspx*189.1659**2) + (PART518/tspx*190.1938**2) +\
-    (PART519/tspx*190.1938**2) + (PART520/tspx*191.1388**2) +\
-    (PART521/tspx*192.1666**2) + (PART522/tspx*193.1116**2) +\
-    (PART523/tspx*193.1116**2) + (PART524/tspx*193.1116**2) +\
-    (PART525/tspx*193.1116**2) + (PART526/tspx*193.1116**2) +\
-    (PART527/tspx*193.1546**2) + (PART528/tspx*193.1546**2) +\
-    (PART529/tspx*195.1275**2) + (PART530/tspx*195.1275**2) +\
-    (PART531/tspx*195.1275**2) + (PART532/tspx*195.1275**2) +\
-    (PART533/tspx*197.1433**2) + (PART534/tspx*197.1433**2) +\
-    (PART535/tspx*198.1281**2) + (PART536/tspx*200.2316**2) +\
-    (PART537/tspx*201.2197**2) + (PART538/tspx*202.2045**2) +\
-    (PART539/tspx*202.2045**2) + (PART540/tspx*202.2045**2) +\
-    (PART541/tspx*202.2045**2) + (PART542/tspx*202.2045**2) +\
-    (PART543/tspx*203.1925**2) + (PART544/tspx*203.1925**2) +\
-    (PART545/tspx*204.1773**2) + (PART546/tspx*204.1773**2) +\
-    (PART547/tspx*205.1223**2) + (PART548/tspx*205.1653**2) +\
-    (PART549/tspx*205.1653**2) + (PART550/tspx*205.1653**2) +\
-    (PART551/tspx*207.0951**2) + (PART552/tspx*207.1382**2) +\
-    (PART553/tspx*207.1382**2) + (PART554/tspx*207.1812**2) +\
-    (PART555/tspx*207.1812**2) + (PART556/tspx*207.1812**2) +\
-    (PART557/tspx*207.1812**2) + (PART558/tspx*209.111**2) +\
-    (PART559/tspx*209.111**2) + (PART560/tspx*209.111**2) +\
-    (PART561/tspx*209.154**2) + (PART562/tspx*211.1269**2) +\
-    (PART563/tspx*211.1269**2) + (PART564/tspx*211.1269**2) +\
-    (PART565/tspx*217.176**2) + (PART566/tspx*217.2191**2) +\
-    (PART567/tspx*219.1489**2) + (PART568/tspx*219.1489**2) +\
-    (PART569/tspx*219.1919**2) + (PART570/tspx*219.1919**2) +\
-    (PART571/tspx*223.1806**2) + (PART572/tspx*223.1806**2) +\
-    (PART573/tspx*224.0826**2) + (PART574/tspx*224.0826**2) +\
-    (PART575/tspx*224.1256**2) + (PART576/tspx*224.1256**2) +\
-    (PART577/tspx*224.1256**2) + (PART578/tspx*226.0984**2) +\
-    (PART579/tspx*226.0984**2) + (PART580/tspx*226.1415**2) +\
-    (PART581/tspx*226.1415**2) + (PART582/tspx*227.1263**2) +\
-    (PART583/tspx*231.2026**2) + (PART584/tspx*231.2026**2) +\
-    (PART585/tspx*231.2457**2) + (PART586/tspx*233.1754**2) +\
-    (PART587/tspx*233.1754**2) + (PART588/tspx*233.2185**2) +\
-    (PART589/tspx*235.1913**2) + (PART590/tspx*240.125**2) +\
-    (PART591/tspx*240.125**2) + (PART592/tspx*240.125**2) +\
-    (PART593/tspx*243.1257**2) + (PART594/tspx*247.202**2) +\
-    (PART595/tspx*247.2451**2) + (PART596/tspx*247.2451**2) +\
-    (PART597/tspx*254.1085**2) + (PART598/tspx*254.1085**2) +\
-    (PART599/tspx*254.1085**2) + (PART600/tspx*256.1244**2) +\
-    (PART601/tspx*256.1244**2) + (PART602/tspx*256.1244**2) +\
-    (PART603/tspx*256.1244**2) + (PART604/tspx*256.1244**2) +\
-    (PART605/tspx*256.1244**2) + (PART606/tspx*263.2445**2) +\
-    (PART607/tspx*272.1238**2) + (PART608/tspx*301.122**2) +\
-    (PART609/tspx*301.122**2) + (PART610/tspx*301.122**2) +\
-    (NA/tspx*62.01**2))','<string>','eval'),
+    'mwomv' : compile('(1e12/6.02E23)*((TSPNONORG/TSPx*mwom**2) +\
+    (SEED_1/TSPx*120**2) + (SEED/TSPx*360**2) +\
+    (PART1/TSPx*184.26**2) + (PART2A/TSPx*215.25**2) +\
+    (PART2B/TSPx*215.25**2) + (PART3/TSPx*215.25**2) +\
+    (PART4/TSPx*245.23**2) + (PART5/TSPx*247.2**2) +\
+    (PART6/TSPx*217.22**2) + (PART11/TSPx*186.21**2) +\
+    (PART13/TSPx*186.21**2) + (PART14/TSPx*168.23**2) +\
+    (PART15/TSPx*170.21**2) + (PART16/TSPx*184.23**2) +\
+    (PART17/TSPx*182.22**2) + (PART22/TSPx*249.17**2) +\
+    (PART23/TSPx*188.18**2) + (PART24/TSPx*172.18**2) +\
+    (PART25/TSPx*170.21**2) + (PART26/TSPx*218.28**2) +\
+    (PART27/TSPx*186.28**2) + (PART28/TSPx*174.22**2) +\
+    (PART29/TSPx*186.28**2) + (PART30/TSPx*190.22**2) +\
+    (PART31/TSPx*172.2**2) + (PART32/TSPx*202.28**2) +\
+    (PART33/TSPx*178.21**2) + (PART34/TSPx*200.26**2) +\
+    (PART35/TSPx*200.26**2) + (PART36/TSPx*188.25**2) +\
+    (PART37/TSPx*190.22**2) + (PART38/TSPx*188.25**2) +\
+    (PART39/TSPx*204.25**2) + (PART40/TSPx*170.28**2) +\
+    (PART41/TSPx*172.25**2) + (PART42/TSPx*184.26**2) +\
+    (PART43/TSPx*220.25**2) + (PART44/TSPx*170.28**2) +\
+    (PART45/TSPx*174.22**2) + (PART46/TSPx*162.21**2) +\
+    (PART47/TSPx*174.22**2) + (PART48/TSPx*186.28**2) +\
+    (PART49/TSPx*186.23**2) + (PART50/TSPx*220.22**2) +\
+    (PART51/TSPx*206.19**2) + (PART52/TSPx*164.11**2) +\
+    (PART53/TSPx*178.14**2) + (PART54/TSPx*235.19**2) +\
+    (PART55/TSPx*204.22**2) + (PART56/TSPx*190.19**2) +\
+    (PART57/TSPx*190.19**2) + (PART58/TSPx*233.13**2) +\
+    (PART59/TSPx*249.13**2) + (PART60/TSPx*261.23**2) +\
+    (PART61/TSPx*176.17**2) + (PART62/TSPx*204.22**2) +\
+    (PART63/TSPx*294.13**2) + (PART64/TSPx*200.23**2) +\
+    (PART65/TSPx*174.19**2) + (PART66/TSPx*174.15**2) +\
+    (PART67/TSPx*176.17**2) + (PART68/TSPx*219.15**2) +\
+    (PART69/TSPx*245.23**2) + (PART70/TSPx*205.17**2) +\
+    (PART71/TSPx*216.23**2) + (PART72/TSPx*186.21**2) +\
+    (PART73/TSPx*216.23**2) + (PART74/TSPx*216.23**2) +\
+    (PART75/TSPx*190.15**2) + (PART76/TSPx*233.22**2) +\
+    (PART77/TSPx*162.14**2) + (PART78/TSPx*188.22**2) +\
+    (PART79/TSPx*162.14**2) + (PART80/TSPx*174.19**2) +\
+    (PART81/TSPx*134.09**2) + (PART82/TSPx*160.17**2) +\
+    (PART83/TSPx*235.15**2) + (PART84/TSPx*188.22**2) +\
+    (PART85/TSPx*172.18**2) + (PART86/TSPx*134.09**2) +\
+    (PART87/TSPx*261.23**2) + (PART88/TSPx*188.22**2) +\
+    (PART89/TSPx*202.20**2) + (PART90/TSPx*162.10**2) +\
+    (PART91/TSPx*245.23**2) + (PART92/TSPx*245.23**2) +\
+    (PART93/TSPx*247.20**2) + (PART94/TSPx*174.15**2) +\
+    (PART95/TSPx*174.15**2) + (PART96/TSPx*231.25**2) +\
+    (PART97/TSPx*231.25**2) + (PART98/TSPx*160.17**2) +\
+    (PART99/TSPx*200.23**2) + (PART100/TSPx*191.14**2) +\
+    (PART101/TSPx*207.10**2) + (PART102/TSPx*188.18**2) +\
+    (PART103/TSPx*188.14**2) + (PART104/TSPx*186.25**2) +\
+    (PART105/TSPx*203.19**2) + (PART106/TSPx*186.25**2) +\
+    (PART107/TSPx*233.13**2) + (PART108/TSPx*200.23**2) +\
+    (PART109/TSPx*200.23**2) + (PART110/TSPx*200.23**2) +\
+    (PART111/TSPx*200.23**2) + (PART112/TSPx*158.20**2) +\
+    (PART113/TSPx*146.14**2) + (PART114/TSPx*146.14**2) +\
+    (PART115/TSPx*160.12**2) + (PART116/TSPx*174.19**2) +\
+    (PART117/TSPx*160.12**2) + (PART118/TSPx*186.25**2) +\
+    (PART119/TSPx*132.12**2) + (PART120/TSPx*203.15**2) +\
+    (PART121/TSPx*201.13**2) + (PART122/TSPx*172.22**2) +\
+    (PART123/TSPx*184.23**2) + (PART124/TSPx*215.25**2) +\
+    (PART125/TSPx*174.19**2) + (PART126/TSPx*229.23**2) +\
+    (PART127/TSPx*184.23**2) + (PART128/TSPx*203.19**2) +\
+    (PART129/TSPx*215.25**2) + (PART130/TSPx*144.17**2) +\
+    (PART131/TSPx*148.11**2) + (PART132/TSPx*170.21**2) +\
+    (PART133/TSPx*158.15**2) + (PART134/TSPx*215.25**2) +\
+    (PART135/TSPx*215.25**2) + (PART136/TSPx*132.11**2) +\
+    (PART137/TSPx*200.23**2) + (PART138/TSPx*245.23**2) +\
+    (PART139/TSPx*144.13**2) + (PART140/TSPx*170.25**2) +\
+    (PART141/TSPx*193.11**2) + (PART142/TSPx*184.23**2) +\
+    (PART143/TSPx*184.23**2) + (PART144/TSPx*170.25**2) +\
+    (PART145/TSPx*156.18**2) + (PART146/TSPx*186.21**2) +\
+    (PART147/TSPx*172.22**2) + (PART148/TSPx*134.09**2) +\
+    (PART149/TSPx*213.23**2) + (PART150/TSPx*213.23**2) +\
+    (PART151/TSPx*158.20**2) + (PART152/TSPx*130.10**2) +\
+    (PART153/TSPx*186.21**2) + (PART154/TSPx*161.11**2) +\
+    (PART155/TSPx*182.22**2) + (PART156/TSPx*231.20**2) +\
+    (PART157/TSPx*116.07**2) + (PART158/TSPx*146.10**2) +\
+    (PART159/TSPx*173.17**2) + (PART160/TSPx*132.11**2) +\
+    (PART161/TSPx*179.09**2) + (PART162/TSPx*116.07**2) +\
+    (PART163/TSPx*231.20**2) + (PART164/TSPx*158.20**2) +\
+    (PART165/TSPx*191.10**2) + (PART166/TSPx*201.22**2) +\
+    (PART167/TSPx*156.14**2) + (PART168/TSPx*191.10**2) +\
+    (PART169/TSPx*146.10**2) + (PART170/TSPx*128.17**2) +\
+    (PART171/TSPx*158.20**2) + (PART172/TSPx*168.23**2) +\
+    (PART173/TSPx*132.07**2) + (PART174/TSPx*116.12**2) +\
+    (PART175/TSPx*156.22**2) + (PART176/TSPx*177.07**2) +\
+    (PART177/TSPx*142.11**2) + (PART178/TSPx*187.19**2) +\
+    (PART179/TSPx*168.23**2) + (PART180/TSPx*126.15**2) +\
+    (PART181/TSPx*142.20**2) + (PART182/TSPx*114.10**2) +\
+    (PART183/TSPx*154.21**2) + (PART184/TSPx*102.09**2) +\
+    (PART185/TSPx*100.07**2) + (PART186/TSPx*114.10**2) +\
+    (PART200/TSPx*215.2463**2) + (PART201/TSPx*170.2487**2) +\
+    (PART202/TSPx*186.2481**2) + (PART203/TSPx*215.2463**2) +\
+    (PART204/TSPx*186.2481**2) + (PART205/TSPx*215.2463**2) +\
+    (PART206/TSPx*170.2487**2) + (PART207/TSPx*186.2481**2) +\
+    (PART209/TSPx*144.1253**2) + (PART210/TSPx*160.1247**2) +\
+    (PART211/TSPx*161.1128**2) + (PART212/TSPx*116.1152**2) +\
+    (PART213/TSPx*132.1146**2) + (PART214/TSPx*205.1223**2) +\
+    (PART215/TSPx*130.0987**2) + (PART216/TSPx*132.1146**2) +\
+    (PART217/TSPx*148.114**2) + (PART218/TSPx*142.1094**2) +\
+    (PART219/TSPx*128.0829**2) + (PART220/TSPx*174.1082**2) +\
+    (PART221/TSPx*146.0981**2) + (PART222/TSPx*219.1058**2) +\
+    (PART223/TSPx*134.1305**2) + (PART224/TSPx*179.1281**2) +\
+    (PART225/TSPx*128.1259**2) + (PART226/TSPx*158.1519**2) +\
+    (PART227/TSPx*174.1513**2) + (PART228/TSPx*130.1418**2) +\
+    (PART229/TSPx*146.1412**2) + (PART230/TSPx*219.1489**2) +\
+    (PART231/TSPx*144.1253**2) + (PART232/TSPx*160.1247**2) +\
+    (PART233/TSPx*142.1525**2) + (PART234/TSPx*158.1519**2) +\
+    (PART235/TSPx*174.1513**2) + (PART236/TSPx*130.1418**2) +\
+    (PART237/TSPx*146.1412**2) + (PART238/TSPx*219.1489**2) +\
+    (PART239/TSPx*158.1519**2) + (PART240/TSPx*174.1513**2) +\
+    (PART241/TSPx*146.1412**2) + (PART242/TSPx*219.1489**2) +\
+    (PART243/TSPx*126.11**2) + (PART244/TSPx*128.1259**2) +\
+    (PART245/TSPx*144.1253**2) + (PART246/TSPx*144.1253**2) +\
+    (PART247/TSPx*160.1247**2) + (PART248/TSPx*130.1418**2) +\
+    (PART249/TSPx*162.1406**2) + (PART250/TSPx*207.1382**2) +\
+    (PART251/TSPx*172.1785**2) + (PART252/TSPx*188.1779**2) +\
+    (PART253/TSPx*189.1659**2) + (PART254/TSPx*144.1684**2) +\
+    (PART255/TSPx*160.1678**2) + (PART256/TSPx*233.1754**2) +\
+    (PART257/TSPx*170.1626**2) + (PART258/TSPx*200.1886**2) +\
+    (PART259/TSPx*216.188**2) + (PART260/TSPx*172.1785**2) +\
+    (PART261/TSPx*188.1779**2) + (PART262/TSPx*261.1855**2) +\
+    (PART263/TSPx*168.1898**2) + (PART264/TSPx*154.1632**2)+\
+    (PART265/TSPx*184.1892**2) + (PART266/TSPx*200.1886**2) +\
+    (PART267/TSPx*156.1791**2) + (PART268/TSPx*172.1785**2) +\
+    (PART269/TSPx*245.1861**2) + (PART270/TSPx*110.1968**2) +\
+    (PART271/TSPx*124.1803**2) + (PART272/TSPx*171.1937**2) +\
+    (PART273/TSPx*126.1962**2) + (PART274/TSPx*142.1956**2) +\
+    (PART275/TSPx*182.1733**2) + (PART276/TSPx*184.1892**2) +\
+    (PART277/TSPx*200.1886**2) + (PART278/TSPx*215.2032**2) +\
+    (PART279/TSPx*170.2057**2) + (PART280/TSPx*186.2051**2) +\
+    (PART281/TSPx*213.2026**2) + (PART282/TSPx*186.2051**2) +\
+    (PART283/TSPx*202.2045**2) + (PART284/TSPx*215.2032**2) +\
+    (PART285/TSPx*170.2057**2) + (PART286/TSPx*186.2051**2) +\
+    (PART287/TSPx*168.2328**2) + (PART288/TSPx*200.2316**2) +\
+    (PART289/TSPx*215.2032**2) + (PART290/TSPx*170.2057**2) +\
+    (PART291/TSPx*186.2051**2) + (PART292/TSPx*245.2292**2) +\
+    (PART293/TSPx*231.2026**2) + (PART294/TSPx*186.2051**2) +\
+    (PART295/TSPx*202.2045**2) + (PART296/TSPx*152.1904**2) +\
+    (PART297/TSPx*166.1739**2) + (PART298/TSPx*213.1873**2) +\
+    (PART299/TSPx*168.1898**2) + (PART300/TSPx*184.1892**2) +\
+    (PART301/TSPx*142.1094**2) + (PART302/TSPx*114.0993**2) +\
+    (PART303/TSPx*100.1158**2) + (PART304/TSPx*116.1152**2) +\
+    (PART305/TSPx*132.1146**2) + (PART306/TSPx*177.1122**2) +\
+    (PART307/TSPx*134.1305**2) + (PART308/TSPx*130.1418**2) +\
+    (PART309/TSPx*231.2457**2) + (PART310/TSPx*231.2457**2) +\
+    (PART311/TSPx*213.2304**2) + (PART312/TSPx*245.2292**2) +\
+    (PART313/TSPx*290.2268**2) + (PART314/TSPx*199.2038**2) +\
+    (PART315/TSPx*154.2063**2) + (PART316/TSPx*170.2057**2) +\
+    (PART317/TSPx*152.1904**2) + (PART318/TSPx*199.2038**2) +\
+    (PART319/TSPx*154.2063**2) + (PART320/TSPx*170.2057**2) +\
+    (PART321/TSPx*199.2038**2) + (PART322/TSPx*154.2063**2) +\
+    (PART323/TSPx*170.2057**2) + (PART324/TSPx*152.1904**2) +\
+    (PART325/TSPx*154.2063**2) + (PART326/TSPx*170.2057**2) +\
+    (PART327/TSPx*138.2069**2) + (PART350/TSPx*82.1005**2) +\
+    (PART351/TSPx*102.1317**2) + (PART352/TSPx*102.1317**2) +\
+    (PART353/TSPx*112.0835**2) + (PART354/TSPx*114.0993**2) +\
+    (PART355/TSPx*114.0993**2) + (PART356/TSPx*114.1424**2) +\
+    (PART357/TSPx*114.1424**2) + (PART358/TSPx*116.1152**2) +\
+    (PART359/TSPx*116.1152**2) + (PART360/TSPx*116.1152**2) +\
+    (PART361/TSPx*116.1152**2) + (PART362/TSPx*116.1152**2) +\
+    (PART363/TSPx*116.1152**2) + (PART364/TSPx*116.1152**2) +\
+    (PART365/TSPx*116.1583**2) + (PART366/TSPx*116.1583**2) +\
+    (PART367/TSPx*118.1311**2) + (PART368/TSPx*118.1311**2) +\
+    (PART369/TSPx*118.1311**2) + (PART370/TSPx*118.1311**2) +\
+    (PART371/TSPx*118.1311**2) + (PART372/TSPx*118.1311**2) +\
+    (PART373/TSPx*128.0829**2) + (PART374/TSPx*128.1259**2) +\
+    (PART375/TSPx*128.1259**2) + (PART376/TSPx*128.169**2) +\
+    (PART377/TSPx*128.169**2) + (PART378/TSPx*130.0987**2) +\
+    (PART379/TSPx*130.0987**2) + (PART380/TSPx*130.0987**2) +\
+    (PART381/TSPx*130.1418**2) + (PART382/TSPx*130.1418**2) +\
+    (PART383/TSPx*130.1418**2) + (PART384/TSPx*130.1418**2) +\
+    (PART385/TSPx*132.1146**2) + (PART386/TSPx*132.1146**2) +\
+    (PART387/TSPx*132.1146**2) + (PART388/TSPx*132.1146**2) +\
+    (PART389/TSPx*132.1146**2) + (PART390/TSPx*132.1146**2) +\
+    (PART391/TSPx*132.1146**2) + (PART392/TSPx*132.1577**2) +\
+    (PART393/TSPx*132.1577**2) + (PART394/TSPx*134.1305**2) +\
+    (PART395/TSPx*134.1305**2) + (PART396/TSPx*134.1305**2) +\
+    (PART397/TSPx*134.1305**2) + (PART398/TSPx*138.2069**2) +\
+    (PART399/TSPx*140.1797**2) + (PART400/TSPx*140.1797**2) +\
+    (PART401/TSPx*142.1525**2) + (PART402/TSPx*142.1525**2) +\
+    (PART403/TSPx*142.1525**2) + (PART404/TSPx*142.1956**2) +\
+    (PART405/TSPx*144.1684**2) + (PART406/TSPx*144.1684**2) +\
+    (PART407/TSPx*144.1684**2) + (PART408/TSPx*144.1684**2) +\
+    (PART409/TSPx*146.0981**2) + (PART410/TSPx*146.0981**2) +\
+    (PART411/TSPx*146.0981**2) + (PART412/TSPx*146.1412**2) +\
+    (PART413/TSPx*146.1412**2) + (PART414/TSPx*146.1412**2) +\
+    (PART415/TSPx*146.1412**2) + (PART416/TSPx*146.1412**2) +\
+    (PART417/TSPx*146.1412**2) + (PART418/TSPx*146.1412**2) +\
+    (PART419/TSPx*147.1293**2) + (PART420/TSPx*147.1293**2) +\
+    (PART421/TSPx*148.114**2) + (PART422/TSPx*148.114**2) +\
+    (PART423/TSPx*148.114**2) + (PART424/TSPx*148.114**2) +\
+    (PART425/TSPx*148.114**2) + (PART426/TSPx*148.114**2) +\
+    (PART427/TSPx*148.1571**2) + (PART428/TSPx*148.1571**2) +\
+    (PART429/TSPx*150.1299**2) + (PART430/TSPx*150.1299**2) +\
+    (PART431/TSPx*150.1299**2) + (PART432/TSPx*150.1299**2) +\
+    (PART433/TSPx*150.1299**2) + (PART434/TSPx*154.2063**2) +\
+    (PART435/TSPx*156.1791**2) + (PART436/TSPx*156.1791**2) +\
+    (PART437/TSPx*156.1791**2) + (PART438/TSPx*156.1791**2) +\
+    (PART439/TSPx*156.2221**2) + (PART440/TSPx*158.195**2) +\
+    (PART441/TSPx*158.195**2) + (PART442/TSPx*158.195**2) +\
+    (PART443/TSPx*158.195**2) + (PART444/TSPx*160.1247**2) +\
+    (PART445/TSPx*160.1678**2) + (PART446/TSPx*160.1678**2) +\
+    (PART447/TSPx*160.1678**2) + (PART448/TSPx*160.1678**2) +\
+    (PART449/TSPx*160.1678**2) + (PART450/TSPx*160.1678**2) +\
+    (PART451/TSPx*161.1558**2) + (PART452/TSPx*161.1558**2) +\
+    (PART453/TSPx*162.0975**2) + (PART454/TSPx*162.0975**2) +\
+    (PART455/TSPx*162.1406**2) + (PART456/TSPx*162.1406**2) +\
+    (PART457/TSPx*162.1406**2) + (PART458/TSPx*162.1406**2) +\
+    (PART459/TSPx*162.1837**2) + (PART460/TSPx*163.0856**2) +\
+    (PART461/TSPx*163.1287**2) + (PART462/TSPx*164.1134**2) +\
+    (PART463/TSPx*164.1565**2) + (PART464/TSPx*164.1565**2) +\
+    (PART465/TSPx*166.1293**2) + (PART466/TSPx*166.1293**2) +\
+    (PART467/TSPx*168.2328**2) + (PART468/TSPx*170.2057**2) +\
+    (PART469/TSPx*170.2057**2) + (PART470/TSPx*172.1785**2) +\
+    (PART471/TSPx*172.1785**2) + (PART472/TSPx*172.2215**2) +\
+    (PART473/TSPx*172.2215**2) + (PART474/TSPx*173.1665**2) +\
+    (PART475/TSPx*174.1513**2) + (PART476/TSPx*174.1513**2) +\
+    (PART477/TSPx*174.1513**2) + (PART478/TSPx*174.1513**2) +\
+    (PART479/TSPx*174.1513**2) + (PART480/TSPx*174.1944**2) +\
+    (PART481/TSPx*174.1944**2) + (PART482/TSPx*174.1944**2) +\
+    (PART483/TSPx*175.0963**2) + (PART484/TSPx*175.0963**2) +\
+    (PART485/TSPx*175.1394**2) + (PART486/TSPx*176.1672**2) +\
+    (PART487/TSPx*176.1672**2) + (PART488/TSPx*176.1672**2) +\
+    (PART489/TSPx*177.1122**2) + (PART490/TSPx*177.1122**2) +\
+    (PART491/TSPx*177.1122**2) + (PART492/TSPx*177.1122**2) +\
+    (PART493/TSPx*177.1122**2) + (PART494/TSPx*177.1122**2) +\
+    (PART495/TSPx*178.1831**2) + (PART496/TSPx*179.1281**2) +\
+    (PART497/TSPx*179.1281**2) + (PART498/TSPx*179.1281**2) +\
+    (PART499/TSPx*179.1281**2) + (PART500/TSPx*179.1281**2) +\
+    (PART501/TSPx*180.1128**2) + (PART502/TSPx*180.1128**2) +\
+    (PART503/TSPx*181.1439**2) + (PART504/TSPx*181.1439**2) +\
+    (PART505/TSPx*182.0426**2) + (PART506/TSPx*182.2164**2) +\
+    (PART507/TSPx*184.1892**2) + (PART508/TSPx*184.1892**2) +\
+    (PART509/TSPx*186.2051**2) + (PART510/TSPx*186.2051**2) +\
+    (PART511/TSPx*186.2051**2) + (PART512/TSPx*186.2051**2) +\
+    (PART513/TSPx*187.1931**2) + (PART514/TSPx*188.1779**2) +\
+    (PART515/TSPx*188.1779**2) + (PART516/TSPx*188.2209**2) +\
+    (PART517/TSPx*189.1659**2) + (PART518/TSPx*190.1938**2) +\
+    (PART519/TSPx*190.1938**2) + (PART520/TSPx*191.1388**2) +\
+    (PART521/TSPx*192.1666**2) + (PART522/TSPx*193.1116**2) +\
+    (PART523/TSPx*193.1116**2) + (PART524/TSPx*193.1116**2) +\
+    (PART525/TSPx*193.1116**2) + (PART526/TSPx*193.1116**2) +\
+    (PART527/TSPx*193.1546**2) + (PART528/TSPx*193.1546**2) +\
+    (PART529/TSPx*195.1275**2) + (PART530/TSPx*195.1275**2) +\
+    (PART531/TSPx*195.1275**2) + (PART532/TSPx*195.1275**2) +\
+    (PART533/TSPx*197.1433**2) + (PART534/TSPx*197.1433**2) +\
+    (PART535/TSPx*198.1281**2) + (PART536/TSPx*200.2316**2) +\
+    (PART537/TSPx*201.2197**2) + (PART538/TSPx*202.2045**2) +\
+    (PART539/TSPx*202.2045**2) + (PART540/TSPx*202.2045**2) +\
+    (PART541/TSPx*202.2045**2) + (PART542/TSPx*202.2045**2) +\
+    (PART543/TSPx*203.1925**2) + (PART544/TSPx*203.1925**2) +\
+    (PART545/TSPx*204.1773**2) + (PART546/TSPx*204.1773**2) +\
+    (PART547/TSPx*205.1223**2) + (PART548/TSPx*205.1653**2) +\
+    (PART549/TSPx*205.1653**2) + (PART550/TSPx*205.1653**2) +\
+    (PART551/TSPx*207.0951**2) + (PART552/TSPx*207.1382**2) +\
+    (PART553/TSPx*207.1382**2) + (PART554/TSPx*207.1812**2) +\
+    (PART555/TSPx*207.1812**2) + (PART556/TSPx*207.1812**2) +\
+    (PART557/TSPx*207.1812**2) + (PART558/TSPx*209.111**2) +\
+    (PART559/TSPx*209.111**2) + (PART560/TSPx*209.111**2) +\
+    (PART561/TSPx*209.154**2) + (PART562/TSPx*211.1269**2) +\
+    (PART563/TSPx*211.1269**2) + (PART564/TSPx*211.1269**2) +\
+    (PART565/TSPx*217.176**2) + (PART566/TSPx*217.2191**2) +\
+    (PART567/TSPx*219.1489**2) + (PART568/TSPx*219.1489**2) +\
+    (PART569/TSPx*219.1919**2) + (PART570/TSPx*219.1919**2) +\
+    (PART571/TSPx*223.1806**2) + (PART572/TSPx*223.1806**2) +\
+    (PART573/TSPx*224.0826**2) + (PART574/TSPx*224.0826**2) +\
+    (PART575/TSPx*224.1256**2) + (PART576/TSPx*224.1256**2) +\
+    (PART577/TSPx*224.1256**2) + (PART578/TSPx*226.0984**2) +\
+    (PART579/TSPx*226.0984**2) + (PART580/TSPx*226.1415**2) +\
+    (PART581/TSPx*226.1415**2) + (PART582/TSPx*227.1263**2) +\
+    (PART583/TSPx*231.2026**2) + (PART584/TSPx*231.2026**2) +\
+    (PART585/TSPx*231.2457**2) + (PART586/TSPx*233.1754**2) +\
+    (PART587/TSPx*233.1754**2) + (PART588/TSPx*233.2185**2) +\
+    (PART589/TSPx*235.1913**2) + (PART590/TSPx*240.125**2) +\
+    (PART591/TSPx*240.125**2) + (PART592/TSPx*240.125**2) +\
+    (PART593/TSPx*243.1257**2) + (PART594/TSPx*247.202**2) +\
+    (PART595/TSPx*247.2451**2) + (PART596/TSPx*247.2451**2) +\
+    (PART597/TSPx*254.1085**2) + (PART598/TSPx*254.1085**2) +\
+    (PART599/TSPx*254.1085**2) + (PART600/TSPx*256.1244**2) +\
+    (PART601/TSPx*256.1244**2) + (PART602/TSPx*256.1244**2) +\
+    (PART603/TSPx*256.1244**2) + (PART604/TSPx*256.1244**2) +\
+    (PART605/TSPx*256.1244**2) + (PART606/TSPx*263.2445**2) +\
+    (PART607/TSPx*272.1238**2) + (PART608/TSPx*301.122**2) +\
+    (PART609/TSPx*301.122**2) + (PART610/TSPx*301.122**2) +\
+    (NA/TSPx*62.01**2))','<string>','eval'),
     #
-    "soacalc" : compile("tspx-(NA*62.01*1e12/6.02E23)",'<string>','eval')}
+    "soacalc" : compile("TSPx-(NA*62.01*1e12/6.02E23)",'<string>','eval')}
     return part_calc_dict
 
 def particle_import():
@@ -5301,10 +5315,10 @@ def particle_calcs(part_calc_dict,density_dict):
     '''
     particle_dict={'mwom' : 120,
                'ACTIVITY' : 1,
-               'SCALINGFAC' : 1}
+               'SCALINGFAC' : 120}
     particle_dict['acidsum'] = eval(part_calc_dict['acidsum'],density_dict,particle_dict)
-    particle_dict['tsp'] = eval(part_calc_dict['tsp'],density_dict,particle_dict)
-    particle_dict['tspx'] =  eval(part_calc_dict['tspx'],density_dict,particle_dict)
+    particle_dict['TSP'] = eval(part_calc_dict['TSP'],density_dict,particle_dict)
+    particle_dict['TSPx'] =  eval(part_calc_dict['TSPx'],density_dict,particle_dict)
     particle_dict['mwomv'] = eval(part_calc_dict['mwomv'],density_dict,particle_dict)
     particle_dict['soacalc'] = eval(part_calc_dict['soacalc'],density_dict,particle_dict)
 
@@ -5330,7 +5344,7 @@ def reactions_check(reactions_numba,particle_reactions,species):
     particle_reactions_temp=[]
     for i,s in enumerate(particle_reactions):
         temp.append(re.split('[=+]',s[1]))
-        if set(temp[i]).issubset(species + ['tsp','RO2','O2','N2','']):
+        if set(temp[i]).issubset(species + ['TSP','RO2','O2','N2','']):
             particle_reactions_temp.append(s)
     reactions_numba = reactions_numba + particle_reactions_temp
     return reactions_numba
