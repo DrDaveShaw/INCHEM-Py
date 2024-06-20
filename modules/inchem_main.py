@@ -535,9 +535,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         '''
         inputs:
             t = current time (s)
-            light_on_times = 
-            timed_emissions = 
-            timed_inputs = 
+            light_on_times = list of light on and off times of internal lighting
+            timed_emissions = True or False for timed emissions being included
+            timed_inputs = Dictionary of emission times and rates of species
             
         outputs:
             events =    a list of true or false statements that turn on or off events
