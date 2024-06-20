@@ -3782,15 +3782,15 @@ def H2O2_deposition():
     ]
     return H2O2_rates, H2O2_reactions
 
-def breath_emissions():
+def breath_emissions(volume):
     breath_rates = [
     #
     #Breath
-    ['EMISSIONBREATHACETONE','(2.534e+07*adults)+(4.781e+6*children)'],
-    ['EMISSIONBREATHETHANOL','(1.988e7*adults)+(3.009e6*children)'],
-    ['EMISSIONBREATHMETHANOL','(8.512e6*adults)+(3.108e6*children)'],
-    ['EMISSIONBREATHISOPROPANOL','(3.862e6*adults)+(6.593e5*children)'],
-    ['EMISSIONBREATHISOPRENE','(5.412e6*adults)+(5.953e5*children)'],
+    ['EMISSIONBREATHACETONE','(2.534e+07/171e8*volume*adults)+(4.781e+6/171e8*volume*children)'],
+    ['EMISSIONBREATHETHANOL','(1.988e7/171e8*volume*adults)+(3.009e6/171e8*volume*children)'],
+    ['EMISSIONBREATHMETHANOL','(8.512e6/171e8*volume*adults)+(3.108e6/171e8*volume*children)'],
+    ['EMISSIONBREATHISOPROPANOL','(3.862e6/171e8*volume*adults)+(6.593e5/171e8*volume*children)'],
+    ['EMISSIONBREATHISOPRENE','(5.412e6/171e8*volume*adults)+(5.953e5/171e8*volume*children)'],
     ]
 
     breath_reactions = [

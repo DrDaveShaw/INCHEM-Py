@@ -26,11 +26,11 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 """
 def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                M, const_dict, ACRate_dict, diurnal, city, date, lat, light_type, 
-               light_on_times, glass, AV, initials_from_run,
+               light_on_times, glass, volume, initials_from_run,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults, children,
-               surfaces_AV, settings_file, temperatures, spline, custom_filename):
+               surface_area, settings_file, temperatures, spline, custom_filename):
   
     '''
     import all modules
@@ -58,6 +58,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     import math
     import time as timing
     from modules.reactivity import reactivity_summation, reactivity_calc, production_calc
+    import bisect
     
     sys.setrecursionlimit(4000) #to compile the master array the recursion limit
     #must be increased as some of the evaluated ODEs are greater than the usual
@@ -212,7 +213,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         return dy_dy
     
     
-    def dydt(t,y0):
+    def dydt(t,y0,events):
         '''
         The function to calculate dydt that is fed to the integrator
     
@@ -254,16 +255,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) #no divison by 0
         
         #updates the relevant dictionary whether lights are on or off
-        for i in light_on_times:
-            if i[0] <= t <= i[1]:
-                indoor_photo_dict["cosx"] = cosx
-                indoor_photo_dict["secx"] = secx
-                photolysis_J(indoor_photo_dict,photo_dict,J_dict)
-                break
-            else:
-                indoor_photo_dict_off["cosx"] = cosx
-                indoor_photo_dict_off["secx"] = secx
-                photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
+        if events[0] == True:
+            lighting_input.update(indoor_photo_dict)
+        else:
+            lighting_input.update(indoor_photo_dict_off)
+            
+        lighting_input["cosx"] = cosx
+        lighting_input["secx"] = secx
+        photolysis_J(lighting_input,photo_dict,J_dict)
 
         #ACRate update
         ACRate_updater(t,ACRate_dict,outdoor_dict)
@@ -289,11 +288,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
         if timed_emissions == True:
-            for key in timed_inputs:
+            for i,key in enumerate(timed_inputs):
                 iterator = iter(range(len(timed_inputs[key])))
-                for i in timed_inputs[key]:
+                for k in timed_inputs[key]:
                     iterator_next = next(iterator)
-                    if i[0] <= t <= i[1]:
+                    if events[i+1] == True:
                         timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
                     else:
                         timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
@@ -313,7 +312,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         return dy
     
     
-    def dydy(t,y0): 
+    def dydy(t,y0,events): 
         '''
         The function to calculate the jacobian that is fed to the integrator
     
@@ -356,16 +355,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) # no division by 0
         
         #updates the relevant dictionary whether lights are on or off
-        for i in light_on_times:
-            if i[0] <= t <= i[1]:
-                indoor_photo_dict["cosx"] = cosx
-                indoor_photo_dict["secx"] = secx
-                photolysis_J(indoor_photo_dict,photo_dict,J_dict)
-                break
-            else:
-                indoor_photo_dict_off["cosx"] = cosx
-                indoor_photo_dict_off["secx"] = secx
-                photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
+        if events[0] == True:
+            lighting_input.update(indoor_photo_dict)
+        else:
+            lighting_input.update(indoor_photo_dict_off)
+            
+        lighting_input["cosx"] = cosx
+        lighting_input["secx"] = secx
+        photolysis_J(lighting_input,photo_dict,J_dict)
 
         #ACRate update
         ACRate_updater(t,ACRate_dict,outdoor_dict)
@@ -391,11 +388,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
         if timed_emissions == True:
-            for key in timed_inputs:
+            for i,key in enumerate(timed_inputs):
                 iterator = iter(range(len(timed_inputs[key])))
-                for i in timed_inputs[key]:
+                for k in timed_inputs[key]:
                     iterator_next = next(iterator)
-                    if i[0] <= t <= i[1]:
+                    if events[i+1] == True:
                         timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
                     else:
                         timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
@@ -413,7 +410,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         return dydy_jac
     
     def integrate_function(iters,t_bound_internal,y0,t0,ret,save_rate,num_species,\
-                           total_iter,dt):
+                           total_iter,dt,events):
         '''
         Using lsoda to calculate density evolution and output as n_new
     
@@ -481,13 +478,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         atol = [1e-6]*num_species     #Default 1e-6
         rtol = 1e-6                  #Default 1e-6
         first_step = 1e-10              #size of first integration step to try (s)
-        nsteps = 5000                   #max number of internal timesteps
+        nsteps = 2000                   #max number of internal timesteps
         max_step = dt
         
         #set the integrator and arguments
         r=ode(dydt,dydy).set_integrator('lsoda',atol=atol,rtol=rtol,first_step=\
                                         first_step,nsteps=nsteps,max_step=max_step)
-        r.set_initial_value(y0,t0)
+            
+        r.set_initial_value(y0,t0).set_f_params(events).set_jac_params(events)
         
         #integrate
         while r.successful() and r.t<t_bound_internal:
@@ -532,6 +530,59 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                         calculated_output[i].append(calc_dict[i])
                         
         return dt_out,n_new,iters,ret,iter_time,calculated_output
+    
+    def event_creator(t,light_on_times,timed_emissions,timed_inputs):
+        '''
+        inputs:
+            t = current time (s)
+            light_on_times = 
+            timed_emissions = 
+            timed_inputs = 
+            
+        outputs:
+            events =    a list of true or false statements that turn on or off events
+                        within the integration. A method of dealing with discontinuities.
+        '''
+        events = []
+        #updates the relevant dictionary whether lights are on or off
+        condition = False
+        for i in light_on_times:
+            if i[0] <= t < i[1]:
+                condition = True
+                break
+        events.append(condition)
+        
+        if timed_emissions == True:
+            condition = False
+            for species in timed_inputs:
+                for emission in timed_inputs[species]:
+                    if emission[0] <= t < emission[1]:
+                        condition = True
+                        break
+                events.append(condition)
+        
+        return events
+    
+    def AV_calc(volume, surface_area):
+        '''
+        Calculates the area to volume ratio for surface deposition
+        
+        inputs:
+            volume = volume of the simulated space (cm^3)
+            surface_areas = dictionary of surface areas of surfaces in the space (cm2^)
+            
+        outputs:
+            AV_dict = dictionary of surface area to volume ratios (cm^-1)
+            AV = total surface to volume ratio (cm^-1)
+        '''
+        AV = sum(surface_area.values())/volume
+        
+        surfaces_AV = {}
+        for key in surface_area:
+            surfaces_AV['AV%s' % key] = surface_area[key]/volume 
+            
+        return surfaces_AV, AV
+
        
     '''
     numba functions to increase speed of mathamatical operations
@@ -593,10 +644,36 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     copyfile(settings_file, "%s/%s/%s_settings.py" % (path,output_folder,custom_name))
     copyfile(filename, "%s/%s/mcm.fac" % (path,output_folder))
     
+    # setting integration envelopes and integration parameters
+    # needs to happen before light on times and timed emissions are parsed
+    # by the functions that call them
     t_bound = t0+seconds_to_integrate #Maximum time to integrate to
     iters = 0 #the number of iterations that have been performed already (leave as 0)
     total_iter = math.ceil(int(t_bound-t0)/dt) #calculated to show the user how long is left   
     print('total iterations:', total_iter)
+    
+    # list of integration times
+    integration_envelopes = []
+    integration_envelopes.extend([t0,t_bound])
+    
+    light_on_times = [[j * 3600 for j in i]for i in light_on_times] #conversion to seconds
+    
+    for light_envelopes in light_on_times:
+        integration_envelopes.extend(light_envelopes)
+    
+    if timed_emissions == True:
+        for species in timed_inputs:
+            for sublist in timed_inputs[species]:
+                integration_envelopes.extend(sublist[:-1])
+                    
+    #remove repeated values
+    integration_envelopes = list(set(integration_envelopes))
+    #sort by size
+    integration_envelopes = sorted(integration_envelopes, key=lambda x: x)
+    #remove times before and after start and end of simulation
+    start_pos = bisect.bisect_right(integration_envelopes,t0) #removes t0
+    end_pos = bisect.bisect_right(integration_envelopes,t_bound)
+    integration_envelopes = integration_envelopes[start_pos:end_pos]
     
     
     '''
@@ -634,6 +711,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     
     pi = 4.0*numba_arctan(1.0) #for photolysis and some rates
     
+    # Calculate area to volume ratio for surface deposition
+    surfaces_AV, AV = AV_calc(volume, surface_area)
+    
     # dictionary for evaluating the reaction rates
     calc_dict={'M':M,
            'numba_exp':numba_exp,
@@ -645,14 +725,14 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
            'AV':AV,
            'numba_abs':numba_abs,
            'adults':adults,
-           'children':children}
+           'children':children,
+           'volume':volume}
     
     calc_dict.update(const_dict) # add constants from settings to calc_dict
     
+    # If we have surface emissions we need the individual A/V
     if H2O2_dep == True or O3_dep == True:
         calc_dict.update(surfaces_AV)
-        AV = float(sum(surfaces_AV.values()))
-        calc_dict['AV'] = AV
     
     '''
     Custom reactions and rates. Those not in the MCM download, the code does not
@@ -661,7 +741,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     sums = []
     if custom == True:
-        #custom_filename="custom_input.txt"
+        custom_filename="custom_input.txt"
         custom_rates, custom_reactions, custom_species, custom_RO2, sums = \
             custom_import(custom_filename,species)
         # Check that rates/constants/RO2 have not been added as species
@@ -672,7 +752,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         rate_numba = rate_numba + custom_rates
         reactions_numba = reactions_numba + custom_reactions
         ppool = ppool + custom_RO2
-        copyfile(custom_filename, "%s/%s/%s" % (path,output_folder,custom_filename))
+        copyfile("custom_input.txt", "%s/%s/custom_input.txt" % (path,output_folder))
      
     '''
     INCHEM reactions and rates that are not included in MCM download.
@@ -731,7 +811,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         reactions_numba = reactions_numba + O3_reactions
         rate_numba = rate_numba + O3_rates
     if adults+children > 0:
-        breath_rates, breath_reactions = breath_emissions()
+        breath_rates, breath_reactions = breath_emissions(volume)
         reactions_numba = reactions_numba + breath_reactions
         rate_numba = rate_numba + breath_rates
         
@@ -825,16 +905,20 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     light_on_times = [[j * 3600 for j in i]for i in light_on_times] #conversion to seconds
     
     J_dict = {}
+    lighting_input = {}
+
+    condition = False
     for i in light_on_times:
         if i[0] <= t0 <= i[1]:
-            indoor_photo_dict["cosx"] = cosx
-            indoor_photo_dict["secx"] = secx
-            photolysis_J(indoor_photo_dict,photo_dict,J_dict)
+            condition = True
+            lighting_input.update(indoor_photo_dict)
             break
-        else:
-            indoor_photo_dict_off["cosx"] = cosx
-            indoor_photo_dict_off["secx"] = secx
-            photolysis_J(indoor_photo_dict_off,photo_dict,J_dict)
+    if not condition:
+        lighting_input.update(indoor_photo_dict_off)
+        
+    lighting_input["cosx"] = cosx
+    lighting_input["secx"] = secx
+    photolysis_J(lighting_input,photo_dict,J_dict)
     
     '''
     Outdoor species concentration calculations
@@ -998,18 +1082,24 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     
     print('Integration starting')
     
+    env_loop_index = 0
+    
     with threadpool_limits(limits=4, user_api='blas'): #limits threads used by integration
-        while iters < total_iter and ret > 0:  
-                n_new_in = n_new[:,-1]
-                dt_out_in = dt_out[-1]
-                dt_out_temp,n_new_temp,iters,ret,iter_time,calculated_output=\
-                    integrate_function(iters,t_bound,n_new_in,dt_out_in,ret,save_rate,\
-                                       num_species,total_iter,dt)
-                dt_out=np.append(dt_out,dt_out_temp)
-                n_new=np.append(n_new,n_new_temp,axis=1)
-                iter_time_tot.extend(iter_time)
-                for x in calculated_output:
-                    calculated_output_tot[x].extend(calculated_output[x])
+        while iters < total_iter and ret > 0:
+            end_time = integration_envelopes[env_loop_index]
+            print('Integration to', end_time)
+            n_new_in = n_new[:,-1]
+            dt_out_in = dt_out[-1]
+            events = event_creator(dt_out_in,light_on_times,timed_emissions,timed_inputs)
+            dt_out_temp,n_new_temp,iters,ret,iter_time,calculated_output=\
+                integrate_function(iters,end_time,n_new_in,dt_out_in,ret,save_rate,\
+                                   num_species,total_iter,dt,events)
+            dt_out=np.append(dt_out,dt_out_temp)
+            n_new=np.append(n_new,n_new_temp,axis=1)
+            iter_time_tot.extend(iter_time)
+            env_loop_index += 1
+            for x in calculated_output:
+                calculated_output_tot[x].extend(calculated_output[x])
                 
     output_data = pd.DataFrame(np.transpose(n_new),columns=species,index=dt_out)
     output_data = output_data.join(pd.DataFrame(calculated_output_tot,index=dt_out))
