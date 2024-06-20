@@ -110,8 +110,8 @@ def plotting_function(plot_species,out_data,units,start_time,end_time,name,log_p
         end_time = int( time_step * round( end_time / time_step ))
         for l in plot_species: 
             c=next(colour)
-            plt.plot(list(out_data[k][l][start_time:end_time].index/factor),
-                     list(out_data[k][l][start_time:end_time]),
+            plt.plot(list(out_data[k][l].loc[start_time:end_time].index/factor),
+                     list(out_data[k][l].loc[start_time:end_time]),
                      label="%s_%s" % (k,l),c=c)
     if log_plot == True:
         if name != "Photolysis":        
