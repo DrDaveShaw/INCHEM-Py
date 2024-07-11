@@ -188,7 +188,7 @@ reactions_output = True
 # output folder of a list of selected species and a CSV of concentrations. 
 # If the species do not exist in the run then a key error will cause it to fail
 output_graph = True #Boolean
-output_species = ['LIMONENE','APINENE']
+output_species = ['LIMONENE','BPINENE']
 
 
 """
