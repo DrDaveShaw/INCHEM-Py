@@ -257,60 +257,58 @@ def reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_di
     reaction_rate_dict.update(reaction_rate_temp)
 
 
-def write_jacobian_build(master_array_dict,species,output_folder,path):
+def construct_jacobian(master_array):
     '''
     creating the jacobian of the master array
     
-    Currently writes the calculation to a file so that it can be saved but also
-    so that the function can be called to create a compiled jacobian to speed up
-    evaluation
+    Constructs a code object for the jacobian for use in the intgration. Saves
+    computational resources compared with the previous build that wrote
+    jacobian.py to the disk before reimporting it.
     
     inputs:
-        master_array_dict = dictionary of arrays of reactions that can be reduced
+        master_array = dictionary of arrays of reactions that can be reduced
                             to form the system of ODEs to be solved
-        species = list of species
-        output_folder = string name of output folder within current working directory
         
     returns:
-        None
+        compiled_dydy = a code object of equations calculating the change in
+                        species y with change in all other species. 
         
-    writes:
-        Jacobian.py containing jacobian_calc which compiles a dictionary of 
-        indexed values for dydy of the form {index:[x,y,compiled partial differential]}
     '''
-    f=open('%s/%s/Jacobian.py'% (path,output_folder),'w')
-    f.write('import numpy as np\n')
-    f.write('def jacobian_calc(species):\n')
-    
-    f.write('    dy_dy_dict={}\n')
-    
-    counter=0
-    
-    for i,x in enumerate(tqdm(species,desc='Constructing Jacobian')):
-        for j,y in enumerate(species):
-            temp_list=[]
-            jac_list=[]
-            temp_list=list(map(list,master_array_dict[x]))
-            for z in temp_list:
-                #differentiate with respect to y
-                if y in z:
-                    #how many of y in k
-                    num = z.count(y)
-                    #remove one instance (reduce power by 1)
-                    z.remove(y)
-                    #if more than one instance then times by number that there are
-                    if num > 1:
-                        z.append(str(num))
-                    if len(z) > 1:
-                        jac_list.append('*'.join(z))
-                    else:
-                        jac_list.append(z[0])
-            jac_list='+'.join(jac_list)
-            if jac_list:
-                f.write('    dy_dy_dict[%s]=([%s,%s,compile(\'%s\',\'<string>\',\'eval\')])\n' % (counter,i,j,jac_list))
-                counter=counter+1
-    f.write('    return dy_dy_dict\n')
-    f.close
+
+    species = [k for k in master_array.keys()]
+    construct_dy_dy = {}
+
+    prog = '{\n'
+
+    for val1, s1 in enumerate(tqdm(species,desc='Constructing Jacobian')):
+        construct_dy_dy[val1] = {}
+        if val1 == 0:
+            prog += f'    "{val1}" : {{'
+        else:
+            prog += f'}},    "{val1}" : {{'
+        for val2, s2 in enumerate(species):
+            rxns_of_interest = []
+            for r in master_array[s1]:
+                if s2 in r:
+                    rxn_data = list(r)  # the reaction that contains the species we're differentiating with respect to
+                    wrt_species = s2  # the species we're differentiating with respect to
+                    species_order = rxn_data.count(wrt_species)  # the power the w.r.t. species is raised to in rxn
+                    # Differentiate
+                    if species_order > 1:
+                        rxn_data.append(str(species_order))  # Times down by the power ....
+                    rxn_data.remove(wrt_species)  # ... then take one off.
+
+                    rxn_data = '*'.join(rxn_data)  # Join the species with multiplication sign
+                    rxns_of_interest.append(rxn_data)
+
+            if len(rxns_of_interest)>0:
+                prog += f'    "{val2}": {" + ".join(rxns_of_interest)},\n'
+    prog += '}}'
+
+
+    compiled_dydy = compile(prog, '<string>', 'eval')
+    return compiled_dydy
+
     
 def INCHEM_species_calc(INCHEM_reactions,species):
     '''

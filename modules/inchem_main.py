@@ -38,10 +38,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     import sys
     import pickle
     from modules.inchem_import import import_all, custom_import 
-    from modules.particle_input import particle_import, particle_calcs, reactions_check
+    from modules.particle_input import particle_import, particle_calcs, reactions_check, HOMS_chemistry,\
+        particle_calc_dict
     from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
     from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
-        reaction_rate_compile, reaction_eval, write_jacobian_build, INCHEM_species_calc
+        reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc
     from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc,\
         ACRate_updater
     import numpy as np
@@ -51,7 +52,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     import time
     from modules.surface_dictionary import surface_deposition, O3_deposition, H2O2_deposition, breath_emissions
     from threadpoolctl import threadpool_limits
-    import importlib.util
+    #import importlib.util
     import pandas as pd
     import os
     import datetime
@@ -204,12 +205,17 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         returns:
             dy_dy = dictionary of values of species change with species per second
         '''
-        dy_dy=np.zeros((num_species,num_species),dtype=np.float32) #twice as fast as lil_matrix
-        
+
+
         full_dict={**reaction_rate_dict,**density_dict,**outdoor_dict,**surface_dict,\
-                   **calc_dict,**timed_dict}
-        for k,v in dy_dy_dict.items():
-                dy_dy[v[0],v[1]]=eval(v[2],{},full_dict)
+                    **calc_dict,**timed_dict}
+        dydy_dict = eval(dy_dy_dict, {}, full_dict)
+
+        dy_dy = np.zeros((len(dydy_dict), len(dydy_dict)), dtype=np.float32)
+        
+        for k in dydy_dict.keys():
+            for k2 in dydy_dict[k].keys():
+                dy_dy[int(k), int(k2)] = dydy_dict[k][k2]
         return dy_dy
     
     
@@ -248,9 +254,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         # (secx=1/cosx). The MCM photolysis parameterisation  
         # (http://mcm.leeds.ac.uk/MCM/parameters/photolysis_param.htt)  
         # requires cosx and secx to calculate the photolysis rates.
-        if cosx <= 1E-30:
+        if cosx <= 1E-15:
             cosx = 0.0  
-            secx = 1.0E+30  
+            secx = 1.0E+15  
         else:  
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) #no divison by 0
         
@@ -348,9 +354,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         # (secx=1/cosx). The MCM photolysis parameterisation  
         # (http://mcm.leeds.ac.uk/MCM/parameters/photolysis_param.htt)  
         # requires cosx and secx to calculate the photolysis rates.
-        if cosx <= 1E-30:
+        if cosx <= 1E-15:
             cosx = 0.0  
-            secx = 1.0E+30  
+            secx = 1.0E+15  
         else:  
             secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30) # no division by 0
         
@@ -452,6 +458,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             calculated_output['TSPx'] = []
             calculated_output['mwomv'] = []
             calculated_output['soacalc'] = []
+            calculated_output['SOA'] = []
         for i in reactivity_dict:
             calculated_output[i] = []
         for i in production_dict:
@@ -511,8 +518,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                     calculated_output['TSPx'].append(density_dict['TSPx'])
                     calculated_output['mwomv'].append(density_dict['mwomv'])
                     calculated_output['soacalc'].append(density_dict['soacalc'])
+                    calculated_output['SOA'].append(density_dict['SOA'])
                 for i in range(num_species):
-                    n_new[i].append(r.y[i])
+                    n_new[i].append(r.y[i].copy())
                 for i in J_dict:
                     calculated_output[i].append(J_dict[i])
                 for i in outdoor_dict:
@@ -675,7 +683,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     end_pos = bisect.bisect_right(integration_envelopes,t_bound)
     integration_envelopes = integration_envelopes[start_pos:end_pos]
     
-    
+     
     '''
     calculate initial values
     '''
@@ -756,10 +764,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
      
     '''
     INCHEM reactions and rates that are not included in MCM download.
-    '''    
+    '''   
+    INCHEM_terpenes = []
     if INCHEM_additional == True:
         from modules.inchem_chemistry import INCHEM_RO2, INCHEM_reactions, \
-            INCHEM_rates, INCHEM_sums
+            INCHEM_rates, INCHEM_sums, INCHEM_terpenes
         INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
         species = species + INCHEM_species
         ppool = ppool + INCHEM_RO2
@@ -790,14 +799,23 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     Particles
     '''
     particle_species=[]
+    HOMS_species = []
     if particles == True:
         #if the full MCM is not being used then the calcuations for TSP and anything involving TSP
         #will fail so particles can only be used with the full MCM at the moment 04/2020
-        particle_species, particle_reactions, particle_vap_dict, part_calc_dict = particle_import()
+        particle_species, particle_reactions, particle_vap_dict, part_compile_dict = particle_import()
         species = species + particle_species #add particle species to species list
         reactions_numba = reactions_check(reactions_numba,particle_reactions,species)
         rate_numba = rate_numba + [['kacid' , '1.5e-32*numba_exp(14770/temp)']]
         calc_dict.update(particle_vap_dict)
+        if INCHEM_additional == True:
+            # HOMS Chemistry
+            reactions_numba, HOMS_species, part_compile_dict, HOMRO2 = HOMS_chemistry(INCHEM_terpenes, reactions_numba,\
+                                                                         part_compile_dict)
+            species = species + HOMS_species
+            ppool = ppool + HOMRO2
+            calc_dict['PHOMS'] = 3.59e-10 # HOMS vapour pressure (Torr)
+        part_calc_dict = particle_calc_dict(part_compile_dict)
                 
     '''
     Optional H2O2 and O3 deposition
@@ -863,9 +881,10 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     The simulation works on solar time of day and does not require any input 
     of longitude.
     '''
-    #calculations for determining solar position given time of year    
-    day, month, year = map(int, date.split('-'))
-    date = datetime.date(year, month, day)
+    #calculations for determining solar position given time of year
+    if type(date) == str:    
+        day, month, year = map(int, date.split('-'))
+        date = datetime.date(year, month, day)
     year_day = (date - datetime.date(year, 1, 1)).days + 1
     days_in_year = (datetime.date(year,12,31) - datetime.date(year, 1, 1)).days + 1
     radian = 180.0/pi
@@ -896,9 +915,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
      
     # (http://mcm.york.ac.uk/parameters/photolysis_param.htt)
     # Keep cosx 0 or positive, we don't have negative photolysis
-    if cosx <= 1E-30:
+    if cosx <= 1E-15:
         cosx = 0.0  
-        secx = 1.0E+30  
+        secx = 1.0E+15  
     else:  
         secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30)
     
@@ -1013,17 +1032,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     #compiling the master array
     master_compiled=master_compiler(master_array_dict,species)
     
-    #Create the jacobian and save it to the output folder
-    write_jacobian_build(master_array_dict,species,output_folder,path)
+    #Create the jacobian
+    dy_dy_dict = construct_jacobian(master_array_dict)
     
-    #import the jacobian function to create the jacobian dictionary which is a
-    #dictionary of compiled calculations
-    spec = importlib.util.spec_from_file_location("jac.jacobian_calc",\
-                                                  "%s/%s/Jacobian.py" % (path,output_folder))
-    jac = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(jac)
-    #jac = importlib.import_module(path+output_folder+".Jacobian")
-    dy_dy_dict=jac.jacobian_calc(species) 
     
     # reactivity and production calculations, details in the reactivity.py script
     reactivity_compiled, production_compiled = reactivity_summation(master_array_dict)
@@ -1056,6 +1067,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         calculated_output_tot['TSPx'] = [density_dict['TSPx']]
         calculated_output_tot['mwomv'] = [density_dict['mwomv']]
         calculated_output_tot['soacalc'] = [density_dict['soacalc']]
+        calculated_output_tot['SOA'] = [density_dict['SOA']]
     for i in reactivity_dict:
         calculated_output_tot[i] = [reactivity_dict[i]]
     for i in production_dict:
@@ -1100,7 +1112,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             env_loop_index += 1
             for x in calculated_output:
                 calculated_output_tot[x].extend(calculated_output[x])
-                
+    
     output_data = pd.DataFrame(np.transpose(n_new),columns=species,index=dt_out)
     output_data = output_data.join(pd.DataFrame(calculated_output_tot,index=dt_out))
     
@@ -1125,7 +1137,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         # creates and saves a simple graph of the set species from settings
         import matplotlib.pyplot as plt
         from itertools import cycle
-        plt.figure(dpi=600,figsize=(8,4))
+        plt.figure(dpi=300,figsize=(8,4))
         colour=iter(plt.cm.gist_rainbow(np.linspace(0,1,len(output_species))))
         linestyle=cycle(['solid','dotted','dashed','dashdot'])
         for x in output_species:
