@@ -4759,13 +4759,13 @@ def part_vap_pres():
     #
     return vap_pres_dict
 
-def particle_calc_dict():
+def particle_compile_dict():
     '''
     returns:
-        part_calc_dict = dictionary of summations used in particle calculations
+        part_compile_dict = dictionary of summations used in particle calculations
     '''
-    part_calc_dict={     
-    'TSP' : compile('SEED + PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
+    part_compile_dict={     
+    'TSP' : 'SEED + PART1 + PART2A + PART2B + PART3 + PART4 + PART5 + PART6 + PART11 \
     + PART13 + PART14 + PART15 + PART16 + PART17 + PART22 + PART23 + PART24 + PART25 \
     + PART26 + PART27 + PART28 + PART29 + PART30 + PART31 + PART32 + PART33 + PART34 \
     + PART35 + PART36 + PART37 + PART38 + PART39 + PART40 + PART41 + PART42 + PART43 \
@@ -4839,9 +4839,9 @@ def particle_calc_dict():
     + PART587 + PART588 + PART589 + PART590 + PART591 + PART592 + PART593 \
     + PART594 + PART595 + PART596 + PART597 + PART598 + PART599 + PART600 \
     + PART601 + PART602 + PART603 + PART604 + PART605 + PART606 + PART607 \
-    + PART608 + PART609 + PART610 + NA','<string>','eval'),
+    + PART608 + PART609 + PART610 + NA',
     #    
-    'TSPx' : compile('(1e12/6.02E23)*((SEED_1*120) + (TSPNONORG*mwom) + (SEED*360) \
+    'TSPx' : '(1e12/6.02E23)*((SEED_1*120) + (TSPNONORG*mwom) + (SEED*360) \
     + (PART1*184.26) + (PART2A*215.25) + (PART2B*215.25) + (PART3*215.25) \
     + (PART4*245.23) + (PART5*247.2) + (PART6*217.22) + (PART11*186.21) \
     + (PART13*186.21) + (PART14*168.23) + (PART15*170.21) + (PART16*184.23) \
@@ -4983,18 +4983,18 @@ def particle_calc_dict():
     + (PART596*247.2451) + (PART597*254.1085) + (PART598*254.1085) + (PART599*254.1085) \
     + (PART600*256.1244) + (PART601*256.1244) + (PART602*256.1244) + (PART603*256.1244) \
     + (PART604*256.1244) + (PART605*256.1244) + (PART606*263.2445) + (PART607*272.1238) \
-    + (PART608*301.122) + (PART609*301.122) + (PART610*301.122) + (NA*62.1))','<string>','eval'),
+    + (PART608*301.122) + (PART609*301.122) + (PART610*301.122) + (NA*62.1))',
     #
-    'acidsum' : compile('LIMONONIC + LIMONIC + KLIMONONIC + KLIMONIC + C731CO2H + C822CO2H \
+    'acidsum' : 'LIMONONIC + LIMONIC + KLIMONONIC + KLIMONIC + C731CO2H + C822CO2H \
     + HOPINONIC + H3C25CCO2H + PINIC + NORPINIC + H3C2C4CO2H + PINONIC \
     + C89CO2H + PERPINONIC + CO13C3CO2H + C512CO2H + C615CO2H + C617CO2H \
     + C618CO2H + C718CO2H + C87CO2H + C88CO2H + CO1M22CO2H + MC3ODBCO2H \
     + HC4CCO2H + HC4ACO2H + CO2C4CO2H + C518CO2H + HMVKBCO2H + C624CO2H \
     + C622CO2H + C23O3CCO2H + C519CO2H + C517CO2H + C729CO2H + CONM2CO2H \
     + MMALNBCO2H + MMALNACO2H + C58NO3CO2H + C57NO3CO2H + INCNCO2H \
-    + INB1NBCO2H + INB1NACO2H','<string>','eval'),
+    + INB1NBCO2H + INB1NACO2H',
     #
-    'mwomv' : compile('(1e12/6.02E23)*((TSPNONORG/TSPx*mwom**2) +\
+    'mwomv' : '(1e12/6.02E23)*((TSPNONORG/TSPx*mwom**2) +\
     (SEED_1/TSPx*120**2) + (SEED/TSPx*360**2) +\
     (PART1/TSPx*184.26**2) + (PART2A/TSPx*215.25**2) +\
     (PART2B/TSPx*215.25**2) + (PART3/TSPx*215.25**2) +\
@@ -5279,9 +5279,20 @@ def particle_calc_dict():
     (PART605/TSPx*256.1244**2) + (PART606/TSPx*263.2445**2) +\
     (PART607/TSPx*272.1238**2) + (PART608/TSPx*301.122**2) +\
     (PART609/TSPx*301.122**2) + (PART610/TSPx*301.122**2) +\
-    (NA/TSPx*62.01**2))','<string>','eval'),
+    (NA/TSPx*62.01**2))',
     #
-    "soacalc" : compile("TSPx-(NA*62.01*1e12/6.02E23)",'<string>','eval')}
+    "soacalc" : "TSPx-(NA*62.01*1e12/6.02E23)",
+    #
+    "SOA" : "TSPx-(TSPNONORG*mwom*1e12/6.02E23)"}
+    return part_compile_dict
+
+def particle_calc_dict(part_compile_dict):
+    '''
+    retunrns dictionary of compiled summations
+    '''
+    part_calc_dict = {}
+    for summation in part_compile_dict:
+        part_calc_dict[summation] = compile(part_compile_dict[summation],'<string>','eval')
     return part_calc_dict
 
 def particle_import():
@@ -5293,13 +5304,13 @@ def particle_import():
         particle_species = list of particle species
         particle_reactions = dictionary of particle reactions
         particle_vapour_pressure = dictionary of particle vapour pressures
-        part_calc_dict = dictionary of compiled summations used in particle calculations
+        part_compile_dict = dictionary of summations used in particle calculations
     '''
     particle_species = particle_species_def()
     particle_reactions = particle_reactions_in()
     particle_vapour_pressure=part_vap_pres()
-    part_calc_dict=particle_calc_dict()   
-    return particle_species,particle_reactions,particle_vapour_pressure,part_calc_dict
+    part_compile_dict=particle_compile_dict()   
+    return particle_species,particle_reactions,particle_vapour_pressure,part_compile_dict
 
 def particle_calcs(part_calc_dict,density_dict):
     '''
@@ -5315,12 +5326,13 @@ def particle_calcs(part_calc_dict,density_dict):
     '''
     particle_dict={'mwom' : 120,
                'ACTIVITY' : 1,
-               'SCALINGFAC' : 120}
+               'SCALINGFAC' : 1}
     particle_dict['acidsum'] = eval(part_calc_dict['acidsum'],density_dict,particle_dict)
     particle_dict['TSP'] = eval(part_calc_dict['TSP'],density_dict,particle_dict)
     particle_dict['TSPx'] =  eval(part_calc_dict['TSPx'],density_dict,particle_dict)
     particle_dict['mwomv'] = eval(part_calc_dict['mwomv'],density_dict,particle_dict)
     particle_dict['soacalc'] = eval(part_calc_dict['soacalc'],density_dict,particle_dict)
+    particle_dict['SOA'] = eval(part_calc_dict['SOA'],density_dict,particle_dict)
 
     return particle_dict
 
@@ -5348,3 +5360,87 @@ def reactions_check(reactions_numba,particle_reactions,species):
             particle_reactions_temp.append(s)
     reactions_numba = reactions_numba + particle_reactions_temp
     return reactions_numba
+
+def HOMS_chemistry(INCHEM_terpenes, reactions_numba, part_compile_dict):
+    '''
+    Adds HOMS chemistry for fast particle production from terpenes.
+    Based on Kruza 2020 (https://doi.org/10.1016/j.atmosenv.2020.117784)
+    
+    inputs:
+        reactions_numba = full list of included chemical reactions [rate, reaction]
+                          with reaction calculations in numba format
+        INCHEM_terpenes = list of terpenes added through additional chemistry not in the MCM
+        part_compile_dict = dictionary of summations used in particle calculations
+    
+    outputs:
+        reactions_numba = full list of included chemical reactions [rate, reaction]
+                          with reaction calculations in numba format with equations sdjusted for HOMS
+        HOMS_species = list of HOMS species, gas and particle phase
+        part_compile_dict = dictionary of summations used in particle calculations
+        HOMRO2 = list of HOM RO2 species       
+    '''
+    # add the MCM terpenes
+    INCHEM_terpenes.extend(['APINENE','BPINENE','LIMONENE'])
+    INCHEM_terpenes = set(INCHEM_terpenes)
+    
+    # create HOMS species, additional HOMS reactions, strings to modify summations
+    HOMS_species = []
+    HOMS_reactions = []
+    HOMS_sums = {'TSP':'',
+                 'TSPx':'',
+                 'mwomv':''}
+    HOMRO2 = []
+    
+    # adjust the O3 reactions 
+    for loc,value in enumerate(reactions_numba):
+        for j in INCHEM_terpenes:
+            if j + ' + O3' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + '*0.1',reactions_numba[loc][1].split('=')[0] + '= ' + j + '_HOMRO2']]
+                HOMS_reactions.extend(new_HOMS_reaction)
+                reactions_numba[loc][0] = reactions_numba[loc][0] + '*0.9'
+            
+                
+    # adjust the OH reactions
+    for loc,value in enumerate(reactions_numba):
+        for j in INCHEM_terpenes:
+            if j + ' + OH' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + '*0.08',reactions_numba[loc][1].split('=')[0] + '= ' + j + '_HOMRO2']]
+                HOMS_reactions.extend(new_HOMS_reaction)
+                reactions_numba[loc][0] = reactions_numba[loc][0] + '*0.92'
+     
+    #print(HOMS_reactions)
+            
+
+    for terpene in INCHEM_terpenes:
+        HOMS_species.extend([terpene + '_HOMRO2', terpene + '_HOM', terpene + '_HOMRO', terpene + '_HOMDIMER', # Gas-phase
+                             'PART_' + terpene + '_HOMDIMER', 'PART_' + terpene + '_HOM']) # particle-phase
+        # HOMS chemical reactions
+        HOMS_reactions.extend([['KRO2HO2*0.914', terpene + '_HOMRO2 + HO2 = ' + terpene + '_HOM'],
+                               ['KRO2NO*0.23', terpene + '_HOMRO2 + NO = ' + terpene + '_HOM'],
+                               ['KRO2NO*0.77', terpene + '_HOMRO2 + NO = ' + terpene + '_HOMRO + NO2'],
+                               ['KDEC', terpene + '_HOMRO = ' + terpene + '_HOMRO2'],
+                               ['KRO2NO3', terpene + '_HOMRO2 + NO3 = ' + terpene + '_HOM + NO2'],
+                               ['9.2e-14*RO2', terpene + '_HOMRO2 = ' + terpene + '_HOM'],
+                               ['1e-10', terpene + '_HOMRO2 + ' + terpene + '_HOMRO2 = ' + terpene + '_HOMDIMER']])
+        HOMRO2.append(terpene + '_HOMRO2')
+        # HOMS particle sums
+        HOMS_sums['TSP'] = HOMS_sums['TSP'] + ' + PART_' + terpene + '_HOM + PART_' + terpene + '_HOMDIMER'
+        HOMS_sums['TSPx'] = HOMS_sums['TSPx'] + ' + (PART_' + terpene + '_HOM*294) + (PART_' + terpene + '_HOMDIMER*462)'  
+        HOMS_sums['mwomv'] = HOMS_sums['mwomv'] + ' + (PART_' + terpene + '_HOM/TSPx*294**2) + (PART_' + terpene + '_HOMDIMER/TSPx*462**2)'
+        # HOMS particle reactions
+        HOMS_reactions.extend([#['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + SEED_1 = PART_' + terpene + '_HOMDIMER + SEED_1'],
+                               #['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + TSP = PART_' + terpene + '_HOMDIMER'],
+                               #['(6.2E-3*1E12*462/6.02E23)/((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', 'PART_' + terpene + '_HOMDIMER = ' + terpene + '_HOMDIMER'],
+                               ['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', terpene + '_HOM + SEED_1 = PART_' + terpene + '_HOM + SEED_1'],
+                               ['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', terpene + '_HOM + TSP = PART_' + terpene + '_HOM'],
+                               ['(6.2E-3*1E12*294/6.02E23)/((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', 'PART_' + terpene + '_HOM = ' + terpene + '_HOM']])
+    
+    # update reactions list
+    reactions_numba = reactions_numba + HOMS_reactions
+    
+    # update particle summations
+    part_compile_dict['TSP'] = part_compile_dict['TSP'] + HOMS_sums['TSP']
+    part_compile_dict['TSPx'] = part_compile_dict['TSPx'][:-1] + HOMS_sums['TSPx'] + ')'
+    part_compile_dict['mwomv'] = part_compile_dict['mwomv'][:-1] + HOMS_sums['mwomv'] + ')'
+    
+    return reactions_numba, HOMS_species, part_compile_dict, HOMRO2

@@ -157,13 +157,14 @@ timed_emissions = False # is there a species, or set of species that has a force
 # the dictionary should be populated as
 # timed_inputs = {species1:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]],
 #                 species2:[[start time (s), end time (s), rate of increase in (mol/cm^3)/s]]}
-timed_inputs = {"LIMONENE":[[46800,47400,5e8],[107600,108000,5e8]],
-                "BPINENE":[[46800,47400,5e8]]}
+timed_inputs = {"LIMONENE":[[46800,47400,5e10],[107600,108000,5e8]],
+                "BPINENE":[[46800,47400,5e10]]}
 
 
 """
 Integration
 """
+
 dt = 120                        # Time between outputs (s), simulation may fail if this is too large
                                 # also used as max_step for the scipy.integrate.ode integrator 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
