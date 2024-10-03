@@ -29,7 +29,7 @@ Version: 1.2.1
 
 filename = 'mcm_v331.fac' # facsimile format input filename
 
-particles = True # Are we including particles. Boolean
+particles = True # Are we including particles. Boolean. Only accurate if INCHEM_additional also True
 
 INCHEM_additional = True #Set to True if additional reactions from the INCHEM are being used
 #that do not appear in the MCM download
