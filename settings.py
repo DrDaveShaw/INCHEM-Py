@@ -165,7 +165,7 @@ timed_inputs = {"LIMONENE":[[46800,47400,5e10],[107600,108000,5e8]],
 Integration
 """
 
-dt = 120                        # Time between outputs (s), simulation may fail if this is too large
+dt = 60                        # Time between outputs (s), simulation may fail if this is too large
                                 # also used as max_step for the scipy.integrate.ode integrator 
 t0 = 0                          # time of day, in seconds from midnight, to start the simulation
 seconds_to_integrate = 86400    # how long to run the model in seconds (86400*3 will run 3 days)

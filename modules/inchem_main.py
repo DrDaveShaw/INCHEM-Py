@@ -921,7 +921,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     else:  
         secx = 1.0 / (((cosx + numba_abs(cosx))/2)+1.0E-30)
     
-    light_on_times = [[j * 3600 for j in i]for i in light_on_times] #conversion to seconds
+    #light_on_times = [[j * 3600 for j in i]for i in light_on_times] #conversion to seconds
     
     J_dict = {}
     lighting_input = {}
