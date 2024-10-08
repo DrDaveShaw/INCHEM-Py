@@ -146,7 +146,11 @@ def reactions_output(output_folder, out_directory, species, master_array,
 
     
     #species master calculation
-    spec_calc = {i[0] : eval("*".join(i[:]),{},time_data) for i in master_array[species]}
+    spec_calc = {}
+    for react in master_array[species]:
+        for value in react:
+            if value.startswith('r'):
+                spec_calc[value] = eval("*".join(react[:]),{},time_data)
     
 
     df = pd.DataFrame(index=spec_calc.keys())
