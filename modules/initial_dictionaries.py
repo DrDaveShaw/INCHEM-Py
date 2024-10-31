@@ -328,3 +328,38 @@ def INCHEM_species_calc(INCHEM_reactions,species):
     temp = list( dict.fromkeys(temp) )                  #removes duplicates
     INCHEM_species = [item for item in temp if item not in species]
     return INCHEM_species
+
+def timed_import(timed_inputs):
+    '''
+    imports timed emissions and creates a list of reactions and a dictionary of
+    emission times
+    
+    inputs:
+        timed_inputs = a dictionary of species timed emissions
+        
+    returns:
+        timed_reactions = a list of reactions that can be turned on and off using
+                            the specific times of the emissions which are saved in
+                            emission_group
+        emission_group = a dictionary of timed emission groups and the times at
+                            which the emissions take place
+    '''
+    timed_groups = {}
+    # create groups of timed emissions by emission time
+    for species, emission in timed_inputs.items():
+        for entry in emission:
+            key = (entry[0], entry[1])
+            if key not in timed_groups:
+                timed_groups[key] = {}
+            if species not in timed_groups[key]:
+                timed_groups[key][species] = []
+            timed_groups[key][species].append(entry)
+    
+    # number each timed emission group
+    emission_group = {}
+    timed_reactions = []
+    for i, (key, species_emission) in zip(range(len(timed_groups)), timed_groups.items()):
+        emission_group[f'timed_{i}'] = key                
+        for species, emission in species_emission.items():
+            timed_reactions.append([f"timed_{i}*({emission[0][2]})",f"= {species}"])
+    return timed_reactions, emission_group

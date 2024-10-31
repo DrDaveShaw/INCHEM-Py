@@ -42,7 +42,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         particle_calc_dict
     from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
     from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
-        reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc
+        reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc, timed_import
     from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc,\
         ACRate_updater
     import numpy as np
@@ -294,14 +294,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
         if timed_emissions == True:
-            for i,key in enumerate(timed_inputs):
-                iterator = iter(range(len(timed_inputs[key])))
-                for k in timed_inputs[key]:
-                    iterator_next = next(iterator)
-                    if events[i+1] == True:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
-                    else:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
+            for i, key in enumerate(emission_group.keys()):
+                if events[i+1] == True:
+                    timed_dict[key] = 1 
+                else:
+                    timed_dict[key] = 0
         
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,\
@@ -394,14 +391,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         #checks time, if between times set for a forced density change the rate
         #is applied to the specific species
         if timed_emissions == True:
-            for i,key in enumerate(timed_inputs):
-                iterator = iter(range(len(timed_inputs[key])))
-                for k in timed_inputs[key]:
-                    iterator_next = next(iterator)
-                    if events[i+1] == True:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
-                    else:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
+            for i, key in enumerate(emission_group.keys()):
+                if events[i+1] == True:
+                    timed_dict[key] = 1 
+                else:
+                    timed_dict[key] = 0
                     
         #recalculate reaction rates
         reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_dict,\
@@ -539,7 +533,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                         
         return dt_out,n_new,iters,ret,iter_time,calculated_output
     
-    def event_creator(t,light_on_times,timed_emissions,timed_inputs):
+    def event_creator(t,light_on_times,timed_emissions,emission_group):
         '''
         inputs:
             t = current time (s)
@@ -561,12 +555,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         events.append(condition)
         
         if timed_emissions == True:
-            condition = False
-            for species in timed_inputs:
-                for emission in timed_inputs[species]:
-                    if emission[0] <= t < emission[1]:
-                        condition = True
-                        break
+            for emission in emission_group.values():
+                if emission[0] <= t < emission[1]:
+                    condition = True
+                else:
+                    condition = False
                 events.append(condition)
         
         return events
@@ -836,22 +829,17 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     timed concentrations
     '''
-    timed_dict = {}
-    timed_reactions = []
+
     if timed_emissions == True:
-        for key in timed_inputs:
-            if key in species:
-                iterator = iter(range(len(timed_inputs[key])))
-                for i in timed_inputs[key]:
-                    iterator_next = next(iterator)
-                    timed_reactions.append(["%s_timed_%s*(%s)" % (key,iterator_next,i[2]),"= %s" % key])
-                    if i[0] <= t0 <= i[1]:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 1
-                    else:
-                        timed_dict["%s_timed_%s" % (key,iterator_next)] = 0
+        timed_reactions, emission_group = timed_import(timed_inputs)
+        reactions_numba = reactions_numba + timed_reactions
+        
+        timed_dict = {}
+        for key, value in emission_group.items():
+            if value[0] <= t0 <= value[1]:
+                timed_dict[key] = 1 
             else:
-                print('%s not found in species list (timed input)' % key)
-        reactions_numba = reactions_numba + timed_reactions      
+                timed_dict[key] = 0
     
     '''
     Additional clean up, checking for summations from custom inputs
@@ -1102,7 +1090,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             print('Integration to', end_time)
             n_new_in = n_new[:,-1]
             dt_out_in = dt_out[-1]
-            events = event_creator(dt_out_in,light_on_times,timed_emissions,timed_inputs)
+            events = event_creator(dt_out_in,light_on_times,timed_emissions,emission_group)
             dt_out_temp,n_new_temp,iters,ret,iter_time,calculated_output=\
                 integrate_function(iters,end_time,n_new_in,dt_out_in,ret,save_rate,\
                                    num_species,total_iter,dt,events)
