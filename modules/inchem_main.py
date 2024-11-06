@@ -829,12 +829,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     timed concentrations
     '''
-
+    
+    timed_dict = {}
     if timed_emissions == True:
         timed_reactions, emission_group = timed_import(timed_inputs)
         reactions_numba = reactions_numba + timed_reactions
         
-        timed_dict = {}
         for key, value in emission_group.items():
             if value[0] <= t0 <= value[1]:
                 timed_dict[key] = 1 
