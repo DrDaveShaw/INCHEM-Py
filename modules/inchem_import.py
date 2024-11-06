@@ -51,11 +51,12 @@ def speciesin(filename):
             elif end in line:
                 started = False
             if started == True and start not in line:
+                line=line.replace(';','')
                 species_in.append(line.split(' '))
                 
     species=list(itertools.chain(*species_in))
     #species.pop(0)
-    species.pop(-1)
+    #species.pop(-1)
     
     del species_in
     
