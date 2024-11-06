@@ -831,6 +831,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     
     timed_dict = {}
+    emission_group = {}
     if timed_emissions == True:
         timed_reactions, emission_group = timed_import(timed_inputs)
         reactions_numba = reactions_numba + timed_reactions
