@@ -45,6 +45,7 @@ def surface_deposition(AV,H2O2_dep,O3_dep):
     if O3_dep == False:
         surface_dict['O3_SURF']=(0.0345)*AV
     surface_dict['HNO3_SURF']=(0.176)*AV
+    surface_dict['HCL_SURF']=(0.176)*AV
     surface_dict['SO2_SURF']=(0.029)*AV
     surface_dict['NO2_SURF']=(0.0261)*AV
     if H2O2_dep == False:
