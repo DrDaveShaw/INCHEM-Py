@@ -179,7 +179,10 @@ def master_calc(reactions_in,species,reaction_number,particles,particle_species,
             master_array_dict[s].append(['%s' % s, 'ACRate', '-1'])
         
         #surface deposition
-        master_array_dict[s].append(['%s_SURF' % s, s,'-1'])   
+        master_array_dict[s].append(['%s_SURF' % s, s,'-1'])  
+        
+    # trying to prevent recursion errors...
+    
             
     return master_array_dict
 
@@ -205,6 +208,7 @@ def master_compiler(master_array_dict,species):
             x.append('*'.join(j))
         y='+'.join(x)
         master_compiled[i]=compile(y,'<string>','eval')   
+
     return master_compiled
 
 

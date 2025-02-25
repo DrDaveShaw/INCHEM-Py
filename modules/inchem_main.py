@@ -758,10 +758,9 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     INCHEM reactions and rates that are not included in MCM download.
     '''   
-    INCHEM_terpenes = []
     if INCHEM_additional == True:
         from modules.inchem_chemistry import INCHEM_RO2, INCHEM_reactions, \
-            INCHEM_rates, INCHEM_sums, INCHEM_terpenes
+            INCHEM_rates, INCHEM_sums
         INCHEM_species = INCHEM_species_calc(INCHEM_reactions,species)
         species = species + INCHEM_species
         ppool = ppool + INCHEM_RO2
@@ -803,11 +802,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         calc_dict.update(particle_vap_dict)
         if INCHEM_additional == True:
             # HOMS Chemistry
-            reactions_numba, HOMS_species, part_compile_dict, HOMRO2 = HOMS_chemistry(INCHEM_terpenes, reactions_numba,\
+            reactions_numba, HOMS_species, part_compile_dict, HOMRO2 = HOMS_chemistry(reactions_numba,\
                                                                          part_compile_dict)
             species = species + HOMS_species
             ppool = ppool + HOMRO2
-            calc_dict['PHOMS'] = 3.59e-10 # HOMS vapour pressure (Torr)
+            calc_dict['PHOMS'] = 2.11e-7 # HOMS vapour pressure (Torr)
+            calc_dict['PHOMSD'] = 7.6e-13 # HOMS dimer vapour pressure (Torr)
         part_calc_dict = particle_calc_dict(part_compile_dict)
                 
     '''

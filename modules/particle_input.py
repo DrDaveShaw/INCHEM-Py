@@ -5361,7 +5361,7 @@ def reactions_check(reactions_numba,particle_reactions,species):
     reactions_numba = reactions_numba + particle_reactions_temp
     return reactions_numba
 
-def HOMS_chemistry(INCHEM_terpenes, reactions_numba, part_compile_dict):
+def HOMS_chemistry(reactions_numba, part_compile_dict):
     '''
     Adds HOMS chemistry for fast particle production from terpenes.
     Based on Kruza 2020 (https://doi.org/10.1016/j.atmosenv.2020.117784)
@@ -5379,9 +5379,6 @@ def HOMS_chemistry(INCHEM_terpenes, reactions_numba, part_compile_dict):
         part_compile_dict = dictionary of summations used in particle calculations
         HOMRO2 = list of HOM RO2 species       
     '''
-    # add the MCM terpenes
-    INCHEM_terpenes.extend(['APINENE','BPINENE','LIMONENE'])
-    INCHEM_terpenes = set(INCHEM_terpenes)
     
     # create HOMS species, additional HOMS reactions, strings to modify summations
     HOMS_species = []
@@ -5391,27 +5388,99 @@ def HOMS_chemistry(INCHEM_terpenes, reactions_numba, part_compile_dict):
                  'mwomv':''}
     HOMRO2 = []
     
+    O3_HOM_yields = {
+        'APINENE':0.03975,
+        'CAR':0.0355,
+        'BPINENE':0.02305,
+        'LIMONENE':0.1097,
+        'C5H8':0.0001,
+        'BCARY':0.0115,
+        
+        # yields below are terpenes that map onto limonene
+        'CAMPHENE':0.1097,
+        'APHEL':0.1097,
+        'ATERPINENE':0.1097,
+        'GTERP':0.1097,
+        'TERPINOLENE':0.1097
+        }
+    
+    OH_HOM_yields = {
+        'APINENE':0.0126,
+        'BPINENE':0.00335,
+        'LIMONENE':0.0103,
+        'C5H8':0.03515,
+        'BENZENE':0.01507,
+        'PHENOL':0.0265,
+        'TOLUENE':0.0028,
+        'EBENZ':0.002,
+        'OXYL':0.0135,
+        'MXYL':0.0135,
+        'PXYL':0.0135,
+        'TM135B':0.006,
+        
+        # yields below are terpenes that map onto limonene
+        'CAMPHENE':0.0103,
+        'APHEL':0.0103,
+        'ATERPINENE':0.0103,
+        'GTERP':0.0103,
+        'TERPINOLENE':0.0103
+        }
+    
+    CL_HOM_yields = {
+        'APINENE':0.018
+        }
+    
+    NO3_HOM_yields = {
+        'C5H8':0.012,
+        'LIMONENE':0.015,
+        
+        # yields below are terpenes that map onto limonene
+        'CAMPHENE':0.015,
+        'APHEL':0.015,
+        'ATERPINENE':0.015,
+        'GTERP':0.015,
+        'TERPINOLENE':0.015
+        } 
+    
     # adjust the O3 reactions 
     for loc,value in enumerate(reactions_numba):
-        for j in INCHEM_terpenes:
-            if j + ' + O3' in reactions_numba[loc][1]:
-                new_HOMS_reaction = [[reactions_numba[loc][0] + '*0.1',reactions_numba[loc][1].split('=')[0] + '= ' + j + '_HOMRO2']]
+        for key, value in O3_HOM_yields.items():
+            if key + ' + O3' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + f'*{value}',reactions_numba[loc][1].split('=')[0] + '= ' + key + '_HOMRO2']]
                 HOMS_reactions.extend(new_HOMS_reaction)
-                reactions_numba[loc][0] = reactions_numba[loc][0] + '*0.9'
+                reactions_numba[loc][0] = reactions_numba[loc][0] + f'*(1-{value})'
             
                 
     # adjust the OH reactions
     for loc,value in enumerate(reactions_numba):
-        for j in INCHEM_terpenes:
-            if j + ' + OH' in reactions_numba[loc][1]:
-                new_HOMS_reaction = [[reactions_numba[loc][0] + '*0.08',reactions_numba[loc][1].split('=')[0] + '= ' + j + '_HOMRO2']]
+        for key, value in OH_HOM_yields.items():
+            if key + ' + OH' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + f'*{value}',reactions_numba[loc][1].split('=')[0] + '= ' + key + '_HOMRO2']]
                 HOMS_reactions.extend(new_HOMS_reaction)
-                reactions_numba[loc][0] = reactions_numba[loc][0] + '*0.92'
+                reactions_numba[loc][0] = reactions_numba[loc][0] + f'*(1-{value})'
+                
+    # adjust the CL reactions
+    for loc,value in enumerate(reactions_numba):
+        for key, value in CL_HOM_yields.items():
+            if key + ' + CL' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + f'*{value}',reactions_numba[loc][1].split('=')[0] + '= ' + key + '_HOMRO2']]
+                HOMS_reactions.extend(new_HOMS_reaction)
+                reactions_numba[loc][0] = reactions_numba[loc][0] + f'*(1-{value})'
+    
+    # adjust the NO3 reactions
+    for loc,value in enumerate(reactions_numba):
+        for key, value in NO3_HOM_yields.items():
+            if key + ' + NO3' in reactions_numba[loc][1]:
+                new_HOMS_reaction = [[reactions_numba[loc][0] + f'*{value}',reactions_numba[loc][1].split('=')[0] + '= ' + key + '_HOMRO2']]
+                HOMS_reactions.extend(new_HOMS_reaction)
+                reactions_numba[loc][0] = reactions_numba[loc][0] + f'*(1-{value})'
      
     #print(HOMS_reactions)
-            
+    
+    INCHEM_HOMS_species = set(list(O3_HOM_yields.keys()) + list(OH_HOM_yields.keys()) + 
+                              list(CL_HOM_yields.keys()) + list(NO3_HOM_yields.keys()))  
 
-    for terpene in INCHEM_terpenes:
+    for terpene in INCHEM_HOMS_species:
         HOMS_species.extend([terpene + '_HOMRO2', terpene + '_HOM', terpene + '_HOMRO', terpene + '_HOMDIMER', # Gas-phase
                              'PART_' + terpene + '_HOMDIMER', 'PART_' + terpene + '_HOM']) # particle-phase
         # HOMS chemical reactions
@@ -5428,9 +5497,9 @@ def HOMS_chemistry(INCHEM_terpenes, reactions_numba, part_compile_dict):
         HOMS_sums['TSPx'] = HOMS_sums['TSPx'] + ' + (PART_' + terpene + '_HOM*294) + (PART_' + terpene + '_HOMDIMER*462)'  
         HOMS_sums['mwomv'] = HOMS_sums['mwomv'] + ' + (PART_' + terpene + '_HOM/TSPx*294**2) + (PART_' + terpene + '_HOMDIMER/TSPx*462**2)'
         # HOMS particle reactions
-        HOMS_reactions.extend([#['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + SEED_1 = PART_' + terpene + '_HOMDIMER + SEED_1'],
-                               #['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + TSP = PART_' + terpene + '_HOMDIMER'],
-                               #['(6.2E-3*1E12*462/6.02E23)/((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*0))*1e12*462/6.02e23*SCALINGFAC', 'PART_' + terpene + '_HOMDIMER = ' + terpene + '_HOMDIMER'],
+        HOMS_reactions.extend([['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMSD))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + SEED_1 = PART_' + terpene + '_HOMDIMER + SEED_1'],
+                               ['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMSD))*1e12*462/6.02e23*SCALINGFAC', terpene + '_HOMDIMER + TSP = PART_' + terpene + '_HOMDIMER'],
+                               ['(6.2E-3*1E12*462/6.02E23)/((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMSD))*1e12*462/6.02e23*SCALINGFAC', 'PART_' + terpene + '_HOMDIMER = ' + terpene + '_HOMDIMER'],
                                ['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', terpene + '_HOM + SEED_1 = PART_' + terpene + '_HOM + SEED_1'],
                                ['((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', terpene + '_HOM + TSP = PART_' + terpene + '_HOM'],
                                ['(6.2E-3*1E12*294/6.02E23)/((7.501*1E-9*8.314*temp)/(mwomv*ACTIVITY*PHOMS))*1e12*294/6.02e23*SCALINGFAC', 'PART_' + terpene + '_HOM = ' + terpene + '_HOM']])
