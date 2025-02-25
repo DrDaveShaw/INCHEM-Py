@@ -30,7 +30,8 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults, children,
-               surface_area, settings_file, temperatures, spline, custom_filename):
+               surface_area, settings_file, temperatures, spline, custom_filename,
+               constrained_file):
   
     '''
     import all modules
@@ -45,6 +46,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc, timed_import
     from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc,\
         ACRate_updater
+    from modules.constraints import constraints_import, constrained_update
     import numpy as np
     import numba as nb
     from scipy.integrate import ode
@@ -279,12 +281,18 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             out_calc_dict["cosx"] = cosx
             out_calc_dict["secx"] = secx
             outdoor_rates_calc(outdoor_dict,outdoor_dict_diurnal,out_calc_dict)
+            
+        # constrained inputs
+        if constrained_file:
+            constrained_update(t, interp_inputs, constrained_variables, constrained_J, constrained_species,
+                              constrained_out, calc_dict, J_dict, outdoor_dict, constrained_rates, rel_humidity)
         
         #recalculate humidity,water
         if constant_temperature is False:
             calc_dict['temp'] = variable_temperature(t,temperatures,spline,tck)
         h2o,rh = h2o_rh(t,calc_dict['temp'],rel_humidity,numba_exp)
         calc_dict['H2O']=h2o
+        
      
         #recalculate particle sums
         if particles == True:
@@ -376,6 +384,11 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
             out_calc_dict["cosx"] = cosx
             out_calc_dict["secx"] = secx
             outdoor_rates_calc(outdoor_dict,outdoor_dict_diurnal,out_calc_dict)
+            
+        # constrained inputs
+        if constrained_file:
+            constrained_update(t, interp_inputs, constrained_variables, constrained_J, constrained_species,
+                              constrained_out, calc_dict, J_dict, outdoor_dict, constrained_rates,rel_humidity)
         
         #recalculate temp,humidity,water
         if constant_temperature is False:
@@ -645,6 +658,13 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     copyfile(settings_file, "%s/%s/%s_settings.py" % (path,output_folder,custom_name))
     copyfile(filename, "%s/%s/mcm.fac" % (path,output_folder))
     
+    # constrained species
+    # changes start and end time of simulation to be only within the constrained inputs
+    if constrained_file:
+        interp_inputs, constrained_variables, seconds_to_integrate, t0 = constraints_import(constrained_file, 
+                                                                                            output_folder, dt)
+        
+    
     # setting integration envelopes and integration parameters
     # needs to happen before light on times and timed emissions are parsed
     # by the functions that call them
@@ -843,6 +863,17 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                 timed_dict[key] = 0
     
     '''
+    Constrained species, remove from integration
+    '''
+    if constrained_file:
+        constrained_species = []
+        for i in constrained_variables:
+            if i in species:
+                constrained_species.append(i)
+                calc_dict[i]=float(interp_inputs[i](t0))
+                species.remove(i)
+    
+    '''
     Additional clean up, checking for summations from custom inputs
     '''
     summations = False
@@ -929,6 +960,17 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     photolysis_J(lighting_input,photo_dict,J_dict)
     
     '''
+    MOCCIE inputs updating photolysis
+    '''
+    if constrained_file:
+        constrained_J=[]
+        for i in constrained_variables:
+            if i in J_dict.keys():
+                J_dict[i]=float(interp_inputs[i](t0))
+                constrained_J.append(i)
+    
+    
+    '''
     Outdoor species concentration calculations
     '''        
     out_calc_dict = {"numba_abs":numba_abs,
@@ -948,6 +990,16 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         outdoor_dict_diurnal = outdoor_rates_diurnal(city)
         outdoor_rates_calc(outdoor_dict,outdoor_dict_diurnal,out_calc_dict)
         #diurnal rates will overide static rates if species shown in both
+        
+    '''
+    constrained inputs updating outdoor concentrations
+    '''
+    if constrained_file:
+        constrained_out=[]
+        for i in constrained_variables:
+            if i in outdoor_dict.keys():
+                outdoor_dict[i]=float(interp_inputs[i](t0))
+                constrained_out.append(i)
     
     '''
     Surface deposition
@@ -966,6 +1018,20 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                                                 rate_numba,calc_dict,particles,\
                                                     initials_from_run,t0,path)
     density_dict['RO2']=ppool_density_calc(density_dict,ppool)
+    
+    '''
+    MOCCIE inputs updating initial concentrations
+    '''
+    if constrained_file:
+        constrained_rates = []
+        for i in constrained_variables:
+            if i not in constrained_species + constrained_J + constrained_out + \
+                ["H2O", "TEMP", "rh"]:
+                    print("%s not found as species, including as rates for potential custom calculations" % i)
+                    constrained_rates.append(i)
+                    calc_dict[i]=float(interp_inputs[i](t0))
+        constrained_update(t0, interp_inputs, constrained_variables, constrained_J, constrained_species,
+                          constrained_out, calc_dict, J_dict, outdoor_dict, constrained_rates,rel_humidity)
     
     #calculating t0 summations
     summations_dict={}

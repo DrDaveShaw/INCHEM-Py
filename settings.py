@@ -162,6 +162,25 @@ timed_inputs = {"LIMONENE":[[46800,47400,5e10],[107600,108000,5e8]],
 
 
 """
+Constrained inputs
+"""
+constrained_file = None
+# Default value = None
+# To use a constrained input = 'filename.csv'
+# A csv file can be used to constrain concentrations of indoor and outdoor species, 
+# J values and rates. The csv must have the first column as the time of day (s) and all
+# subsequent columns must have the name of the species or variable to constrain in the
+# first row with concentrations or values below in the appropriate units (molecule cm-3 for 
+# species concentrations). 
+
+# The use of this file will set the start and end of the simulation to be the start and end
+# timed in the csv file. If you want to see decay from a constrained species then run one
+# simulation using the constrained file and then another using the initials_from_run setting.
+
+# example_constraints.csv gives an example of the required format of the file
+
+
+"""
 Integration
 """
 
@@ -203,4 +222,5 @@ if __name__ == "__main__":
                initial_conditions_gas, timed_emissions, timed_inputs, dt, t0,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults,
-               children, surface_area, __file__, temperatures, spline, custom_filename)
+               children, surface_area, __file__, temperatures, spline, custom_filename,
+               constrained_file)
