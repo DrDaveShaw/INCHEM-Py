@@ -185,7 +185,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                    **surface_dict,**timed_dict}
         
         for specie in species:
-            dy_dict[specie]=(eval(master_compiled[specie],{},full_dict))
+            dy_dict[specie]=master_compiled[specie](full_dict)
         return dy_dict
     
     
@@ -211,13 +211,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
 
         full_dict={**reaction_rate_dict,**density_dict,**outdoor_dict,**surface_dict,\
                     **calc_dict,**timed_dict}
-        dydy_dict = eval(dy_dy_dict, {}, full_dict)
 
-        dy_dy = np.zeros((len(dydy_dict), len(dydy_dict)), dtype=np.float32)
+        dy_dy = np.zeros((num_species, num_species), dtype=np.float32)
         
-        for k in dydy_dict.keys():
-            for k2 in dydy_dict[k].keys():
-                dy_dy[int(k), int(k2)] = dydy_dict[k][k2]
+        for jacobian_term in dy_dy_dict.keys():
+            k, k2 = jacobian_term
+            dy_dy[int(k), int(k2)] = dy_dy_dict[jacobian_term](full_dict)
         return dy_dy
     
     

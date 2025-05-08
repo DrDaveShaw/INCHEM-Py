@@ -24,6 +24,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 """
+from modules.odeterm import SpeciesODETerm
+
 def reactivity_summation(master_array_dict):
     '''
     Takes the master array and calculates summations for reactivity.
@@ -56,8 +58,7 @@ def reactivity_summation(master_array_dict):
                                 i = list(filter((species).__ne__, i))
                                 x.append('*'.join(i))
             if len(x) > 0:
-                reactivity = '+'.join(x)
-                reactivity_compiled[species] = compile(reactivity,'<string>','eval')
+                reactivity_compiled[species] = SpeciesODETerm(x)
         except KeyError:
             continue
      
@@ -95,7 +96,7 @@ def reactivity_calc(reactivity_dict,reactivity_compiled,reaction_rate_dict,calc_
     """
     full_dict={**reaction_rate_dict,**calc_dict,**density_dict}
     for species in reactivity_compiled.keys():
-        reactivity_dict['%s_reactivity' % species] = eval(reactivity_compiled[species],{},full_dict)*(-1)
+        reactivity_dict['%s_reactivity' % species] = reactivity_compiled[species](full_dict)*(-1)
     return None
 
 def production_calc(production_dict,production_compiled,reaction_rate_dict,calc_dict,density_dict):

@@ -30,6 +30,7 @@ import numpy as np
 from tqdm import tqdm
 import pandas as pd
 import re
+from modules.odeterm import SpeciesODETerm
 
 def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path):
     '''
@@ -206,8 +207,7 @@ def master_compiler(master_array_dict,species):
         x=[]
         for j in master_array_dict[i]:
             x.append('*'.join(j))
-        y='+'.join(x)
-        master_compiled[i]=compile(y,'<string>','eval')   
+        master_compiled[i]=SpeciesODETerm(x)
 
     return master_compiled
 
@@ -282,14 +282,7 @@ def construct_jacobian(master_array):
     species = [k for k in master_array.keys()]
     construct_dy_dy = {}
 
-    prog = '{\n'
-
     for val1, s1 in enumerate(tqdm(species,desc='Constructing Jacobian')):
-        construct_dy_dy[val1] = {}
-        if val1 == 0:
-            prog += f'    "{val1}" : {{'
-        else:
-            prog += f'}},    "{val1}" : {{'
         for val2, s2 in enumerate(species):
             rxns_of_interest = []
             for r in master_array[s1]:
@@ -306,11 +299,9 @@ def construct_jacobian(master_array):
                     rxns_of_interest.append(rxn_data)
 
             if len(rxns_of_interest)>0:
-                prog += f'    "{val2}": {" + ".join(rxns_of_interest)},\n'
-    prog += '}}'
+                construct_dy_dy[(val1,val2)] = SpeciesODETerm(rxns_of_interest)
 
-
-    compiled_dydy = compile(prog, '<string>', 'eval')
+    compiled_dydy = construct_dy_dy
     return compiled_dydy
 
     
