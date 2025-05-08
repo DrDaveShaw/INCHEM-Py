@@ -8,8 +8,6 @@ class SpeciesODETerm:
 
     def __init__(self, contributions):
         """
-        compiles the master array to be evaluated during integration
-
         inputs:
             contributions = list of strings which are compiled, then summed to give the full
 
