@@ -27,6 +27,7 @@ along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 import unittest
 import os
 import numpy as np
+import dill
 
 '''
 testing the Import module
@@ -57,8 +58,8 @@ class TestImport(unittest.TestCase):
     def test_speciesin(self):
         filename = "test_files/mcm_parse_test.fac"
         species = speciesin(filename)
-        self.assertTrue(len(species) == 722, "there are 722 species in the test input")
-        self.assertTrue(species[1] == "NC826OH", "incorrect species parsed from test")
+        self.assertTrue(len(species) == 721, "there are 721 species in the test input")
+        self.assertTrue(species[0] == "NC826OH", "incorrect species parsed from test")
         
     def test_rate_coeff(self):
         filename = "test_files/mcm_parse_test.fac"
@@ -124,7 +125,7 @@ class TestImport(unittest.TestCase):
 test intial_dictionaries module
 '''       
 from initial_dictionaries import initial_conditions, master_calc, \
-    write_jacobian_build, INCHEM_species_calc
+    construct_jacobian, INCHEM_species_calc
 import pandas
 from packaging import version
  
@@ -204,16 +205,18 @@ class TestInitial(unittest.TestCase):
                                    ['species2', 'ACRate', '-1'],
                                    ['species2_SURF', 'species2', '-1']],
                      "species3" : [['a','-1','species3']]}
-        species = ['species1','species2','species3']
-        output_folder = "test_files"
-        path = path = os.getcwd()
-        write_jacobian_build(master_array_dict,species,output_folder,path)
-        with open("test_files/Jacobian.py") as created_file:
-            created_str = created_file.read().replace('\n', '')
-        with open("test_files/jacobian_test.txt") as test_file:
-            test_str = test_file.read().replace('\n', '')
-        self.assertMultiLineEqual(created_str, test_str, "files are not the same")
-        os.remove("test_files/Jacobian.py") #clean up
+        dy_dy_dict = construct_jacobian(master_array_dict)
+        with open('test_files/jacobian_test.pickle', 'rb') as f:
+            expected_dy_dy_dict = dill.load(f)
+        def dicts_equal_by_content(dict1, dict2):
+            if dict1.keys() != dict2.keys():
+                return False
+            for k in dict1:
+                if dict1[k].__dict__ != dict2[k].__dict__:
+                    return False
+            return True   
+        self.assertTrue(dicts_equal_by_content(dy_dy_dict, expected_dy_dy_dict), "jacobians are not the same")
+        
     
     def test_INCHEM_species_calc(self):
         from test_files.chemistry_test import INCHEM_reactions

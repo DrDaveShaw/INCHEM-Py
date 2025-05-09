@@ -33,6 +33,7 @@ or loss rate of a species due to a specific reaction.
 import pickle
 import os
 import pandas as pd
+import re
 
 def data_import(out_directory):
     '''
@@ -145,7 +146,20 @@ def reactions_output(output_folder, out_directory, species, master_array,
                         time_data["%s_timed" % key] = 0
 
     
-    spec_calc = {i[0] : eval("*".join(i[:]),{},time_data) for i in master_array[species]}
+    
+    spec_calc = {}
+    for i in master_array[species]:
+        # Try to find a reaction ID first
+        key = next((item for item in i if re.match(r"^r\d+$", item)), None)
+        
+        # If no reaction ID found, fall back to the first element
+        if key is None:
+            key = i[0]
+        
+        try:
+            spec_calc[key] = eval("*".join(i), {}, time_data)
+        except Exception as e:
+            print(f"Failed to evaluate expression for {key}: {i} — {e}")
     
 
     df = pd.DataFrame(index=spec_calc.keys())
