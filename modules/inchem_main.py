@@ -31,7 +31,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
                seconds_to_integrate, custom_name, output_graph, output_species,
                reactions_output, H2O2_dep, O3_dep, adults, children,
                surface_area, settings_file, temperatures, spline, custom_filename,
-               constrained_file):
+               constrained_file, automatically_fix_undefined_species=False):
   
     '''
     import all modules
@@ -43,7 +43,8 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
         particle_calc_dict
     from modules.photolysis import photolysis_J, Zixu_photolysis, Zixu_photolysis_compiled
     from modules.initial_dictionaries import initial_conditions, master_calc, master_compiler,\
-        reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc, timed_import
+        reaction_rate_compile, reaction_eval, construct_jacobian, INCHEM_species_calc, timed_import, \
+        undefined_species_dict
     from modules.outdoor_concentrations import outdoor_rates, outdoor_rates_diurnal, outdoor_rates_calc,\
         ACRate_updater
     from modules.constraints import constraints_import, constrained_update
@@ -1036,11 +1037,21 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     summations_dict={}
     if summations == True:
         summations_dict = summations_compile(sums)
-        sums_dict={}
+        
+        if automatically_fix_undefined_species:
+            undefined_dict = undefined_species_dict(summations_dict,density_dict,calc_dict)
+            density_dict.update(undefined_dict)
+        
+        sums_dict = {}
         sums_dict=summations_eval(summations_dict,density_dict,calc_dict)
         density_dict.update(sums_dict)
     
     if particles == True:
+        
+        if automatically_fix_undefined_species:
+            undefined_dict = undefined_species_dict(part_calc_dict,density_dict,calc_dict)
+            density_dict.update(undefined_dict)
+
         particle_dict = particle_calcs(part_calc_dict,density_dict)
         density_dict.update(particle_dict)
     
@@ -1060,6 +1071,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     
     reaction_compiled_dict=reaction_rate_compile(reactions_numba,reaction_number)
     reaction_rate_dict={}
+    
+    if automatically_fix_undefined_species:
+        full_dict={**J_dict,**density_dict,**outdoor_dict,**surface_dict,**timed_dict}
+        undefined_dict = undefined_species_dict(reaction_compiled_dict,full_dict,calc_dict)
+        density_dict.update(undefined_dict)
+
     reaction_eval(reaction_rate_dict,reaction_number,J_dict,calc_dict,density_dict,\
                                      dt,reaction_compiled_dict,outdoor_dict,\
                                          surface_dict,timed_dict)

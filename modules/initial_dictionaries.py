@@ -358,3 +358,39 @@ def timed_import(timed_inputs):
         for species, emission in species_emission.items():
             timed_reactions.append([f"timed_{i}*({emission[0][2]})",f"= {species}"])
     return timed_reactions, emission_group
+
+
+def undefined_species_dict(compiled_code_dict, variables_dict, calc_dict):
+    '''
+    Identifies species in the compiled code segments which will not be
+    successfully resolved.
+    This can be used to add a placeholder for absent species to the
+    density dictionary (with 0 density).
+    This in turn cam allow the summations, particle calculations, or reaction
+    rates to be calculated despite a reduced model (without the complete MCM).
+
+    If a prerequisite of the compiled code is in neither of the 2 provided
+    dictionaries, it is returned as undefined.
+
+    inputs:
+        compiled_code_dict = a dictionary of compiled code segments, whose
+            variables will need to be defined.
+        variables_dict = a dictionary of variables which are already defined
+        calc_dict = a dictionary of other terms which are already defined
+
+    returns:
+        timed_reactions = a dictionary whose keys give any species which are
+            essential for the calculation, but are not included in either the
+            variables, or calculations, provided.
+            The values of the dictionary are 0, so that appending this to the
+            density would declare the species absent.
+    '''
+    result = {}
+    for code_block in compiled_code_dict.values():
+        for species in code_block.co_names:
+            if (species not in variables_dict and species not in calc_dict):
+                result[species] = 0.0
+    if (len(result) > 0):
+        print(f'Warning {len(result)} undefined species were assumed to have 0 concentrations:\n\t',
+              [k for k in result])
+    return result
