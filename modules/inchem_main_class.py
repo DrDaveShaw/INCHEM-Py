@@ -32,7 +32,26 @@ class InChemPyMainClass:
 
     def __init__(self, filename, INCHEM_additional, particles, constrained_file, output_folder, dt, volume, surface_area, adults, children,
                  const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs, custom_filename):
+        """
+        @brief Initialize the InChemPy class with sufficient parameters required to build the jacobian needed for the simulation.
 
+        @param filename Input FACSIMILE format filename.
+        @param particles Boolean flag to include particle modeling.
+        @param INCHEM_additional Include additional INCHEM reactions not in the MCM download.
+        @param custom Include custom reactions.
+        @param custom_filename Filename for custom reaction input.
+        @param const_dict Dictionary of species to hold constant with their values.
+        @param volume Volume of the simulation room in cm³.
+        @param surface_area Dictionary of surface areas by material in cm².
+        @param H2O2_dep Enable surface deposition modeling for H2O2.
+        @param O3_dep Enable surface deposition modeling for O3.
+        @param adults Number of adults in the room.
+        @param children Number of children (age 10) in the room.
+        @param timed_emissions Enable time-dependent emissions of species.
+        @param timed_inputs Dictionary of species and their emission schedules.
+        @param constrained_file CSV file to constrain species or rates over time.
+        @param dt Time step for integration (seconds).
+        """
         # constrained species
         # changes start and end time of simulation to be only within the constrained inputs
         self.constrained_file = constrained_file
@@ -204,6 +223,31 @@ class InChemPyMainClass:
             M, light_type, glass, diurnal, city, date, lat, ACRate_dict, light_on_times,
             initial_conditions_gas, initials_from_run, path,
             output_folder, reactions_output, initial_dataframe=None):
+        """
+        Run the inchempy simulation
+
+        @param spline Method of temperature interpolation or a constant temperature.
+        @param temperatures List of [time, temperature] pairs for interpolation.
+        @param rel_humidity Relative humidity (in %).
+        @param M Number density of air in molecules/cm³.
+        @param ACRate_dict Dictionary of air change rates {time (s): rate (1/s)}.
+        @param diurnal Enable diurnal variation of outdoor concentrations.
+        @param city City for outdoor concentration profiles.
+        @param date Simulation date in format "DD-MM-YYYY".
+        @param lat Latitude of the simulation location.
+        @param light_type Indoor light source type.
+        @param light_on_times Schedule for indoor lighting (on/off in hours).
+        @param glass Type of glass for light attenuation.
+        @param initials_from_run If True, use previous model output for initial conditions.
+        @param initial_conditions_gas Filename with initial concentrations if not using previous output.
+        @param initial_dataframe an optional pandas dataframe with initial concentrations if using initials_from_run.
+        @param timed_emissions Enable time-dependent emissions of species.
+        @param timed_inputs Dictionary of species and their emission schedules.
+        @param dt Time step for integration (seconds).
+        @param t0 Start time in seconds from midnight.
+        @param seconds_to_integrate Duration of the simulation in seconds.
+        @param reactions_output Save detailed reaction rates and constants.
+        """
 
         start_time = timing.time()  # program start time
 
