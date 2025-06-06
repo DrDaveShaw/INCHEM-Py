@@ -386,9 +386,17 @@ def undefined_species_dict(compiled_code_dict, variables_dict, calc_dict):
             density would declare the species absent.
     '''
     result = {}
+
+    # Some keywords used in the dictionaries are falsely identified as species which are not species
+    # The names can be recorded here so they do not get falsely identified as undefined species
+    false_positive_species = ['mcov']
+
     for code_block in compiled_code_dict.values():
         for species in code_block.co_names:
-            if (species not in variables_dict and species not in calc_dict):
+            if (species not in variables_dict
+                and species not in calc_dict
+                and species not in compiled_code_dict
+                    and species not in false_positive_species):
                 result[species] = 0.0
     if (len(result) > 0):
         print(f'Warning {len(result)} undefined species were assumed to have 0 concentrations:\n\t',
