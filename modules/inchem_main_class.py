@@ -203,7 +203,7 @@ class InChemPyMainClass:
     def run(self, t0, seconds_to_integrate, dt, timed_emissions, timed_inputs, spline, temperatures, rel_humidity,
             M, light_type, glass, diurnal, city, date, lat, ACRate_dict, light_on_times,
             initial_conditions_gas, initials_from_run, path,
-            output_folder, reactions_output):
+            output_folder, reactions_output, initial_dataframe=None):
 
         start_time = timing.time()  # program start time
 
@@ -610,7 +610,7 @@ class InChemPyMainClass:
         '''
         density_dict, calc_dict = initial_conditions(initial_conditions_gas, M, self.species,
                                                      self.rate_numba, calc_dict, self.particles,
-                                                     initials_from_run, t0, path)
+                                                     initials_from_run, t0, path, initial_dataframe)
         density_dict['RO2'] = self.ppool_density_calc(density_dict, self.ppool)
 
         '''

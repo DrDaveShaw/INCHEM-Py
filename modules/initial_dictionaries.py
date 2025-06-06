@@ -32,7 +32,7 @@ import pandas as pd
 import re
 from modules.odeterm import SpeciesODETerm
 
-def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path):
+def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path, initial_dataframe=None):
     '''
     importing initial concentrations of gas phase species and particles if particles = True
     
@@ -46,6 +46,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         initials_from_run = True/False depending if taking initials from previous run
         t0 = starting time of simulation (s)
         path = current working directory
+        initial_dataframe = an optional pandas dataframe to use instead of opening a pickle file
         
     returns:
         density_dict = dictionary of current species concentrations {species : concentration}
@@ -58,7 +59,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         from bisect import bisect_left
         #with open("%s/in_data.pickle" % path,'rb') as handle:
             #in_data = pickle.load(handle)
-        in_data = pd.read_pickle("%s/in_data.pickle" % path)
+        in_data = initial_dataframe if initial_dataframe is not None else pd.read_pickle("%s/in_data.pickle" % path)
         index_values = in_data.index.values
         pos = bisect_left(index_values, t0)
         if pos == 0:
@@ -379,7 +380,7 @@ def undefined_species_dict(compiled_code_dict, variables_dict, calc_dict):
         calc_dict = a dictionary of other terms which are already defined
 
     returns:
-        timed_reactions = a dictionary whose keys give any species which are
+        undefined_species_dict = a dictionary whose keys give any species which are
             essential for the calculation, but are not included in either the
             variables, or calculations, provided.
             The values of the dictionary are 0, so that appending this to the
@@ -389,7 +390,7 @@ def undefined_species_dict(compiled_code_dict, variables_dict, calc_dict):
 
     # Some keywords used in the dictionaries are falsely identified as species which are not species
     # The names can be recorded here so they do not get falsely identified as undefined species
-    false_positive_species = ['mcov']
+    false_positive_species = ['mwom']
 
     for code_block in compiled_code_dict.values():
         for species in code_block.co_names:
