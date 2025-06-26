@@ -3417,6 +3417,18 @@ def surface_deposition(AV,H2O2_dep,O3_dep):
     surface_dict['DHMOLOH_SURF']=VDALC*AV
     surface_dict['DHMOLOOH_SURF']=VDPER*AV
     surface_dict['DHMOLNO3_SURF']=VDNO3*AV
+    # Furan, methylfuran, dimethylfuran, furfural, methylfurfural schemes
+    surface_dict['HYDFURANOOH_SURF']=VDPER*AV
+    surface_dict['HYDMEFURANOOH_SURF']=VDPER*AV
+    surface_dict['C5HYDCARBOOH_SURF']=VDPER*AV
+    surface_dict['HYDDIMEFURANOOH_SURF']=VDPER*AV
+    surface_dict['FURFURALOOH_SURF']=VDPER*AV
+    surface_dict['HYDFURFURALOOH_SURF']=VDPER*AV
+    surface_dict['ALDFURFURALOOH_SURF']=VDPER*AV
+    surface_dict['FURANOOH_SURF']=VDPER*AV
+    surface_dict['CARBFURANOOH_SURF']=VDPER*AV
+    surface_dict['MEFURFURALOOH_SURF']=VDPER*AV
+    surface_dict['HYDMEFURFURALOOH_SURF']=VDPER*AV
     return surface_dict
 
 #CUSTOM INPUT FUNCTIONS FOR OZONE AND HYDROGEN PEROXIDE DEPOSITION (TJC)
