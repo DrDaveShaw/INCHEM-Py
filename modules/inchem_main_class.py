@@ -30,7 +30,7 @@ class InChemPyMainClass:
     # is still required. A save rate of 1 will save every dt, a save rate of 2 will
     # save every 2*dt
 
-    def __init__(self, filename, INCHEM_additional, particles, constrained_file, output_folder, dt, volume, surface_area, adults, children,
+    def __init__(self, filename, INCHEM_additional, particles, constrained_file, output_folder, dt, volume, surface_area,
                  const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs, custom_filename):
         """
         @brief Initialize the InChemPy class with sufficient parameters required to build the jacobian needed for the simulation.
@@ -45,8 +45,6 @@ class InChemPyMainClass:
         @param surface_area Dictionary of surface areas by material in cm².
         @param H2O2_dep Enable surface deposition modeling for H2O2.
         @param O3_dep Enable surface deposition modeling for O3.
-        @param adults Number of adults in the room.
-        @param children Number of children (age 10) in the room.
         @param timed_emissions Enable time-dependent emissions of species.
         @param timed_inputs Dictionary of species and their emission schedules.
         @param constrained_file CSV file to constrain species or rates over time.
@@ -77,8 +75,6 @@ class InChemPyMainClass:
             'PI': pi,
             'AV': AV,
             'numba_abs': self.numba_abs,
-            'adults': adults,
-            'children': children,
             'volume': volume}
 
         self.calc_dict.update(const_dict)  # add constants from settings to calc_dict
@@ -154,7 +150,7 @@ class InChemPyMainClass:
             O3_rates, O3_reactions = O3_deposition()
             self.reactions_numba = self.reactions_numba + O3_reactions
             self.rate_numba = self.rate_numba + O3_rates
-        if adults+children > 0:
+        if True: # Assume that there may be people
             breath_rates, breath_reactions = breath_emissions(volume)
             self.reactions_numba = self.reactions_numba + breath_reactions
             self.rate_numba = self.rate_numba + breath_rates
@@ -220,8 +216,8 @@ class InChemPyMainClass:
         self.dy_dy_dict = construct_jacobian(self.master_array_dict)
 
     def run(self, t0, seconds_to_integrate, dt, timed_emissions, timed_inputs, spline, temperatures, rel_humidity,
-            M, light_type, glass, diurnal, city, date, lat, ACRate_dict, light_on_times,
-            initial_conditions_gas, initials_from_run, path,
+            M, light_type, glass, diurnal, city, date, lat, ACRate_dict, light_on_times, const_dict,
+            initial_conditions_gas, initials_from_run, path,  adults, children,
             output_folder, reactions_output, initial_dataframe=None):
         """
         Run the inchempy simulation
@@ -237,6 +233,7 @@ class InChemPyMainClass:
         @param lat Latitude of the simulation location.
         @param light_type Indoor light source type.
         @param light_on_times Schedule for indoor lighting (on/off in hours).
+        @param const_dict Dictionary of species to hold constant with their values.
         @param glass Type of glass for light attenuation.
         @param initials_from_run If True, use previous model output for initial conditions.
         @param initial_conditions_gas Filename with initial concentrations if not using previous output.
@@ -245,6 +242,8 @@ class InChemPyMainClass:
         @param timed_inputs Dictionary of species and their emission schedules.
         @param dt Time step for integration (seconds).
         @param t0 Start time in seconds from midnight.
+        @param adults Number of adults in the room.
+        @param children Number of children (age 10) in the room.
         @param seconds_to_integrate Duration of the simulation in seconds.
         @param reactions_output Save detailed reaction rates and constants.
         """
@@ -645,9 +644,12 @@ class InChemPyMainClass:
 
         calc_dict = {'M': M,
                      'temp': temp,
-                     'H2O': h2o
+                     'H2O': h2o,
+                     'adults': adults,
+                     'children': children
                      }
         calc_dict.update(self.calc_dict)
+        calc_dict.update(const_dict)  # add constants from settings to calc_dict
 
         '''
         importing initial concentrations

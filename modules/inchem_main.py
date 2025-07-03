@@ -96,13 +96,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     '''
     if custom == True:
         copyfile("custom_input.txt", "%s/%s/custom_input.txt" % (path,output_folder))
-     
-    
-    inchem_py_runner = InChemPyMainClass(filename, INCHEM_additional, particles, constrained_file, \
-                                         output_folder, dt, volume, surface_area, adults, children, \
-                                        const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs, \
-                                            custom_filename)
-    
+
+    inchem_py_runner = InChemPyMainClass(filename, INCHEM_additional, particles, constrained_file,
+                                         output_folder, dt, volume, surface_area,
+                                         const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs,
+                                         custom_filename)
+
 
     '''
     Write INCHEM inputs to output folder for future reference
@@ -147,14 +146,12 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     with open('%s/%s/master_array.pickle' % (path,output_folder),'wb') as handle:
         pickle.dump(inchem_py_runner.master_array_dict,handle)
     
+    output_data, integration_times = inchem_py_runner.run(t0, seconds_to_integrate, dt, timed_emissions,
+                                                          timed_inputs, spline, temperatures, rel_humidity, M, light_type,
+                                                          glass, diurnal, city, date, lat, ACRate_dict, light_on_times, const_dict,
+                                                          initial_conditions_gas, initials_from_run, path, adults, children,
+                                                          output_folder, reactions_output)
 
-
-    output_data, integration_times = inchem_py_runner.run(t0, seconds_to_integrate, dt, timed_emissions, \
-                                                          timed_inputs, spline,temperatures, rel_humidity, M, light_type, \
-            glass, diurnal, city,date, lat, ACRate_dict, light_on_times,\
-            initial_conditions_gas, initials_from_run, path, \
-            output_folder, reactions_output)
-    
     
     
     print('Saving output')
