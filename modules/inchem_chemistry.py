@@ -1187,6 +1187,20 @@ INCHEM_reactions=[
 ['4e-11','HYDDIMEFURANOOH+OH=HYDDIMEFURANO2'],
 #
 # Furfural (Coggon 2019 https://acp.copernicus.org/articles/19/14875/2019/)
+['3.50e-11*0.01','FURFURAL+OH=FURFURALO2'],
+['3.50e-11*0.4351','FURFURAL+OH=C5DIALCO+HO2'],
+['3.50e-11*0.5269','FURFURAL+OH=HYDFURFURALO2'],
+['3.50e-11*0.028','FURFURAL+OH=ALDFURFURALO2+HO2'],
+# J<58> not in the MCM. A value is provided in the SI of the Coggon paper at 254 nm, 
+# which isn’t relevant for these conditions. Using the Colmenar et al paper, (https://doi.org/10.1016/j.atmosenv.2014.12.022)
+# they state that the value is 7.2 x 10-4 s-1 for summer solstice at the Equator outdoors, 
+#assuming QY=1 (likely to be between 0.1 and 1). Coggon et al. suggest QY more likely to be 0.6. 
+#U sing this value the outdoor furfural j value becomes 4.32 x 10-4 s-1. Using the TUV model (https://www.acom.ucar.edu/Models/TUV/Interactive_TUV/)
+# JNO2 at the same time and place, which was 1 x 10-2 s-1. Therefore, assume j58 = 0.0432 x j4.
+['(0.0432*J4)*0.15','FURFURAL=FURAN+CO'],
+['(0.0432*J4)*0.85','FURFURAL=C3H4+CO+CO'],
+#
+['KRO2NO','FURFURALO2+NO=MALDALCO2H+NO2+CO+HO2'],
 ['KRO2HO2','FURFURALO2+HO2=FURFURALOOH'],
 ['1e-14*RO2','FURFURALO2=MALDALCO2H+CO+HO2'],
 ['J41','FURFURALOOH=MALDALCO2H+OH+CO+HO2'],
@@ -1211,6 +1225,11 @@ INCHEM_reactions=[
 ['4e-11','FURANOOH+OH=FURANO2'],
 ['J41','CARBFURANOOH=MALANHY+OH+HO2'],
 ['4e-11','CARBFURANOOH+OH=MALANHY+OH'],
+# C3H4 not in the MCM and not on the LHS of any scheme we have.
+# For propyne, assume the products are as suggested for ethyne in IUPAC, which is
+# to assume the product is MGLYOX (already in MCM). Use rate from Atkinson paper 
+# (https://doi.org/10.1002/kin.550160308) at 6.2 x 10-12 cm3 molecule-1 s-1.
+['6.2e-12','C3H4+OH=MGLYOX']
 #
 # Methylfurfural (Coggon 2019 https://acp.copernicus.org/articles/19/14875/2019/)
 # C5MCO3DB is a seven carbon atom dicarbonyl. Suggest we use the C7DICARB 
@@ -1219,7 +1238,7 @@ INCHEM_reactions=[
 # but very similar MW (126 g mol-1 instead of 124 g mol-1).
 ['5.1e-11*0.01','MEFURFURAL+OH=MEFURFURALO2'],
 ['5.1e-11*0.532','MEFURFURAL+OH=HYDMEFURFURALO2'],
-['5.1e-11*0.458','MEFURFURAL+OH=C7DICARB+HO2'],#C7DICARBinsteadofC5MCO3DB
+['5.1e-11*0.458','MEFURFURAL+OH=C7DICARB+HO2'],#C7DICARB instead of C5MCO3DB
 ['KRO2NO','MEFURFURALO2+NO=C3MCOCO2H+NO2+CO+HO2'],
 ['KRO2HO2*0.77','MEFURFURALO2+HO2=MEFURFURALOOH'],
 ['1e-14*RO2','MEFURFURALO2=C3MCOCO2H+CO+HO2'],
