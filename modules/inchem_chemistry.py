@@ -1229,7 +1229,7 @@ INCHEM_reactions=[
 # For propyne, assume the products are as suggested for ethyne in IUPAC, which is
 # to assume the product is MGLYOX (already in MCM). Use rate from Atkinson paper 
 # (https://doi.org/10.1002/kin.550160308) at 6.2 x 10-12 cm3 molecule-1 s-1.
-['6.2e-12','C3H4+OH=MGLYOX']
+['6.2e-12','C3H4+OH=MGLYOX'],
 #
 # Methylfurfural (Coggon 2019 https://acp.copernicus.org/articles/19/14875/2019/)
 # C5MCO3DB is a seven carbon atom dicarbonyl. Suggest we use the C7DICARB 
