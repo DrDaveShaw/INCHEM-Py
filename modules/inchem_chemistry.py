@@ -737,6 +737,9 @@ INCHEM_reactions=[
 ["J77","CLOOCL=CLOO+CL"],
 ["J78","CLOOCL=CLO+CLO"],
 
+# Fix for MCM CH4 + CL = CH3O2 missing HCL production !!!check if MCM updates!!!
+["6.6e-12*numba_exp(-1240/temp)*CH4*CL","=HCL"],
+
 # Heterogeneous Processes 
 # Heterogeneous reactions of NO3 and N2O5
 ["KNO3","NO3="],
