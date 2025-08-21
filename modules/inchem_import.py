@@ -295,7 +295,8 @@ def import_all(filename):
     rates_in = rate_coeff(filename)   
     
     #Check the species import for blank values and remove
-    species = [x for x in species if x != '']
+    if species[0] == '':
+        species.pop(0)
         
     species.sort() #alphabetic
     
