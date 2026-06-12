@@ -57,6 +57,7 @@ class InChemPyMainClass:
             self.interp_inputs, self.constrained_variables, seconds_to_integrate, start_time = constraints_import(constrained_file,
                                                                                                                   output_folder, dt)
             self.constrained_min_time = start_time
+            self.constrained_seconds_to_integrate = seconds_to_integrate
             self.constrained_max_time = start_time+seconds_to_integrate
 
         # import from MCM download
@@ -318,11 +319,13 @@ class InChemPyMainClass:
                 constrained_update(t, self.interp_inputs, self.constrained_variables, constrained_J, self.constrained_species,
                                    constrained_out, calc_dict, J_dict, outdoor_dict, constrained_rates, rel_humidity)
 
-            # recalculate humidity,water
-            if constant_temperature is False:
+            # recalculate humidity,water unless the constrained file
+            # controls them (constrained_update has already set them)
+            if constant_temperature is False and not temp_constrained:
                 calc_dict['temp'] = self.variable_temperature(t, temperatures, spline, tck)
-            h2o, rh = self.h2o_rh(t, calc_dict['temp'], rel_humidity, self.numba_exp)
-            calc_dict['H2O'] = h2o
+            if not humidity_constrained:
+                h2o, rh = self.h2o_rh(t, calc_dict['temp'], rel_humidity, self.numba_exp)
+                calc_dict['H2O'] = h2o
 
             # recalculate particle sums
             if self.particles == True:
@@ -419,11 +422,13 @@ class InChemPyMainClass:
                 constrained_update(t, self.interp_inputs, self.constrained_variables, constrained_J, self.constrained_species,
                                    constrained_out, calc_dict, J_dict, outdoor_dict, constrained_rates, rel_humidity)
 
-            # recalculate temp,humidity,water
-            if constant_temperature is False:
+            # recalculate temp,humidity,water unless the constrained file
+            # controls them (constrained_update has already set them)
+            if constant_temperature is False and not temp_constrained:
                 calc_dict['temp'] = self.variable_temperature(t, temperatures, spline, tck)
-            h2o, rh = self.h2o_rh(t, calc_dict['temp'], rel_humidity, self.numba_exp)
-            calc_dict['H2O'] = h2o
+            if not humidity_constrained:
+                h2o, rh = self.h2o_rh(t, calc_dict['temp'], rel_humidity, self.numba_exp)
+                calc_dict['H2O'] = h2o
 
             # recalculate particle sums
             if self.particles == True:
@@ -577,6 +582,23 @@ class InChemPyMainClass:
         # setting integration envelopes and integration parameters
         # needs to happen before light on times and timed emissions are parsed
         # by the functions that call them
+        # constrained inputs set the start and end time of the simulation to be
+        # the start and end times of the constrained file, as in the original code
+        if self.constrained_file:
+            if (t0 != self.constrained_min_time or
+                    seconds_to_integrate != self.constrained_seconds_to_integrate):
+                print('Constrained file in use: t0 and seconds_to_integrate are '
+                      'taken from the constrained file, overriding the settings values.')
+            t0 = self.constrained_min_time
+            seconds_to_integrate = self.constrained_seconds_to_integrate
+
+        # flags for physical variables controlled by the constrained file, so the
+        # integration loop does not overwrite them with settings-derived values
+        temp_constrained = bool(self.constrained_file) and \
+            'temp' in self.constrained_variables
+        humidity_constrained = bool(self.constrained_file) and \
+            ('rh' in self.constrained_variables or 'H2O' in self.constrained_variables)
+
         t_bound = t0+seconds_to_integrate  # Maximum time to integrate to
 
         # check the constraints on times
@@ -782,7 +804,7 @@ class InChemPyMainClass:
             constrained_rates = []
             for i in self.constrained_variables:
                 if i not in self.constrained_species + constrained_J + constrained_out + \
-                        ["H2O", "TEMP", "rh"]:
+                        ["H2O", "TEMP", "temp", "RH", "rh"]:
                     print("%s not found as species, including as rates for potential custom calculations" % i)
                     constrained_rates.append(i)
                     calc_dict[i] = float(self.interp_inputs[i](t0))
