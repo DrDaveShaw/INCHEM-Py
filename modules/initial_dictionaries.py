@@ -32,7 +32,7 @@ import pandas as pd
 import re
 from modules.odeterm import SpeciesODETerm
 
-def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path):
+def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles,initials_from_run,t0,path, initial_dataframe=None):
     '''
     importing initial concentrations of gas phase species and particles if particles = True
     
@@ -46,6 +46,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         initials_from_run = True/False depending if taking initials from previous run
         t0 = starting time of simulation (s)
         path = current working directory
+        initial_dataframe = an optional pandas dataframe to use instead of opening a pickle file
         
     returns:
         density_dict = dictionary of current species concentrations {species : concentration}
@@ -58,7 +59,7 @@ def initial_conditions(initial_filename,M,species,rate_numba,calc_dict,particles
         from bisect import bisect_left
         #with open("%s/in_data.pickle" % path,'rb') as handle:
             #in_data = pickle.load(handle)
-        in_data = pd.read_pickle("%s/in_data.pickle" % path)
+        in_data = initial_dataframe if initial_dataframe is not None else pd.read_pickle("%s/in_data.pickle" % path)
         index_values = in_data.index.values
         pos = bisect_left(index_values, t0)
         if pos == 0:
@@ -358,3 +359,47 @@ def timed_import(timed_inputs):
         for species, emission in species_emission.items():
             timed_reactions.append([f"timed_{i}*({emission[0][2]})",f"= {species}"])
     return timed_reactions, emission_group
+
+
+def undefined_species_dict(compiled_code_dict, variables_dict, calc_dict):
+    '''
+    Identifies species in the compiled code segments which will not be
+    successfully resolved.
+    This can be used to add a placeholder for absent species to the
+    density dictionary (with 0 density).
+    This in turn cam allow the summations, particle calculations, or reaction
+    rates to be calculated despite a reduced model (without the complete MCM).
+
+    If a prerequisite of the compiled code is in neither of the 2 provided
+    dictionaries, it is returned as undefined.
+
+    inputs:
+        compiled_code_dict = a dictionary of compiled code segments, whose
+            variables will need to be defined.
+        variables_dict = a dictionary of variables which are already defined
+        calc_dict = a dictionary of other terms which are already defined
+
+    returns:
+        undefined_species_dict = a dictionary whose keys give any species which are
+            essential for the calculation, but are not included in either the
+            variables, or calculations, provided.
+            The values of the dictionary are 0, so that appending this to the
+            density would declare the species absent.
+    '''
+    result = {}
+
+    # Some keywords used in the dictionaries are falsely identified as species which are not species
+    # The names can be recorded here so they do not get falsely identified as undefined species
+    false_positive_species = ['mwom']
+
+    for code_block in compiled_code_dict.values():
+        for species in code_block.co_names:
+            if (species not in variables_dict
+                and species not in calc_dict
+                and species not in compiled_code_dict
+                    and species not in false_positive_species):
+                result[species] = 0.0
+    if (len(result) > 0):
+        print(f'Warning {len(result)} undefined species were assumed to have 0 concentrations:\n\t',
+              [k for k in result])
+    return result
