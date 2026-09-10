@@ -190,7 +190,8 @@ class InChemPyMainClass:
             self.reaction_number.append('r%s' % i)
 
         # if it's in the calc dict it shouldn't be calculated in any of the integrations
-        for i in self.calc_dict.keys():
+        reserved_calc_names = list(self.calc_dict.keys()) + ['M', 'temp', 'H2O', 'adults', 'children']
+        for i in reserved_calc_names:
             if i in self.species:
                 self.species.remove(i)
             for j in self.rate_numba:
