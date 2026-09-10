@@ -3,7 +3,7 @@
 Additional tools for importing and interpolating an input file of concentrations
 with time. Also for updating internal dictionaries with these concentrations.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2026 
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
