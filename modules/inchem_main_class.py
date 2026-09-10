@@ -31,7 +31,7 @@ class InChemPyMainClass:
     # save every 2*dt
 
     def __init__(self, filename, INCHEM_additional, particles, constrained_file, output_folder, dt, volume, surface_area,
-                 const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs, custom_filename):
+                 const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs, custom_filename, adults, children):
         """
         @brief Initialize the InChemPy class with sufficient parameters required to build the jacobian needed for the simulation.
 
@@ -49,6 +49,8 @@ class InChemPyMainClass:
         @param timed_inputs Dictionary of species and their emission schedules.
         @param constrained_file CSV file to constrain species or rates over time.
         @param dt Time step for integration (seconds).
+        @param adults Number of adults for breath emissions.
+        @param children Number of children for breath emissions.
         """
         # constrained species
         # changes start and end time of simulation to be only within the constrained inputs
@@ -151,7 +153,7 @@ class InChemPyMainClass:
             O3_rates, O3_reactions = O3_deposition()
             self.reactions_numba = self.reactions_numba + O3_reactions
             self.rate_numba = self.rate_numba + O3_rates
-        if True: # Assume that there may be people
+        if adults + children > 0: 
             breath_rates, breath_reactions = breath_emissions(volume)
             self.reactions_numba = self.reactions_numba + breath_reactions
             self.rate_numba = self.rate_numba + breath_rates

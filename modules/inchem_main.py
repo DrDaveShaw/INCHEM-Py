@@ -100,7 +100,7 @@ def run_inchem(filename, particles, INCHEM_additional, custom, rel_humidity,
     inchem_py_runner = InChemPyMainClass(filename, INCHEM_additional, particles, constrained_file,
                                          output_folder, dt, volume, surface_area,
                                          const_dict, H2O2_dep, O3_dep, custom, timed_emissions, timed_inputs,
-                                         custom_filename)
+                                         custom_filename, adults, children)
 
 
     '''
