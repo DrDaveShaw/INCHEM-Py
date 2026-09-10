@@ -47,7 +47,7 @@ Downloading the INCHEM-Py repository and extracting it to the location within yo
 
 ## Running the model<a name="Running-the-model"></a>
 
-INCHEM-Py is run using the included settings.py script. Within this script are variables that can be adjusted and a full description of how to modify these is discussed in the user manual. The following instructions will be to run the model in its default downloaded state with no editing of files necessary. This process is also included with pictures in the quick start guide within the manual.
+INCHEM-Py is run using the included settings.py script. Within this script are variables that can be adjusted and a full description of how to modify these is discussed in [the documentation](https://inchempy-docs.readthedocs.io/en/latest/). The following instructions will be to run the model in its default downloaded state with no editing of files necessary. This process is also included with pictures in the quick start guide within the manual.
 
 ### Spyder<a name="Spyder"></a>
 

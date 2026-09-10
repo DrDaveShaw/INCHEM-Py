@@ -4,7 +4,7 @@ Importing the mcm subset download for facsimile and formatting them for use
 within the INCHEM-Py. Also a function for importing custom reactions.
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2026 
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 

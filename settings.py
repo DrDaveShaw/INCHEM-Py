@@ -3,7 +3,7 @@
 User set variable input file for INCHEM-Py. 
 A detailed description of this file can be found within the user manual.
 
-Copyright (C) 2019-2021 
+Copyright (C) 2019-2026 
 David Shaw : david.shaw@york.ac.uk
 Nicola Carslaw : nicola.carslaw@york.ac.uk
 
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with INCHEM-Py.  If not, see <https://www.gnu.org/licenses/>.
 
-Version: 1.2.1
+Version: 1.3
 """
 
 filename = 'mcm_v331.fac' # facsimile format input filename
